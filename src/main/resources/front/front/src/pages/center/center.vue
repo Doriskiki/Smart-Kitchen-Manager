@@ -91,14 +91,14 @@
             </el-form-item>
           </el-form>
           <div slot="footer" class="dialog-footer">
-            <el-button @click="dialogFormVisibleMoney = false">取 消</el-button>
+            <el-button @click="dialogFormVisibleMoney = false">取消</el-button>
             <el-button type="primary" @click="chongzhi">确认充值</el-button>
           </div>
         </el-dialog>
         <el-dialog title="会员购买" :visible.sync="dialogFormVisibleVip" width="726px" center>
           <el-form :model="chongzhiForm">
-            <el-form-item label="会员卡" label-width="120px">
-              <el-input readonly autocomplete="off" value="￥199/年"></el-input>
+            <el-form-item label="会员价" label-width="120px">
+              <el-input readonly autocomplete="off" value="¥99/年"></el-input>
             </el-form-item>
             <el-form-item label-width="120px">
               <el-radio-group v-model="chongzhiForm.radio">
@@ -144,7 +144,7 @@
             </el-form-item>
           </el-form>
           <div slot="footer" class="dialog-footer">
-            <el-button @click="dialogFormVisibleVip = false">取 消</el-button>
+            <el-button @click="dialogFormVisibleVip = false">取消</el-button>
             <el-button type="primary" @click="chongzhivip">确认支付</el-button>
           </div>
         </el-dialog>
@@ -225,7 +225,7 @@
     methods: {
       init() {
         if ('yonghu' == this.userTableName) {
-          this.dynamicProp.xingbie = '男,女'.split(',');
+          this.dynamicProp.xingbie = ['男','女'];
         }
       },
       getSession() {
@@ -269,7 +269,7 @@
         }
       },
       chongzhi() {
-        if (this.chongzhiForm.money == '') {
+        if (this.chongzhiForm.money === '' || this.chongzhiForm.money === null) {
           this.$message({
             message: '请输入充值金额',
             type: 'error',
@@ -285,7 +285,7 @@
           });
           return;
         }
-        if (this.chongzhiForm.radio == '') {
+        if (this.chongzhiForm.radio === '') {
           this.$message({
             message: '请选择充值方式',
             type: 'error',
@@ -293,7 +293,7 @@
           });
           return;
         }
-        this.sessionForm.money = parseInt(this.sessionForm.money) + parseInt(this.chongzhiForm.money);
+        this.sessionForm.money = (parseInt(this.sessionForm.money) || 0) + parseInt(this.chongzhiForm.money);
         this.$http.post(this.userTableName + '/update', this.sessionForm).then(res => {
           if (res.data.code == 0) {
             this.$message({
@@ -308,8 +308,8 @@
         });
       },
       chongzhivip() {
-        this.chongzhiForm.money == 199;
-        if (this.chongzhiForm.radio == '') {
+        this.chongzhiForm.money = 199;
+        if (this.chongzhiForm.radio === '') {
           this.$message({
             message: '请选择支付方式',
             type: 'error',
@@ -317,16 +317,16 @@
           });
           return;
         }
-        if(this.sessionForm.vip == '是') {
+        if (this.sessionForm.vip) {
           this.$message({
-            message: '您已是我们的尊贵会员。',
+            message: '您已是我们的尊贵会员',
             type: 'success',
             duration: 1500
           });
           return;
         }
-        
-        this.sessionForm.vip = "是"
+
+        this.sessionForm.vip = '1';
         this.$http.post(this.userTableName + '/update', this.sessionForm).then(res => {
           if (res.data.code == 0) {
             this.$message({
@@ -375,7 +375,7 @@
   .center-preview {
   
     .el-tabs {
-      & /deep/ .el-tabs__header {
+      & ::v-deep .el-tabs__header {
         .el-tabs__nav-wrap {
           margin: 0;
   
@@ -403,7 +403,7 @@
     }
   }
   
-  .center-preview .el-tabs /deep/ .el-tabs__header {
+  .center-preview .el-tabs ::v-deep .el-tabs__header {
 	padding: 0;
 	margin: 0;
 	background: none;
@@ -413,7 +413,7 @@
 	float: left;
   }
   
-  .center-preview .el-tabs /deep/ .el-tabs__header .el-tabs__item {
+  .center-preview .el-tabs ::v-deep .el-tabs__header .el-tabs__item {
   	border: 1px solid #ab85d3;
   	border-radius: 30px;
   	padding: 0 10px;
@@ -428,7 +428,7 @@
   	height: 40px;
   }
   
-  .center-preview .el-tabs /deep/ .el-tabs__header .el-tabs__item:hover {
+  .center-preview .el-tabs ::v-deep .el-tabs__header .el-tabs__item:hover {
   	border: 0;
   	border-radius: 30px;
   	padding: 0 10px;
@@ -442,7 +442,7 @@
   	height: 40px;
   }
   
-  .center-preview .el-tabs /deep/ .el-tabs__header .el-tabs__item.is-active {
+  .center-preview .el-tabs ::v-deep .el-tabs__header .el-tabs__item.is-active {
   	border-radius: 30px;
   	padding: 0 10px;
   	color: #ffff;
@@ -455,7 +455,7 @@
   	height: 40px;
   }
   
-  .center-preview .el-tabs /deep/ .el-tabs__content .el-tab-pane {
+  .center-preview .el-tabs ::v-deep .el-tabs__content .el-tab-pane {
   	border-radius: 8px;
   	padding: 10px 10px 30px;
   	background: #f8f8fc;
@@ -463,7 +463,7 @@
   	float: right;
   }
   
-  .center-preview-pv .el-form-item /deep/ .el-form-item__label {
+  .center-preview-pv .el-form-item ::v-deep .el-form-item__label {
   	padding: 0 10px 0 0;
   	color: #666;
   	font-weight: 500;
@@ -477,7 +477,7 @@
     margin-left: 80px;
   }
   
-  .center-preview-pv .el-input /deep/ .el-input__inner {
+  .center-preview-pv .el-input ::v-deep .el-input__inner {
   	border: 1px solid #dbd9f4;
   	border-radius: 20px;
   	padding: 0 12px;
@@ -488,7 +488,7 @@
   	height: 40px;
   }
   
-  .center-preview-pv .el-select /deep/ .el-input__inner {
+  .center-preview-pv .el-select ::v-deep .el-input__inner {
   	border: 1px solid #dbd9f4;
   	border-radius: 20px;
   	padding: 0 12px;
@@ -499,7 +499,7 @@
   	height: 40px;
   }
   
-  .center-preview-pv .el-date-editor /deep/ .el-input__inner {
+  .center-preview-pv .el-date-editor ::v-deep .el-input__inner {
   	border: 1px solid #dbd9f4;
   	border-radius: 20px;
   	padding: 0 10px 0 30px;
@@ -510,7 +510,7 @@
   	height: 40px;
   }
   
-  .center-preview-pv /deep/ .avatar-uploader-icon {
+  .center-preview-pv ::v-deep .avatar-uploader-icon {
   	border: 1px solid #dbd9f4;
   	cursor: pointer;
   	border-radius: 30px;
@@ -521,7 +521,7 @@
   	text-align: center;
   }
   
-  .center-preview-pv .el-form-item.balance /deep/ .el-input__inner {
+  .center-preview-pv .el-form-item.balance ::v-deep .el-input__inner {
   	border: 1px solid #dbd9f4;
   	border-radius: 20px 0 0 20px;
   	padding: 0 12px;
@@ -533,3 +533,4 @@
   	height: 40px;
   }
 </style>
+

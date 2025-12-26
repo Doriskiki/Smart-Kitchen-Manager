@@ -79,9 +79,9 @@
 		pageSizes: [10,20,30,50],
         totalPage: 1,
         rules: {
-          content: [
-            { required: true, message: '请输入内容', trigger: 'blur' }
-          ]
+					content: [
+						{ required: true, message: '请输入内容', trigger: 'blur' }
+					],
         },
         buynumber: 1,
       }
@@ -117,11 +117,11 @@
       // 下载
       download(file){
         if(!file) {
-            this.$message({
-              type: 'error',
-              message: '文件不存在',
-              duration: 1500,
-            });
+						this.$message({
+							type: 'error',
+							message: '文件不存在',
+							duration: 1500,
+						});
             return;
         }
         window.open(this.baseUrl+file)
@@ -139,7 +139,7 @@
 	.detail-preview {
 	
 	  .attr {
-	    .el-carousel /deep/ .el-carousel__indicator button {
+	    .el-carousel ::v-deep .el-carousel__indicator button {
 	      width: 0;
 	      height: 0;
 	      display: none;
@@ -151,7 +151,7 @@
 	  }
 	
 	  .detail {
-	    & /deep/ .el-tabs__header .el-tabs__nav-wrap {
+	    & ::v-deep .el-tabs__header .el-tabs__nav-wrap {
 	      margin-bottom: 0;
 	    }
 	
@@ -161,27 +161,27 @@
 	  }
 	}
 	
-	.attr .el-carousel /deep/ .el-carousel__container .el-carousel__arrow--left {
+	.attr .el-carousel ::v-deep .el-carousel__container .el-carousel__arrow--left {
 		width: 36px;
 		font-size: 12px;
 		height: 36px;
 	}
 	
-	.attr .el-carousel /deep/ .el-carousel__container .el-carousel__arrow--left:hover {
+	.attr .el-carousel ::v-deep .el-carousel__container .el-carousel__arrow--left:hover {
 		background: rgba(223, 218, 235,.6);
 	}
 	
-	.attr .el-carousel /deep/ .el-carousel__container .el-carousel__arrow--right {
+	.attr .el-carousel ::v-deep .el-carousel__container .el-carousel__arrow--right {
 		width: 36px;
 		font-size: 12px;
 		height: 36px;
 	}
 	
-	.attr .el-carousel /deep/ .el-carousel__container .el-carousel__arrow--right:hover {
+	.attr .el-carousel ::v-deep .el-carousel__container .el-carousel__arrow--right:hover {
 		background: rgba(223, 218, 235,.6);
 	}
 
-	.attr .el-carousel /deep/ .el-carousel__indicators {
+	.attr .el-carousel ::v-deep .el-carousel__indicators {
 		padding: 0;
 		margin: 0 0 16px;
 		z-index: 2;
@@ -189,7 +189,7 @@
 		list-style: none;
 	}
 	
-	.attr .el-carousel /deep/ .el-carousel__indicators li {
+	.attr .el-carousel ::v-deep .el-carousel__indicators li {
 		border-radius: 50%;
 		padding: 0;
 		margin: 0 4px;
@@ -201,7 +201,7 @@
 		height: 12px;
 	}
 	
-	.attr .el-carousel /deep/ .el-carousel__indicators li:hover {
+	.attr .el-carousel ::v-deep .el-carousel__indicators li:hover {
 		border-radius: 50%;
 		padding: 0;
 		margin: 0 4px;
@@ -212,7 +212,7 @@
 		height: 12px;
 	}
 	
-	.attr .el-carousel /deep/ .el-carousel__indicators li.is-active {
+	.attr .el-carousel ::v-deep .el-carousel__indicators li.is-active {
 		border-radius: 50%;
 		padding: 0;
 		margin: 0 4px;
@@ -223,7 +223,7 @@
 		height: 12px;
 	}
 	
-	.attr .el-input-number /deep/ .el-input-number__decrease {
+	.attr .el-input-number ::v-deep .el-input-number__decrease {
 		cursor: pointer;
 		z-index: 1;
 		display: flex;
@@ -242,12 +242,12 @@
 		height: 38px;
 	}
 	
-	.attr .el-input-number /deep/ .el-input-number__decrease i {
+	.attr .el-input-number ::v-deep .el-input-number__decrease i {
 		color: #666;
 		font-size: 14px;
 	}
 
-	.attr .el-input-number /deep/ .el-input-number__increase {
+	.attr .el-input-number ::v-deep .el-input-number__increase {
 		cursor: pointer;
 		z-index: 1;
 		display: flex;
@@ -266,12 +266,12 @@
 		height: 38px;
 	}
 	
-	.attr .el-input-number /deep/ .el-input-number__increase i {
+	.attr .el-input-number ::v-deep .el-input-number__increase i {
 		color: #666;
 		font-size: 14px;
 	}
 	
-	.attr .el-input-number /deep/ .el-input .el-input__inner {
+	.attr .el-input-number ::v-deep .el-input .el-input__inner {
 		border: 1px solid #DCDFE6;
 		border-radius: 4px;
 		padding: 0 40px;
@@ -286,13 +286,13 @@
 		height: 40px;
 	}
 	
-	.detail-preview .detail.el-tabs /deep/ .el-tabs__header {
+	.detail-preview .detail.el-tabs ::v-deep .el-tabs__header {
 		border: 0;
 		margin: 0;
 		background: none;
 	}
 	
-	.detail-preview .detail.el-tabs /deep/ .el-tabs__header .el-tabs__item {
+	.detail-preview .detail.el-tabs ::v-deep .el-tabs__header .el-tabs__item {
 		border: 2px solid #dbd9f4;
 		padding: 0 20px;
 		margin: 0 4px 0 0;
@@ -307,25 +307,25 @@
 		height: 40px;
 	}
 	
-	.detail-preview .detail.el-tabs /deep/ .el-tabs__header .el-tabs__item:hover {
+	.detail-preview .detail.el-tabs ::v-deep .el-tabs__header .el-tabs__item:hover {
 		border: 2px solid #dbd9f4;
 		margin: 0 4px 0 0;
 		color: #ab85d3;
 		background: #FFF;
 	}
 	
-	.detail-preview .detail.el-tabs /deep/ .el-tabs__header .el-tabs__item.is-active {
+	.detail-preview .detail.el-tabs ::v-deep .el-tabs__header .el-tabs__item.is-active {
 		border: 2px solid #dbd9f4;
 		margin: 0 4px 0 0;
 		color: #ab85d3;
 		background: radial-gradient(circle, rgba(248,247,254,1) 0%, rgba(204,202,240,1) 100%);
 	}
 	
-	.detail-preview .detail.el-tabs /deep/ .el-tabs__content {
+	.detail-preview .detail.el-tabs ::v-deep .el-tabs__content {
 		padding: 15px;
 	}
 	
-	.detail-preview .detail.el-tabs .add /deep/ .el-form-item__label {
+	.detail-preview .detail.el-tabs .add ::v-deep .el-form-item__label {
 		padding: 0 10px 0 0;
 		color: #666;
 		width: 20%;
@@ -334,7 +334,7 @@
 		text-align: right;
 	}
 	
-	.detail-preview .detail.el-tabs .add /deep/ .el-textarea__inner {
+	.detail-preview .detail.el-tabs .add ::v-deep .el-textarea__inner {
 		border: 1px solid #dfdaeb;
 		border-radius: 4px;
 		padding: 0 12px;
@@ -346,23 +346,23 @@
 		height: 120px;
 	}
 	
-	.breadcrumb-preview .el-breadcrumb /deep/ .el-breadcrumb__separator {
+	.breadcrumb-preview .el-breadcrumb ::v-deep .el-breadcrumb__separator {
 		margin: 0 9px;
 		color: #ccc;
 		font-weight: 500;
 	}
 	
-	.breadcrumb-preview .el-breadcrumb /deep/ .el-breadcrumb__inner a {
+	.breadcrumb-preview .el-breadcrumb ::v-deep .el-breadcrumb__inner a {
 		color: #333;
 		display: inline-block;
 	}
 
-	.breadcrumb-preview .el-breadcrumb /deep/ .el-breadcrumb__inner {
+	.breadcrumb-preview .el-breadcrumb ::v-deep .el-breadcrumb__inner {
 		color: #666;
 		display: inline-block;
 	}
 	
-	.el-pagination /deep/ .el-pagination__total {
+	.el-pagination ::v-deep .el-pagination__total {
 		margin: 0 10px 0 0;
 		color: #666;
 		font-weight: 400;
@@ -373,7 +373,7 @@
 		height: 28px;
 	}
 	
-	.el-pagination /deep/ .btn-prev {
+	.el-pagination ::v-deep .btn-prev {
 		border: none;
 		border-radius: 2px;
 		padding: 0;
@@ -388,7 +388,7 @@
 		height: 28px;
 	}
 	
-	.el-pagination /deep/ .btn-next {
+	.el-pagination ::v-deep .btn-next {
 		border: none;
 		border-radius: 2px;
 		padding: 0;
@@ -403,7 +403,7 @@
 		height: 28px;
 	}
 	
-	.el-pagination /deep/ .btn-prev:disabled {
+	.el-pagination ::v-deep .btn-prev:disabled {
 		border: none;
 		cursor: not-allowed;
 		border-radius: 2px;
@@ -418,7 +418,7 @@
 		height: 28px;
 	}
 	
-	.el-pagination /deep/ .btn-next:disabled {
+	.el-pagination ::v-deep .btn-next:disabled {
 		border: none;
 		cursor: not-allowed;
 		border-radius: 2px;
@@ -433,14 +433,14 @@
 		height: 28px;
 	}
 	
-	.el-pagination /deep/ .el-pager {
+	.el-pagination ::v-deep .el-pager {
 		padding: 0;
 		margin: 0;
 		display: inline-block;
 		vertical-align: top;
 	}
 	
-	.el-pagination /deep/ .el-pager .number {
+	.el-pagination ::v-deep .el-pager .number {
 		cursor: pointer;
 		padding: 0 4px;
 		margin: 0 5px;
@@ -456,7 +456,7 @@
 		height: 28px;
 	}
 	
-	.el-pagination /deep/ .el-pager .number:hover {
+	.el-pagination ::v-deep .el-pager .number:hover {
 		cursor: pointer;
 		padding: 0 4px;
 		margin: 0 5px;
@@ -472,7 +472,7 @@
 		height: 28px;
 }
 
-.el-pagination /deep/ .el-pager .number.active {
+.el-pagination ::v-deep .el-pager .number.active {
 		cursor: default;
 		padding: 0 4px;
 		margin: 0 5px;
@@ -488,7 +488,7 @@
 		height: 28px;
 	}
 	
-	.el-pagination /deep/ .el-pagination__sizes {
+	.el-pagination ::v-deep .el-pagination__sizes {
 		display: inline-block;
 		vertical-align: top;
 		font-size: 13px;
@@ -496,13 +496,13 @@
 		height: 28px;
 	}
 	
-	.el-pagination /deep/ .el-pagination__sizes .el-input {
+	.el-pagination ::v-deep .el-pagination__sizes .el-input {
 		margin: 0 5px;
 		width: 100px;
 		position: relative;
 	}
 	
-	.el-pagination /deep/ .el-pagination__sizes .el-input .el-input__inner {
+	.el-pagination ::v-deep .el-pagination__sizes .el-input .el-input__inner {
 		border: 1px solid #DCDFE6;
 		cursor: pointer;
 		padding: 0 25px 0 8px;
@@ -518,14 +518,14 @@
 		height: 28px;
 	}
 	
-	.el-pagination /deep/ .el-pagination__sizes .el-input span.el-input__suffix {
+	.el-pagination ::v-deep .el-pagination__sizes .el-input span.el-input__suffix {
 		top: 0;
 		position: absolute;
 		right: 0;
 		height: 100%;
 	}
 	
-	.el-pagination /deep/ .el-pagination__sizes .el-input .el-input__suffix .el-select__caret {
+	.el-pagination ::v-deep .el-pagination__sizes .el-input .el-input__suffix .el-select__caret {
 		cursor: pointer;
 		color: #C0C4CC;
 		width: 25px;
@@ -534,7 +534,7 @@
 		text-align: center;
 	}
 
-	.el-pagination /deep/ .el-pagination__jump {
+	.el-pagination ::v-deep .el-pagination__jump {
 		margin: 0 0 0 24px;
 		color: #606266;
 		display: inline-block;
@@ -544,7 +544,7 @@
 		height: 28px;
 	}
 	
-	.el-pagination /deep/ .el-pagination__jump .el-input {
+	.el-pagination ::v-deep .el-pagination__jump .el-input {
 		border-radius: 3px;
 		padding: 0 2px;
 		margin: 0 2px;
@@ -557,7 +557,7 @@
 		height: 28px;
 	}
 	
-	.el-pagination /deep/ .el-pagination__jump .el-input .el-input__inner {
+	.el-pagination ::v-deep .el-pagination__jump .el-input .el-input__inner {
 		border: 1px solid #DCDFE6;
 		cursor: pointer;
 		padding: 0 3px;
@@ -573,3 +573,4 @@
 		height: 28px;
 	}
 </style>
+

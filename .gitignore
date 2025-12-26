@@ -29,3 +29,12 @@ build/
 
 ### VS Code ###
 .vscode/
+### Node.js / npm ###
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.npm/
+.eslintcache
+**/node_modules/
+**/.cache/

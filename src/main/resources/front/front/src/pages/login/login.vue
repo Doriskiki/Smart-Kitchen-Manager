@@ -5,11 +5,11 @@
 			<div v-if="true" :style='{"width":"100%","margin":"150px  0 0 0","lineHeight":"1.5","fontSize":"32px","color":"rgba(51,51,51,1)","textAlign":"center"}'>USER / LOGIN</div>
 			<div v-if="true" :style='{"width":"100%","margin":"20px 0","lineHeight":"1.5","fontSize":"24px","color":"#ab85d3","textAlign":"center"}'>智能菜谱推荐系统登录</div>
 			<el-form-item v-if="loginType==1" class="list-item" :style='{"width":"80%","margin":"50px auto","borderColor":"#ab85d3","borderStyle":"solid","borderWidth":"0 0  1px 0"}' prop="username">
-				<div v-if="true" :style='{"width":"20%","lineHeight":"44px","fontSize":"14px","color":"#000","textAlign":"center","display":"inline-block"}'>账号：</div>
-				<input :style='{"border":"0","padding":"0 10px","color":"#999","display":"inline-block","width":"70%","fontSize":"14px","height":"44px"}' v-model="loginForm.username" placeholder="请输入账户">
+				<div v-if="true" :style='{"width":"20%","lineHeight":"44px","fontSize":"14px","color":"#000","textAlign":"center","display":"inline-block"}'>账号</div>
+				<input :style='{"border":"0","padding":"0 10px","color":"#999","display":"inline-block","width":"70%","fontSize":"14px","height":"44px"}' v-model="loginForm.username" placeholder="请输入账号">
 			</el-form-item>
 			<el-form-item v-if="loginType==1" class="list-item" :style='{"width":"80%","margin":"50px auto","borderColor":"#ab85d3","borderStyle":"solid","borderWidth":"0 0  1px 0"}' prop="password">
-				<div v-if="true" :style='{"width":"20%","lineHeight":"44px","fontSize":"14px","color":"#000","textAlign":"center","display":"inline-block"}'>密码：</div>
+				<div v-if="true" :style='{"width":"20%","lineHeight":"44px","fontSize":"14px","color":"#000","textAlign":"center","display":"inline-block"}'>密码</div>
 				<input :style='{"border":"0","padding":"0 10px","color":"#999","display":"inline-block","width":"70%","fontSize":"14px","height":"44px"}' v-model="loginForm.password" placeholder="请输入密码" type="password">
 			</el-form-item>
 			<el-form-item v-if="roles.length>1" class="list-type" :style='{"width":"80%","margin":"20px auto"}' prop="role">
@@ -20,7 +20,7 @@
 				<el-button v-if="loginType==1" :style='{"border":"2px solid #494592","cursor":"pointer","padding":"0 24px","margin":"10px 20px","outline":"none","color":"#000","borderRadius":"10px","background":"none","width":"40%","fontSize":"14px","height":"44px"}' @click="resetForm('loginForm')">重置</el-button>
 			</el-form-item>
 			<div :style='{"width":"80%","margin":"20px auto"}'>
-			<router-link :style='{"cursor":"pointer","margin":"0 5px","fontSize":"14px","textDecoration":"none","color":"#706bae","background":"#fff"}' :to="{path: '/register', query: {role: item.tableName,pageFlag:'register'}}" v-if="item.hasFrontRegister=='是'" v-for="(item, index) in roles" :key="index">注册{{item.roleName.replace('注册','')}}</router-link>
+			<router-link :style='{"cursor":"pointer","margin":"0 5px","fontSize":"14px","textDecoration":"none","color":"#706bae","background":"#fff"}' :to="{path: '/register', query: {role: item.tableName,pageFlag:'register'}}" v-for="(item, index) in roles" :key="index" v-if="item.hasFrontRegister">注册{{item.roleName.replace('注册','')}}</router-link>
 			</div>
 		</el-form>
     </div>
@@ -33,9 +33,9 @@ export default {
 	//数据集合
 	data() {
 		return {
-            baseUrl: this.$config.baseUrl,
-            loginType: 1,
-			roleMenus: [{"backMenu":[{"child":[{"appFrontIcon":"cuIcon-circle","buttons":["新增","查看","修改","删除"],"menu":"用户","menuJump":"列表","tableName":"yonghu"}],"menu":"用户管理"},{"child":[{"appFrontIcon":"cuIcon-pic","buttons":["新增","查看","修改","删除"],"menu":"菜式类型","menuJump":"列表","tableName":"caishileixing"}],"menu":"菜式类型管理"},{"child":[{"appFrontIcon":"cuIcon-explore","buttons":["新增","查看","修改","删除","菜谱分类统计","菜谱评分统计","查看评论","首页总数","首页统计"],"menu":"菜谱信息","menuJump":"列表","tableName":"caipuxinxi"}],"menu":"菜谱信息管理"},{"child":[{"appFrontIcon":"cuIcon-pic","buttons":["查看","删除","每日评分人数统计","首页总数","首页统计"],"menu":"评分信息","menuJump":"列表","tableName":"pingfenxinxi"}],"menu":"评分信息管理"},{"child":[{"appFrontIcon":"cuIcon-message","buttons":["查看","回复","删除"],"menu":"留言信息","tableName":"messages"}],"menu":"留言信息"},{"child":[{"appFrontIcon":"cuIcon-news","buttons":["查看","修改"],"menu":"关于我们","tableName":"aboutus"},{"appFrontIcon":"cuIcon-time","buttons":["查看","修改"],"menu":"系统简介","tableName":"systemintro"},{"appFrontIcon":"cuIcon-newshot","buttons":["查看","修改"],"menu":"轮播图管理","tableName":"config"},{"appFrontIcon":"cuIcon-news","buttons":["新增","查看","修改","删除"],"menu":"公告信息","tableName":"news"}],"menu":"系统管理"}],"frontMenu":[{"child":[{"appFrontIcon":"cuIcon-rank","buttons":["查看","评分"],"menu":"菜谱信息列表","menuJump":"列表","tableName":"caipuxinxi"}],"menu":"菜谱信息模块"}],"hasBackLogin":"是","hasBackRegister":"否","hasFrontLogin":"否","hasFrontRegister":"否","roleName":"管理员","tableName":"users"},{"backMenu":[{"child":[{"appFrontIcon":"cuIcon-pic","buttons":["查看","删除"],"menu":"评分信息","menuJump":"列表","tableName":"pingfenxinxi"}],"menu":"评分信息管理"}],"frontMenu":[{"child":[{"appFrontIcon":"cuIcon-rank","buttons":["查看","评分"],"menu":"菜谱信息列表","menuJump":"列表","tableName":"caipuxinxi"}],"menu":"菜谱信息模块"}],"hasBackLogin":"是","hasBackRegister":"否","hasFrontLogin":"是","hasFrontRegister":"是","roleName":"用户","tableName":"yonghu"}],
+			baseUrl: this.$config.baseUrl,
+			loginType: 1,
+			roleMenus: [],
 			loginForm: {
 				username: '',
 				password: '',
@@ -43,10 +43,10 @@ export default {
 				code: '',
 			},
 			role: '',
-            roles: [],
+			roles: [],
 			rules: {
 				username: [
-					{ required: true, message: '请输入账户', trigger: 'blur' }
+					{ required: true, message: '请输入账号', trigger: 'blur' }
 				],
 				password: [
 					{ required: true, message: '请输入密码', trigger: 'blur' }
@@ -78,11 +78,11 @@ export default {
   components: {
   },
 	created() {
-        for(let item in this.roleMenus) {
-            if(this.roleMenus[item].hasFrontLogin=='是') {
-                this.roles.push(this.roleMenus[item]);
-            }
-        }
+		for(let item in this.roleMenus) {
+			if(this.roleMenus[item] && this.roleMenus[item].hasFrontLogin) {
+				this.roles.push(this.roleMenus[item]);
+			}
+		}
 	},
 	mounted() {
 	},
@@ -113,7 +113,7 @@ export default {
 			    code += colors[key]
 			  }
 			  this.codes[i].color = code
-			  // 随机验证码方向
+			  // 随机验证码方式
 			  var rotate = Math.floor(Math.random() * 45)
 			  var plus = Math.floor(Math.random() * 2)
 			  if (plus == 1) rotate = '-' + rotate
@@ -174,12 +174,12 @@ export default {
 		position: relative;
 		
 		.el-form-item {
-		  & /deep/ .el-form-item__content {
+		  & ::v-deep .el-form-item__content {
 		    width: 100%;
 		  }
 		}
 		
-		.list-item /deep/ .el-input .el-input__inner {
+		.list-item ::v-deep .el-input .el-input__inner {
 			border: 0;
 			padding: 0 10px;
 			color: #999;
@@ -189,7 +189,7 @@ export default {
 			height: 44px;
 		}
 		
-		.list-code /deep/ .el-input .el-input__inner {
+		.list-code ::v-deep .el-input .el-input__inner {
 			border: 0;
 			padding: 0 10px;
 			outline: none;
@@ -202,21 +202,22 @@ export default {
 			height: 44px;
 		}
 		
-		.list-type /deep/ .el-radio__input .el-radio__inner {
+		.list-type ::v-deep .el-radio__input .el-radio__inner {
 			background: rgba(53, 53, 53, 0);
 			border-color: #666666;
 		}
-		.list-type /deep/ .el-radio__input.is-checked .el-radio__inner {
+		.list-type ::v-deep .el-radio__input.is-checked .el-radio__inner {
 			background: rgba(76, 72, 147, 1);
 			border-color: rgba(76, 72, 147, 1);
 		}
-		.list-type /deep/ .el-radio__label {
+		.list-type ::v-deep .el-radio__label {
 			color: #999;
 			font-size: 14px;
 		}
-		.list-type /deep/ .el-radio__input.is-checked+.el-radio__label {
+		.list-type ::v-deep .el-radio__input.is-checked+.el-radio__label {
 			color: rgba(76, 72, 147, 1);
 			font-size: 14px;
 		}
 	}
 </style>
+

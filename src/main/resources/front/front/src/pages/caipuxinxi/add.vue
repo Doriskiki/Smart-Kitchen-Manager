@@ -45,7 +45,7 @@
           </el-form-item>
           <el-form-item :style='{"padding":"10px","margin":"0 0 10px","background":"0"}' label="发布日期" prop="faburiqi" >
               <el-date-picker
-                  format="yyyy 年 MM 月 dd 日"
+                  format="yyyy �?MM �?dd �?
                   value-format="yyyy-MM-dd"
                   v-model="ruleForm.faburiqi" 
                   type="date"
@@ -161,7 +161,7 @@
       download(file){
         window.open(`${file}`)
       },
-      // 初始化
+      // 初始�?
       init(type) {
         this.type = type;
         if(type=='cross'){
@@ -244,7 +244,7 @@
       // 提交
       onSubmit() {
 
-        //更新跨表属性
+        //更新跨表属�?
         var crossuserid;
         var crossrefid;
         var crossoptnum;
@@ -348,7 +348,7 @@
         this.$router.go(-1);
       },
       caipufengmianUploadChange(fileUrls) {
-          this.ruleForm.caipufengmian = fileUrls.replace(new RegExp(this.$config.baseUrl,"g"),"");;
+          this.ruleForm.caipufengmian = fileUrls.replace(new RegExp(this.$config.baseUrl,"g"),"");
       },
     }
   };
@@ -359,7 +359,7 @@
 		width: auto;
 	}
 	
-	.add-update-preview .el-form-item /deep/ .el-form-item__label {
+	.add-update-preview .el-form-item ::v-deep .el-form-item__label {
 	  padding: 0 10px 0 0;
 	  color: #666;
 	  font-weight: 500;
@@ -369,11 +369,11 @@
 	  text-align: right;
 	}
 	
-	.add-update-preview .el-form-item /deep/ .el-form-item__content {
+	.add-update-preview .el-form-item ::v-deep .el-form-item__content {
 	  margin-left: 80px;
 	}
 	
-	.add-update-preview .el-input /deep/ .el-input__inner {
+	.add-update-preview .el-input ::v-deep .el-input__inner {
 	  border: 1px solid #cbbae8;
 	  border-radius: 4px;
 	  padding: 0 12px;
@@ -385,7 +385,7 @@
 	  height: 40px;
 	}
 	
-	.add-update-preview .el-select /deep/ .el-input__inner {
+	.add-update-preview .el-select ::v-deep .el-input__inner {
 	  border: 1px solid #cbbae8;
 	  border-radius: 4px;
 	  padding: 0 10px;
@@ -397,7 +397,7 @@
 	  height: 40px;
 	}
 	
-	.add-update-preview .el-date-editor /deep/ .el-input__inner {
+	.add-update-preview .el-date-editor ::v-deep .el-input__inner {
 	  border: 1px solid #cbbae8;
 	  border-radius: 4px;
 	  padding: 0 10px 0 30px;
@@ -409,7 +409,7 @@
 	  height: 40px;
 	}
 	
-	.add-update-preview /deep/ .el-upload--picture-card {
+	.add-update-preview ::v-deep .el-upload--picture-card {
 		background: transparent;
 		border: 0;
 		border-radius: 0;
@@ -419,7 +419,7 @@
 		vertical-align: middle;
 	}
 	
-	.add-update-preview /deep/ .upload .upload-img {
+	.add-update-preview ::v-deep .upload .upload-img {
 	  border: 1px dashed rgba(204, 188, 233, 1);
 	  cursor: pointer;
 	  border-radius: 6px;
@@ -430,7 +430,7 @@
 	  text-align: center;
 	}
 	
-	.add-update-preview /deep/ .el-upload-list .el-upload-list__item {
+	.add-update-preview ::v-deep .el-upload-list .el-upload-list__item {
 	  border: 1px dashed rgba(204, 188, 233, 1);
 	  cursor: pointer;
 	  border-radius: 6px;
@@ -441,7 +441,7 @@
 	  text-align: center;
 	}
 	
-	.add-update-preview /deep/ .el-upload .el-icon-plus {
+	.add-update-preview ::v-deep .el-upload .el-icon-plus {
 	  border: 1px dashed rgba(204, 188, 233, 1);
 	  cursor: pointer;
 	  border-radius: 6px;
@@ -452,7 +452,7 @@
 	  text-align: center;
 	}
 	
-	.add-update-preview .el-textarea /deep/ .el-textarea__inner {
+	.add-update-preview .el-textarea ::v-deep .el-textarea__inner {
 	  border: 1px solid #cbbae8;
 	  border-radius: 4px;
 	  padding: 12px;
@@ -464,3 +464,4 @@
 	  height: 120px;
 	}
 </style>
+

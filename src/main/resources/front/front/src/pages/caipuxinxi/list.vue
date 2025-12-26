@@ -36,7 +36,7 @@
 	<div class="list" :style='{"border":"2px solid #dbd9f4","margin":"20px 0 0 0","borderRadius":"8px","background":"#fff"}'>
 		<!-- 样式一 -->
 		
-		<!-- 样式二 -->
+		<!-- 样式�?-->
 		<div class="list2 index-pv1" :style='{"width":"100%","padding":"20px 32px 20px 20px","flexWrap":"wrap","justifyContent":"space-between","display":"block","height":"auto"}'>
 			<div :style='{"cursor":"pointer","padding":"0","margin":"0 0 20px 2%","borderRadius":"8px","background":"#f6f6f6","display":"inline-block","width":"23%","fontSize":"0","position":"relative","height":"auto"}' v-for="(item, index) in dataList" :key="index" @click="toDetail(item)" class="list-item animation-box">
 				<img :style='{"width":"calc(100% - 24px)","margin":"12px","objectFit":"cover","borderRadius":"8px","display":"inline-block","height":"240px"}' v-if="item.caipufengmian && item.caipufengmian.substr(0,4)=='http'" :src="item.caipufengmian" class="image" />
@@ -45,7 +45,7 @@
 					<div :style='{"padding":"0 0 0 12px","margin":"0px 24px 4px 0","whiteSpace":"nowrap","overflow":"hidden","color":"#333","borderRadius":"0 20px 20px 0","background":"#ede9f6","lineHeight":"32px","fontSize":"14px","textOverflow":"ellipsis"}' class="name ">{{item.caipumingcheng}}</div>
 					<div :style='{"padding":"0 0 0 12px","margin":"0px 24px 4px 0","whiteSpace":"nowrap","overflow":"hidden","color":"#333","borderRadius":"0 20px 20px 0","background":"#ede9f6","lineHeight":"32px","fontSize":"14px","textOverflow":"ellipsis"}' class="name ">{{item.caishileixing}}</div>
 					<div :style='{"padding":"0 0 0 12px","margin":"0px 24px 4px 0","whiteSpace":"nowrap","overflow":"hidden","color":"#333","borderRadius":"0 20px 20px 0","background":"#ede9f6","lineHeight":"32px","fontSize":"14px","textOverflow":"ellipsis"}' class="name ">分数:{{item.fenshu}}</div>
-					<div v-if="item.price" :style='{"padding":"0px","margin":"0 12px 4px 0","lineHeight":"24px","fontSize":"12px","color":"#d15858","textAlign":"right"}' class="price"><span :style='{"fontSize":"12px"}'>￥</span>{{item.price}}</div>
+					<div v-if="item.price" :style='{"padding":"0px","margin":"0 12px 4px 0","lineHeight":"24px","fontSize":"12px","color":"#d15858","textAlign":"right"}' class="price"><span :style='{"fontSize":"12px"}'>¥</span>{{item.price}}</div>
 				</div>
 			</div>
 		</div>
@@ -217,18 +217,18 @@
 		width: auto;
 	}
 
-	.breadcrumb-preview .el-breadcrumb /deep/ .el-breadcrumb__separator {
+	.breadcrumb-preview .el-breadcrumb ::v-deep .el-breadcrumb__separator {
 		margin: 0 9px;
 		color: #ccc;
 		font-weight: 500;
 	}
 	
-	.breadcrumb-preview .el-breadcrumb /deep/ .el-breadcrumb__inner a {
+	.breadcrumb-preview .el-breadcrumb ::v-deep .el-breadcrumb__inner a {
 		color: #333;
 		display: inline-block;
 	}
 	
-	.breadcrumb-preview .el-breadcrumb /deep/ .el-breadcrumb__inner {
+	.breadcrumb-preview .el-breadcrumb ::v-deep .el-breadcrumb__inner {
 		color: #666;
 		display: inline-block;
 	}
@@ -308,7 +308,7 @@
 		text-align: center;
 	}
 	
-	.list-form-pv .el-input /deep/ .el-input__inner {
+	.list-form-pv .el-input ::v-deep .el-input__inner {
 		border: 1px solid #dbd9f4;
 		border-radius: 8px;
 		padding: 0 10px;
@@ -321,7 +321,7 @@
 		height: 42px;
 	}
 	
-	.list-form-pv .el-select /deep/ .el-input__inner {
+	.list-form-pv .el-select ::v-deep .el-input__inner {
 		border: 1px solid #dbd9f4;
 		border-radius: 8px;
 		padding: 0 10px;
@@ -334,7 +334,7 @@
 		height: 42px;
 	}
 	
-	.list-form-pv .el-date-editor /deep/ .el-input__inner {
+	.list-form-pv .el-date-editor ::v-deep .el-input__inner {
 		border: 1px solid #dbd9f4;
 		border-radius: 8px;
 		padding: 0 30px;
@@ -371,7 +371,7 @@
 		transition: 0.3s;
 	}
 	
-	.el-pagination /deep/ .el-pagination__total {
+	.el-pagination ::v-deep .el-pagination__total {
 		margin: 0 10px 0 0;
 		color: #666;
 		font-weight: 400;
@@ -382,7 +382,7 @@
 		height: 28px;
 	}
 	
-	.el-pagination /deep/ .btn-prev {
+	.el-pagination ::v-deep .btn-prev {
 		border: none;
 		border-radius: 2px;
 		padding: 0;
@@ -397,7 +397,7 @@
 		height: 28px;
 	}
 	
-	.el-pagination /deep/ .btn-next {
+	.el-pagination ::v-deep .btn-next {
 		border: none;
 		border-radius: 2px;
 		padding: 0;
@@ -412,7 +412,7 @@
 		height: 28px;
 	}
 	
-	.el-pagination /deep/ .btn-prev:disabled {
+	.el-pagination ::v-deep .btn-prev:disabled {
 		border: none;
 		cursor: not-allowed;
 		border-radius: 2px;
@@ -427,7 +427,7 @@
 		height: 28px;
 	}
 	
-	.el-pagination /deep/ .btn-next:disabled {
+	.el-pagination ::v-deep .btn-next:disabled {
 		border: none;
 		cursor: not-allowed;
 		border-radius: 2px;
@@ -442,14 +442,14 @@
 		height: 28px;
 	}
 	
-	.el-pagination /deep/ .el-pager {
+	.el-pagination ::v-deep .el-pager {
 		padding: 0;
 		margin: 0;
 		display: inline-block;
 		vertical-align: top;
 	}
 	
-	.el-pagination /deep/ .el-pager .number {
+	.el-pagination ::v-deep .el-pager .number {
 		cursor: pointer;
 		padding: 0 4px;
 		margin: 0 5px;
@@ -465,7 +465,7 @@
 		height: 28px;
 	}
 	
-	.el-pagination /deep/ .el-pager .number:hover {
+	.el-pagination ::v-deep .el-pager .number:hover {
 		cursor: pointer;
 		padding: 0 4px;
 		margin: 0 5px;
@@ -481,7 +481,7 @@
 		height: 28px;
 	}
 	
-	.el-pagination /deep/ .el-pager .number.active {
+	.el-pagination ::v-deep .el-pager .number.active {
 		cursor: default;
 		padding: 0 4px;
 		margin: 0 5px;
@@ -497,7 +497,7 @@
 		height: 28px;
 	}
 	
-	.el-pagination /deep/ .el-pagination__sizes {
+	.el-pagination ::v-deep .el-pagination__sizes {
 		display: inline-block;
 		vertical-align: top;
 		font-size: 13px;
@@ -505,13 +505,13 @@
 		height: 28px;
 	}
 	
-	.el-pagination /deep/ .el-pagination__sizes .el-input {
+	.el-pagination ::v-deep .el-pagination__sizes .el-input {
 		margin: 0 5px;
 		width: 100px;
 		position: relative;
 	}
 	
-	.el-pagination /deep/ .el-pagination__sizes .el-input .el-input__inner {
+	.el-pagination ::v-deep .el-pagination__sizes .el-input .el-input__inner {
 		border: 1px solid #DCDFE6;
 		cursor: pointer;
 		padding: 0 25px 0 8px;
@@ -527,14 +527,14 @@
 		height: 28px;
 	}
 	
-	.el-pagination /deep/ .el-pagination__sizes .el-input span.el-input__suffix {
+	.el-pagination ::v-deep .el-pagination__sizes .el-input span.el-input__suffix {
 		top: 0;
 		position: absolute;
 		right: 0;
 		height: 100%;
 	}
 	
-	.el-pagination /deep/ .el-pagination__sizes .el-input .el-input__suffix .el-select__caret {
+	.el-pagination ::v-deep .el-pagination__sizes .el-input .el-input__suffix .el-select__caret {
 		cursor: pointer;
 		color: #C0C4CC;
 		width: 25px;
@@ -543,7 +543,7 @@
 		text-align: center;
 	}
 	
-	.el-pagination /deep/ .el-pagination__jump {
+	.el-pagination ::v-deep .el-pagination__jump {
 		margin: 0 0 0 24px;
 		color: #606266;
 		display: inline-block;
@@ -553,7 +553,7 @@
 		height: 28px;
 	}
 	
-	.el-pagination /deep/ .el-pagination__jump .el-input {
+	.el-pagination ::v-deep .el-pagination__jump .el-input {
 		border-radius: 3px;
 		padding: 0 2px;
 		margin: 0 2px;
@@ -566,7 +566,7 @@
 		height: 28px;
 	}
 	
-	.el-pagination /deep/ .el-pagination__jump .el-input .el-input__inner {
+	.el-pagination ::v-deep .el-pagination__jump .el-input .el-input__inner {
 		border: 1px solid #DCDFE6;
 		cursor: pointer;
 		padding: 0 3px;
@@ -582,3 +582,4 @@
 		height: 28px;
 	}
 </style>
+
