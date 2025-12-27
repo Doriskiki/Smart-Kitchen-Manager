@@ -32,6 +32,8 @@ import usershicaiReceipt from '../pages/usershicai/receipt'
 import dietStatisticsList from '../pages/dietstatistics/list'
 import dietStatisticsDetail from '../pages/dietstatistics/detail'
 import dietStatisticsAdd from '../pages/dietstatistics/add'
+import foodUsageStatistics from '../pages/statistics/foodusage'
+import healthPreference from '../pages/statistics/healthpreference'
 
 const originalPush = VueRouter.prototype.push
 VueRouter.prototype.push = function push(location) {
@@ -160,6 +162,14 @@ export default new VueRouter({
 				{
 					path: 'dietStatisticsAdd',
 					component: dietStatisticsAdd
+				},
+				{
+					path: 'foodUsageStatistics',
+					component: foodUsageStatistics
+				},
+				{
+					path: 'healthPreference',
+					component: healthPreference
 				},
 			]
 		},

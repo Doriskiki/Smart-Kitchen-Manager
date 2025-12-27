@@ -18,8 +18,24 @@
 	  <div :style='{"margin":"20px auto 0","padding":"8px 20px","borderRadius":"20px","background":"rgba(255,255,255,0.2)","color":"#fff","textAlign":"center","width":"120px","fontSize":"14px"}'>查看统计</div>
 	</div>
 
+	<!-- 常用食材分析 -->
+	<div v-if="Token" @click="goMenu('/index/foodUsageStatistics')" :style='{"padding":"20px","margin":"20px 0 0 0","borderColor":"#dbd9f4","borderRadius":"8px","background":"linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)","borderWidth":"2px 1px 1px 1px","display":"block","width":"30%","position":"relative","borderStyle":"solid","height":"240px","order":"3","cursor":"pointer"}'>
+	  <div :style='{"margin":"0 auto","color":"#fff","borderRadius":"0px","textAlign":"center","width":"100%","fontSize":"24px","lineHeight":"42px","height":"42px"}'>常用食材分析</div>
+	  <div :style='{"margin":"20px 0","color":"rgba(255,255,255,0.9)","textAlign":"center","fontSize":"16px","lineHeight":"24px"}'>了解您的食材使用习惯</div>
+	  <div :style='{"margin":"10px 0","color":"rgba(255,255,255,0.8)","textAlign":"center","fontSize":"14px","lineHeight":"20px"}'>使用排行、频率分析</div>
+	  <div :style='{"margin":"20px auto 0","padding":"8px 20px","borderRadius":"20px","background":"rgba(255,255,255,0.2)","color":"#fff","textAlign":"center","width":"120px","fontSize":"14px"}'>查看分析</div>
+	</div>
+
+	<!-- 健康偏好管理 -->
+	<div v-if="Token" @click="goMenu('/index/healthPreference')" :style='{"padding":"20px","margin":"20px 0 0 0","borderColor":"#dbd9f4","borderRadius":"8px","background":"linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)","borderWidth":"2px 1px 1px 1px","display":"block","width":"30%","position":"relative","borderStyle":"solid","height":"240px","order":"4","cursor":"pointer"}'>
+	  <div :style='{"margin":"0 auto","color":"#fff","borderRadius":"0px","textAlign":"center","width":"100%","fontSize":"24px","lineHeight":"42px","height":"42px"}'>健康偏好管理</div>
+	  <div :style='{"margin":"20px 0","color":"rgba(255,255,255,0.9)","textAlign":"center","fontSize":"16px","lineHeight":"24px"}'>设置您的健康目标</div>
+	  <div :style='{"margin":"10px 0","color":"rgba(255,255,255,0.8)","textAlign":"center","fontSize":"14px","lineHeight":"20px"}'>营养目标、饮食偏好</div>
+	  <div :style='{"margin":"20px auto 0","padding":"8px 20px","borderRadius":"20px","background":"rgba(255,255,255,0.2)","color":"#fff","textAlign":"center","width":"120px","fontSize":"14px"}'>设置偏好</div>
+	</div>
+
 	<!-- 关于我们 -->
-	<div :style='{"padding":"0px","margin":"20px 0 0 0","borderColor":"#dbd9f4","borderRadius":"8px","background":"#fff","borderWidth":"2px 1px 1px 1px","display":"block","width":"30%","position":"relative","borderStyle":"solid","height":"500px","order":"3"}'>
+	<div :style='{"padding":"0px","margin":"20px 0 0 0","borderColor":"#dbd9f4","borderRadius":"8px","background":"#fff","borderWidth":"2px 1px 1px 1px","display":"block","width":"30%","position":"relative","borderStyle":"solid","height":"500px","order":"5"}'>
 	  <div :style='{"margin":"0 auto","color":"#333","borderRadius":"0px","textAlign":"center","background":"url(http://codegen.caihongy.cn/20221105/bb1ea9437beb4e1da8fcd1583db2f111.png) no-repeat,radial-gradient(circle, rgba(219,217,244,1) 0%, rgba(181,177,240,1) 100%)","width":"260px","fontSize":"22px","lineHeight":"42px","height":"42px"}'>{{aboutUsDetail.title}}</div>
 	  <div :style='{"margin":"4px auto 12px","color":"#999","textAlign":"center","background":"none","display":"none","width":"75%","fontSize":"16px","lineHeight":"24px","height":"24px"}'>{{aboutUsDetail.subtitle}}</div>
 	  <div :style='{"width":"100%","padding":"0 20px","margin":"20px 0 0 0","flexWrap":"wrap","display":"block","height":"200px"}'>
@@ -34,7 +50,7 @@
 	  <div :style='{"width":"285px","background":"url(\"http://codegen.caihongy.cn/20201114/7856ba26477849ea828f481fa2773a95.jpg\") 0% 0% / cover no-repeat","display":"none","height":"100px"}' />
 	</div>
 	<!-- 系统简介 -->
-	<div :style='{"padding":"0px 20px 40px 20px","margin":"20px 0 0 0","borderColor":"#dbd9f4","display":"flex","justifyContent":"space-between","borderRadius":"8px","flexWrap":"wrap","background":"#fff","borderWidth":"2px 1px 1px 1px","width":"100%","position":"relative","borderStyle":"solid","height":"auto","order":"5"}'>
+	<div :style='{"padding":"0px 20px 40px 20px","margin":"20px 0 0 0","borderColor":"#dbd9f4","display":"flex","justifyContent":"space-between","borderRadius":"8px","flexWrap":"wrap","background":"#fff","borderWidth":"2px 1px 1px 1px","width":"100%","position":"relative","borderStyle":"solid","height":"auto","order":"6"}'>
 	  <div :style='{"margin":"0 auto","color":"#333","textAlign":"center","left":"39%","background":"url(http://codegen.caihongy.cn/20221105/bb1ea9437beb4e1da8fcd1583db2f111.png) no-repeat,radial-gradient(circle, rgba(219,217,244,1) 0%, rgba(181,177,240,1) 100%)","width":"260px","lineHeight":"42px","fontSize":"22px","position":"absolute","height":"42px","order":"0"}'>{{systemIntroductionDetail.title}}</div>
 	  <div :style='{"margin":"0","color":"#999","textAlign":"center","display":"none","width":"100%","lineHeight":"1.5","fontSize":"20px","height":"40px"}'>{{systemIntroductionDetail.subtitle}}</div>
 	  <div :style='{"padding":"0px","margin":"70px 0 0 0","flexWrap":"wrap","background":"none","display":"flex","width":"61%","float":"left","height":"420px","order":"2"}'>
@@ -49,7 +65,7 @@
 	  <div :style='{"width":"285px","background":"url(\"http://codegen.caihongy.cn/20201114/7856ba26477849ea828f481fa2773a95.jpg\") 0% 0% / cover no-repeat","display":"none","height":"100px"}' />
 	</div>
 
-<div class="recommend" :style='{"padding":"0px 10px 10px 10px","margin":"20px 0px 0px","borderColor":"#dbd9f4","borderRadius":"8px","background":"#fff","borderWidth":"2px 1px 1px 1px","width":"100%","borderStyle":"solid","height":"auto","order":"3"}'>
+<div class="recommend" :style='{"padding":"0px 10px 10px 10px","margin":"20px 0px 0px","borderColor":"#dbd9f4","borderRadius":"8px","background":"#fff","borderWidth":"2px 1px 1px 1px","width":"100%","borderStyle":"solid","height":"auto","order":"7"}'>
 	
     <div class="title" :style='{"width":"260px","margin":"0px auto","lineHeight":"42px","textAlign":"center","background":"url(http://codegen.caihongy.cn/20221105/bb1ea9437beb4e1da8fcd1583db2f111.png) no-repeat,radial-gradient(circle, rgba(219,217,244,1) 0%, rgba(181,177,240,1) 100%)","height":"42px"}'>
 		<span :style='{"color":"#333","fontSize":"22px"}'>菜谱信息推荐</span>
