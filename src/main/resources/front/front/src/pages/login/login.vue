@@ -174,12 +174,12 @@ export default {
 		position: relative;
 		
 		.el-form-item {
-		  & /deep/ .el-form-item__content {
+		  & ::v-deep .el-form-item__content {
 		    width: 100%;
 		  }
 		}
 		
-		.list-item /deep/ .el-input .el-input__inner {
+		.list-item ::v-deep .el-input .el-input__inner {
 			border: 0;
 			padding: 0 10px;
 			color: #999;
@@ -189,7 +189,7 @@ export default {
 			height: 44px;
 		}
 		
-		.list-code /deep/ .el-input .el-input__inner {
+		.list-code ::v-deep .el-input .el-input__inner {
 			border: 0;
 			padding: 0 10px;
 			outline: none;
@@ -202,19 +202,19 @@ export default {
 			height: 44px;
 		}
 		
-		.list-type /deep/ .el-radio__input .el-radio__inner {
+		.list-type ::v-deep .el-radio__input .el-radio__inner {
 			background: rgba(53, 53, 53, 0);
 			border-color: #666666;
 		}
-		.list-type /deep/ .el-radio__input.is-checked .el-radio__inner {
+		.list-type ::v-deep .el-radio__input.is-checked .el-radio__inner {
 			background: rgba(76, 72, 147, 1);
 			border-color: rgba(76, 72, 147, 1);
 		}
-		.list-type /deep/ .el-radio__label {
+		.list-type ::v-deep .el-radio__label {
 			color: #999;
 			font-size: 14px;
 		}
-		.list-type /deep/ .el-radio__input.is-checked+.el-radio__label {
+		.list-type ::v-deep .el-radio__input.is-checked+.el-radio__label {
 			color: rgba(76, 72, 147, 1);
 			font-size: 14px;
 		}

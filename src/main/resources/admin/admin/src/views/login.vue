@@ -182,7 +182,7 @@ export default {
   background-size: cover;
       background: url(http://codegen.caihongy.cn/20220804/44ce80dd25e14a6d9fc904c2682ef433.png);
         
-  .list-item /deep/ .el-input .el-input__inner {
+  .list-item ::v-deep .el-input .el-input__inner {
 		border: 0px solid rgba(64, 158, 255, 1);
 		padding: 0 10px;
 		box-shadow:  0px 4px 10px 0px rgba(0,0,0,0.3020);
@@ -193,7 +193,7 @@ export default {
 		height: 44px;
 	  }
   
-  .list-code /deep/ .el-input .el-input__inner {
+  .list-code ::v-deep .el-input .el-input__inner {
   	  	border: 0px solid rgba(64, 158, 255, 1);
   	  	border-radius: 0;
   	  	padding: 0 10px;
@@ -205,19 +205,19 @@ export default {
   	  	height: 44px;
   	  }
 
-  .list-type /deep/ .el-radio__input .el-radio__inner {
+  .list-type ::v-deep .el-radio__input .el-radio__inner {
 		background: rgba(53, 53, 53, 0);
 		border-color: #333;
 	  }
-  .list-type /deep/ .el-radio__input.is-checked .el-radio__inner {
+  .list-type ::v-deep .el-radio__input.is-checked .el-radio__inner {
         background: rgba(0, 57, 109, 1);
         border-color: rgba(0, 57, 109, 1);
       }
-  .list-type /deep/ .el-radio__label {
+  .list-type ::v-deep .el-radio__label {
 		color: #333;
 		font-size: 14px;
 	  }
-  .list-type /deep/ .el-radio__input.is-checked+.el-radio__label {
+  .list-type ::v-deep .el-radio__input.is-checked+.el-radio__label {
         color: rgba(0, 57, 109, 1);
         font-size: 14px;
       }

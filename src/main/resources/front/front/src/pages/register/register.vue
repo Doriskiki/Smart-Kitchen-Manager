@@ -153,7 +153,7 @@ export default {
 			width: 100%;
 		}
 		
-		.rgs-form .el-input /deep/ .el-input__inner {
+		.rgs-form .el-input ::v-deep .el-input__inner {
 						border: 0;
 						border-radius: 0;
 						padding: 0 10px;
@@ -168,7 +168,7 @@ export default {
 						height: 40px;
 					}
 		
-		.rgs-form .el-select /deep/ .el-input__inner {
+		.rgs-form .el-select ::v-deep .el-input__inner {
 						border-radius: 0;
 						padding: 0 10px;
 						outline: none;
@@ -181,7 +181,7 @@ export default {
 						height: 40px;
 					}
 		
-		.rgs-form .el-date-editor /deep/ .el-input__inner {
+		.rgs-form .el-date-editor ::v-deep .el-input__inner {
 						border: 0;
 						border-radius: 0;
 						padding: 0 10px 0 30px;
@@ -195,7 +195,7 @@ export default {
 						height: 40px;
 					}
 		
-		.rgs-form .el-date-editor /deep/ .el-input__inner {
+		.rgs-form .el-date-editor ::v-deep .el-input__inner {
 						border: 0;
 						border-radius: 0;
 						padding: 0 10px 0 30px;
@@ -209,7 +209,7 @@ export default {
 						height: 40px;
 					}
 		
-		.rgs-form /deep/ .el-upload--picture-card {
+		.rgs-form ::v-deep .el-upload--picture-card {
 			background: transparent;
 			border: 0;
 			border-radius: 0;
@@ -219,7 +219,7 @@ export default {
 			vertical-align: middle;
 		}
 		
-		.rgs-form /deep/ .upload .upload-img {
+		.rgs-form ::v-deep .upload .upload-img {
 		  		  border: 1px dashed rgba(171, 133, 211, 1);
 		  		  cursor: pointer;
 		  		  border-radius: 8px;
@@ -231,7 +231,7 @@ export default {
 		  		  height: 80px;
 		  		}
 		
-		.rgs-form /deep/ .el-upload-list .el-upload-list__item {
+		.rgs-form ::v-deep .el-upload-list .el-upload-list__item {
 		  		  border: 1px dashed rgba(171, 133, 211, 1);
 		  		  cursor: pointer;
 		  		  border-radius: 8px;
@@ -243,7 +243,7 @@ export default {
 		  		  height: 80px;
 		  		}
 		
-		.rgs-form /deep/ .el-upload .el-icon-plus {
+		.rgs-form ::v-deep .el-upload .el-icon-plus {
 		  		  border: 1px dashed rgba(171, 133, 211, 1);
 		  		  cursor: pointer;
 		  		  border-radius: 8px;

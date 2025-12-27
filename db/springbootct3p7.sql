@@ -1,25 +1,4 @@
--- MySQL dump 10.13  Distrib 5.7.31, for Linux (x86_64)
---
--- Host: localhost    Database: springbootct3p7
--- ------------------------------------------------------
--- Server version	5.7.31
 
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-
---
--- Current Database: `springbootct3p7`
---
-
-/*!40000 DROP DATABASE IF EXISTS `springbootct3p7`*/;
 
 CREATE DATABASE /*!32312 IF NOT EXISTS*/ `springbootct3p7` /*!40100 DEFAULT CHARACTER SET utf8mb4 */;
 
@@ -399,6 +378,51 @@ CREATE TABLE `yonghu` (
 ) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8 COMMENT='用户';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
+-- 1. 用户食材库
+CREATE TABLE user_shicai (
+  id BIGINT PRIMARY KEY AUTO_INCREMENT,
+  userid BIGINT NOT NULL,
+  shicai_id BIGINT NOT NULL,
+  quantity INT,
+  unit VARCHAR(50),
+  purchase_date DATETIME,
+  expiry_date DATETIME,
+  status ENUM('new', 'used', 'expired', 'discarded'),
+  addtime TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户食材库';
+
+-- 2. 过期提醒
+CREATE TABLE expiry_reminder (
+  id BIGINT PRIMARY KEY AUTO_INCREMENT,
+  userid BIGINT NOT NULL,
+  user_shicai_id BIGINT NOT NULL,
+  remind_date DATETIME,
+  status ENUM('pending', 'sent', 'read'),
+  addtime TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='过期提醒';
+
+-- 3. 饮食统计
+CREATE TABLE diet_statistics (
+  id BIGINT PRIMARY KEY AUTO_INCREMENT,
+  userid BIGINT NOT NULL,
+  statistic_date DATE,
+  consumed_shicai_id BIGINT,
+  quantity INT,
+  addtime TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='饮食统计';
+
+-- 4. 保质期参考库
+CREATE TABLE shicai_shelf_life (
+  id BIGINT PRIMARY KEY AUTO_INCREMENT,
+  shicai_id BIGINT NOT NULL,
+  shelf_life_days INT,
+  storage_method VARCHAR(200),
+  addtime TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='保质期参考库';
+
+-- 5. 用户偏好设置
+ALTER TABLE yonghu ADD COLUMN health_preference JSON COMMENT '健康偏好';
+ALTER TABLE yonghu ADD COLUMN allergy_info VARCHAR(500) COMMENT '过敏信息';
 --
 -- Dumping data for table `yonghu`
 --

@@ -375,7 +375,7 @@
   .center-preview {
   
     .el-tabs {
-      & /deep/ .el-tabs__header {
+      & ::v-deep .el-tabs__header {
         .el-tabs__nav-wrap {
           margin: 0;
   
@@ -403,7 +403,7 @@
     }
   }
   
-  .center-preview .el-tabs /deep/ .el-tabs__header {
+  .center-preview .el-tabs ::v-deep .el-tabs__header {
 	padding: 0;
 	margin: 0;
 	background: none;
@@ -413,7 +413,7 @@
 	float: left;
   }
   
-  .center-preview .el-tabs /deep/ .el-tabs__header .el-tabs__item {
+  .center-preview .el-tabs ::v-deep .el-tabs__header .el-tabs__item {
   	border: 1px solid #ab85d3;
   	border-radius: 30px;
   	padding: 0 10px;
@@ -428,7 +428,7 @@
   	height: 40px;
   }
   
-  .center-preview .el-tabs /deep/ .el-tabs__header .el-tabs__item:hover {
+  .center-preview .el-tabs ::v-deep .el-tabs__header .el-tabs__item:hover {
   	border: 0;
   	border-radius: 30px;
   	padding: 0 10px;
@@ -442,7 +442,7 @@
   	height: 40px;
   }
   
-  .center-preview .el-tabs /deep/ .el-tabs__header .el-tabs__item.is-active {
+  .center-preview .el-tabs ::v-deep .el-tabs__header .el-tabs__item.is-active {
   	border-radius: 30px;
   	padding: 0 10px;
   	color: #ffff;
@@ -455,7 +455,7 @@
   	height: 40px;
   }
   
-  .center-preview .el-tabs /deep/ .el-tabs__content .el-tab-pane {
+  .center-preview .el-tabs ::v-deep .el-tabs__content .el-tab-pane {
   	border-radius: 8px;
   	padding: 10px 10px 30px;
   	background: #f8f8fc;
@@ -463,7 +463,7 @@
   	float: right;
   }
   
-  .center-preview-pv .el-form-item /deep/ .el-form-item__label {
+  .center-preview-pv .el-form-item ::v-deep .el-form-item__label {
   	padding: 0 10px 0 0;
   	color: #666;
   	font-weight: 500;
@@ -477,7 +477,7 @@
     margin-left: 80px;
   }
   
-  .center-preview-pv .el-input /deep/ .el-input__inner {
+  .center-preview-pv .el-input ::v-deep .el-input__inner {
   	border: 1px solid #dbd9f4;
   	border-radius: 20px;
   	padding: 0 12px;
@@ -488,7 +488,7 @@
   	height: 40px;
   }
   
-  .center-preview-pv .el-select /deep/ .el-input__inner {
+  .center-preview-pv .el-select ::v-deep .el-input__inner {
   	border: 1px solid #dbd9f4;
   	border-radius: 20px;
   	padding: 0 12px;
@@ -499,7 +499,7 @@
   	height: 40px;
   }
   
-  .center-preview-pv .el-date-editor /deep/ .el-input__inner {
+  .center-preview-pv .el-date-editor ::v-deep .el-input__inner {
   	border: 1px solid #dbd9f4;
   	border-radius: 20px;
   	padding: 0 10px 0 30px;
@@ -510,7 +510,7 @@
   	height: 40px;
   }
   
-  .center-preview-pv /deep/ .avatar-uploader-icon {
+  .center-preview-pv ::v-deep .avatar-uploader-icon {
   	border: 1px solid #dbd9f4;
   	cursor: pointer;
   	border-radius: 30px;
@@ -521,7 +521,7 @@
   	text-align: center;
   }
   
-  .center-preview-pv .el-form-item.balance /deep/ .el-input__inner {
+  .center-preview-pv .el-form-item.balance ::v-deep .el-input__inner {
   	border: 1px solid #dbd9f4;
   	border-radius: 20px 0 0 20px;
   	padding: 0 12px;
