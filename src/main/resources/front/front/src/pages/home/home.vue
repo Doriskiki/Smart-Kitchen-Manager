@@ -2,8 +2,24 @@
 <div class="home-preview" :style='{"width":"1200px","margin":"10px auto","flexWrap":"wrap","justifyContent":"space-between","display":"flex"}'>
 
 
+	<!-- 我的食材库 -->
+	<div v-if="Token" @click="goMenu('/index/usershicaiList')" :style='{"padding":"20px","margin":"20px 0 0 0","borderColor":"#dbd9f4","borderRadius":"8px","background":"linear-gradient(135deg, #667eea 0%, #764ba2 100%)","borderWidth":"2px 1px 1px 1px","display":"block","width":"30%","position":"relative","borderStyle":"solid","height":"240px","order":"1","cursor":"pointer"}'>
+	  <div :style='{"margin":"0 auto","color":"#fff","borderRadius":"0px","textAlign":"center","width":"100%","fontSize":"24px","lineHeight":"42px","height":"42px"}'>我的食材库</div>
+	  <div :style='{"margin":"20px 0","color":"rgba(255,255,255,0.9)","textAlign":"center","fontSize":"16px","lineHeight":"24px"}'>管理您的食材库存</div>
+	  <div :style='{"margin":"10px 0","color":"rgba(255,255,255,0.8)","textAlign":"center","fontSize":"14px","lineHeight":"20px"}'>查看食材、添加新食材、过期提醒</div>
+	  <div :style='{"margin":"20px auto 0","padding":"8px 20px","borderRadius":"20px","background":"rgba(255,255,255,0.2)","color":"#fff","textAlign":"center","width":"120px","fontSize":"14px"}'>立即查看</div>
+	</div>
+
+	<!-- 饮食统计 -->
+	<div v-if="Token" @click="goMenu('/index/dietStatisticsList')" :style='{"padding":"20px","margin":"20px 0 0 0","borderColor":"#dbd9f4","borderRadius":"8px","background":"linear-gradient(135deg, #f093fb 0%, #f5576c 100%)","borderWidth":"2px 1px 1px 1px","display":"block","width":"30%","position":"relative","borderStyle":"solid","height":"240px","order":"2","cursor":"pointer"}'>
+	  <div :style='{"margin":"0 auto","color":"#fff","borderRadius":"0px","textAlign":"center","width":"100%","fontSize":"24px","lineHeight":"42px","height":"42px"}'>饮食统计</div>
+	  <div :style='{"margin":"20px 0","color":"rgba(255,255,255,0.9)","textAlign":"center","fontSize":"16px","lineHeight":"24px"}'>查看您的饮食数据</div>
+	  <div :style='{"margin":"10px 0","color":"rgba(255,255,255,0.8)","textAlign":"center","fontSize":"14px","lineHeight":"20px"}'>消耗统计、健康分析</div>
+	  <div :style='{"margin":"20px auto 0","padding":"8px 20px","borderRadius":"20px","background":"rgba(255,255,255,0.2)","color":"#fff","textAlign":"center","width":"120px","fontSize":"14px"}'>查看统计</div>
+	</div>
+
 	<!-- 关于我们 -->
-	<div :style='{"padding":"0px","margin":"20px 0 0 0","borderColor":"#dbd9f4","borderRadius":"8px","background":"#fff","borderWidth":"2px 1px 1px 1px","display":"block","width":"30%","position":"relative","borderStyle":"solid","height":"500px","order":"2"}'>
+	<div :style='{"padding":"0px","margin":"20px 0 0 0","borderColor":"#dbd9f4","borderRadius":"8px","background":"#fff","borderWidth":"2px 1px 1px 1px","display":"block","width":"30%","position":"relative","borderStyle":"solid","height":"500px","order":"3"}'>
 	  <div :style='{"margin":"0 auto","color":"#333","borderRadius":"0px","textAlign":"center","background":"url(http://codegen.caihongy.cn/20221105/bb1ea9437beb4e1da8fcd1583db2f111.png) no-repeat,radial-gradient(circle, rgba(219,217,244,1) 0%, rgba(181,177,240,1) 100%)","width":"260px","fontSize":"22px","lineHeight":"42px","height":"42px"}'>{{aboutUsDetail.title}}</div>
 	  <div :style='{"margin":"4px auto 12px","color":"#999","textAlign":"center","background":"none","display":"none","width":"75%","fontSize":"16px","lineHeight":"24px","height":"24px"}'>{{aboutUsDetail.subtitle}}</div>
 	  <div :style='{"width":"100%","padding":"0 20px","margin":"20px 0 0 0","flexWrap":"wrap","display":"block","height":"200px"}'>
@@ -86,7 +102,7 @@
 </div>
 
 	
-<div class="news" :style='{"margin":"20px 0 0 0","borderColor":"#dbd9f4","borderRadius":"8px","background":"#fff","borderWidth":"2px 1px 1px 1px","width":"68%","borderStyle":"solid","height":"auto","order":"1"}'>
+<div class="news" :style='{"margin":"20px 0 0 0","borderColor":"#dbd9f4","borderRadius":"8px","background":"#fff","borderWidth":"2px 1px 1px 1px","width":"68%","borderStyle":"solid","height":"auto","order":"4"}'>
 	
 	<div class="title" :style='{"margin":"0px auto","borderRadius":"0 0 30px 30px","textAlign":"center","background":"url(http://codegen.caihongy.cn/20221105/bb1ea9437beb4e1da8fcd1583db2f111.png) no-repeat,radial-gradient(circle, rgba(219,217,244,1) 0%, rgba(181,177,240,1) 100%)","width":"260px","lineHeight":"42px","height":"42px"}'>
 		<span :style='{"color":"#333","fontSize":"22px"}'>公告信息</span>
@@ -147,7 +163,7 @@
         systemIntroductionDetail: {},
         newsList: [],
         caipuxinxiRecommend: [],
-
+        Token: localStorage.getItem('Token')
       }
     },
     created() {
@@ -225,6 +241,13 @@
 		},
 		moreBtn(path) {
 			this.$router.push({path: '/index/' + path});
+		},
+		goMenu(path) {
+			if (!localStorage.getItem('Token')) {
+				this.$router.push('/login');
+			} else {
+				this.$router.push(path);
+			}
 		}
     }
   }

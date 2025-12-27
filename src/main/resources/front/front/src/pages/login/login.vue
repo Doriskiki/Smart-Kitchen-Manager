@@ -147,11 +147,18 @@ export default {
                 localStorage.setItem('sessionTable', this.loginForm.tableName);
                 localStorage.setItem('role', this.role);
                 localStorage.setItem('keyPath', this.$config.indexNav.length+2);
-                this.$router.push('/index/center');
-                this.$message({
-                  message: '登录成功',
-                  type: 'success',
-                  duration: 1500,
+                
+                // 获取用户信息并存储userid
+                this.$http.get(`${this.loginForm.tableName}/session`).then(sessionRes => {
+                  if (sessionRes.data && sessionRes.data.data) {
+                    localStorage.setItem('userid', sessionRes.data.data.id);
+                  }
+                  this.$router.push('/index/center');
+                  this.$message({
+                    message: '登录成功',
+                    type: 'success',
+                    duration: 1500,
+                  });
                 });
               } else {
                 this.$message.error(res.data.msg);

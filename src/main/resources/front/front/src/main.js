@@ -12,6 +12,7 @@ import 'quill/dist/quill.bubble.css'
 import '@/assets/css/iconfont.css'
 import config from './config/config'
 import validate from './common/validate'
+import storage from './common/storage'
 import { isAuth,getCurDateTime,getCurDate } from './common/system'
 import App from './App.vue'
 import Breadcrumb from '@/components/Breadcrumb'
@@ -24,6 +25,7 @@ Vue.config.productionTip = false;
 
 Vue.prototype.$config = config;
 Vue.prototype.$validate = validate;
+Vue.prototype.$storage = storage;
 Vue.prototype.isAuth = isAuth;
 Vue.prototype.getCurDateTime = getCurDateTime;
 Vue.prototype.getCurDate = getCurDate;

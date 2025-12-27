@@ -45,21 +45,46 @@ public class DietStatisticsEntity<T> implements Serializable {
 	private Long userid;
 	
 	/**
-	 * 统计日期
+	 * 记录日期
 	 */
-	@JsonFormat(locale="zh", timezone="GMT+8", pattern="yyyy-MM-dd")
+	@JsonFormat(locale="zh", timezone="GMT+8", pattern="yyyy-MM-dd HH:mm:ss")
 	@DateTimeFormat
-	private Date statisticDate;
+	private Date recordDate;
 	
 	/**
-	 * 消耗食材id
+	 * 餐次类型
 	 */
-	private Long consumedShicaiId;
+	private String mealType;
 	
 	/**
-	 * 数量
+	 * 食物名称
 	 */
-	private Integer quantity;
+	private String foodName;
+	
+	/**
+	 * 卡路里
+	 */
+	private Integer calories;
+	
+	/**
+	 * 蛋白质(g)
+	 */
+	private Double protein;
+	
+	/**
+	 * 碳水化合物(g)
+	 */
+	private Double carbs;
+	
+	/**
+	 * 脂肪(g)
+	 */
+	private Double fat;
+	
+	/**
+	 * 备注
+	 */
+	private String notes;
 	
 	/**
 	 * 添加时间
@@ -84,28 +109,68 @@ public class DietStatisticsEntity<T> implements Serializable {
 		this.userid = userid;
 	}
 
-	public Date getStatisticDate() {
-		return statisticDate;
+	public Date getRecordDate() {
+		return recordDate;
 	}
 
-	public void setStatisticDate(Date statisticDate) {
-		this.statisticDate = statisticDate;
+	public void setRecordDate(Date recordDate) {
+		this.recordDate = recordDate;
 	}
 
-	public Long getConsumedShicaiId() {
-		return consumedShicaiId;
+	public String getMealType() {
+		return mealType;
 	}
 
-	public void setConsumedShicaiId(Long consumedShicaiId) {
-		this.consumedShicaiId = consumedShicaiId;
+	public void setMealType(String mealType) {
+		this.mealType = mealType;
 	}
 
-	public Integer getQuantity() {
-		return quantity;
+	public String getFoodName() {
+		return foodName;
 	}
 
-	public void setQuantity(Integer quantity) {
-		this.quantity = quantity;
+	public void setFoodName(String foodName) {
+		this.foodName = foodName;
+	}
+
+	public Integer getCalories() {
+		return calories;
+	}
+
+	public void setCalories(Integer calories) {
+		this.calories = calories;
+	}
+
+	public Double getProtein() {
+		return protein;
+	}
+
+	public void setProtein(Double protein) {
+		this.protein = protein;
+	}
+
+	public Double getCarbs() {
+		return carbs;
+	}
+
+	public void setCarbs(Double carbs) {
+		this.carbs = carbs;
+	}
+
+	public Double getFat() {
+		return fat;
+	}
+
+	public void setFat(Double fat) {
+		this.fat = fat;
+	}
+
+	public String getNotes() {
+		return notes;
+	}
+
+	public void setNotes(String notes) {
+		this.notes = notes;
 	}
 
 	public Date getAddtime() {

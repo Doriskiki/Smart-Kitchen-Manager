@@ -45,9 +45,9 @@ public class UserShicaiEntity<T> implements Serializable {
 	private Long userid;
 	
 	/**
-	 * 食材id
+	 * 食材名称
 	 */
-	private Long shicaiId;
+	private String shicaiName;
 	
 	/**
 	 * 数量
@@ -101,12 +101,12 @@ public class UserShicaiEntity<T> implements Serializable {
 		this.userid = userid;
 	}
 
-	public Long getShicaiId() {
-		return shicaiId;
+	public String getShicaiName() {
+		return shicaiName;
 	}
 
-	public void setShicaiId(Long shicaiId) {
-		this.shicaiId = shicaiId;
+	public void setShicaiName(String shicaiName) {
+		this.shicaiName = shicaiName;
 	}
 
 	public Integer getQuantity() {

@@ -25,6 +25,13 @@ import pingfenxinxiAdd from '../pages/pingfenxinxi/add'
 import aboutusList from '../pages/aboutus/list'
 import aboutusDetail from '../pages/aboutus/detail'
 import aboutusAdd from '../pages/aboutus/add'
+import usershicaiList from '../pages/usershicai/list'
+import usershicaiDetail from '../pages/usershicai/detail'
+import usershicaiAdd from '../pages/usershicai/add'
+import usershicaiReceipt from '../pages/usershicai/receipt'
+import dietStatisticsList from '../pages/dietstatistics/list'
+import dietStatisticsDetail from '../pages/dietstatistics/detail'
+import dietStatisticsAdd from '../pages/dietstatistics/add'
 
 const originalPush = VueRouter.prototype.push
 VueRouter.prototype.push = function push(location) {
@@ -125,6 +132,34 @@ export default new VueRouter({
 				{
 					path: 'aboutusAdd',
 					component: aboutusAdd
+				},
+				{
+					path: 'usershicaiList',
+					component: usershicaiList
+				},
+				{
+					path: 'usershicaiDetail',
+					component: usershicaiDetail
+				},
+				{
+					path: 'usershicaiAdd',
+					component: usershicaiAdd
+				},
+				{
+					path: 'usershicaiReceipt',
+					component: usershicaiReceipt
+				},
+				{
+					path: 'dietStatisticsList',
+					component: dietStatisticsList
+				},
+				{
+					path: 'dietStatisticsDetail',
+					component: dietStatisticsDetail
+				},
+				{
+					path: 'dietStatisticsAdd',
+					component: dietStatisticsAdd
 				},
 			]
 		},
