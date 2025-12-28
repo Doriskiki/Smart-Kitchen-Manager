@@ -7,6 +7,7 @@ import java.util.Map;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.pagination.Pagination;
 
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import com.entity.vo.AboutusVO;
 import com.entity.view.AboutusView;
@@ -19,6 +20,7 @@ import com.entity.view.AboutusView;
  * @email 
  * @date 2023-04-25 08:11:09
  */
+@Mapper
 public interface AboutusDao extends BaseMapper<AboutusEntity> {
 	
 	List<AboutusVO> selectListVO(@Param("ew") Wrapper<AboutusEntity> wrapper);

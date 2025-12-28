@@ -93,6 +93,16 @@ public class YonghuEntity<T> implements Serializable {
 					
 	private String touxiang;
 	
+	/**
+	 * 健康偏好设置（JSON格式）
+	 */
+	private String healthPreference;
+	
+	/**
+	 * 过敏信息
+	 */
+	private String allergyInfo;
+	
 	
 	@JsonFormat(locale="zh", timezone="GMT+8", pattern="yyyy-MM-dd HH:mm:ss")
 	@DateTimeFormat
@@ -195,6 +205,30 @@ public class YonghuEntity<T> implements Serializable {
 	 */
 	public String getTouxiang() {
 		return touxiang;
+	}
+	/**
+	 * 设置：健康偏好设置
+	 */
+	public void setHealthPreference(String healthPreference) {
+		this.healthPreference = healthPreference;
+	}
+	/**
+	 * 获取：健康偏好设置
+	 */
+	public String getHealthPreference() {
+		return healthPreference;
+	}
+	/**
+	 * 设置：过敏信息
+	 */
+	public void setAllergyInfo(String allergyInfo) {
+		this.allergyInfo = allergyInfo;
+	}
+	/**
+	 * 获取：过敏信息
+	 */
+	public String getAllergyInfo() {
+		return allergyInfo;
 	}
 
 }

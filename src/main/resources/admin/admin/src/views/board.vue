@@ -299,7 +299,7 @@ export default {
             .card {
                 width: calc(25% - 20px);
                 margin: 0 10px;
-                /deep/.el-card__body{
+                ::v-deep .el-card__body{
                     padding: 0;
                 }
             }
