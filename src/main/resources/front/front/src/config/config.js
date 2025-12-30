@@ -1,5 +1,5 @@
 export default {
-    baseUrl: 'http://localhost:8080/springbootct3p7/',
+    baseUrl: 'http://localhost:8081/springbootct3p7/',
     indexNav: [
         {
             name: '首页',
@@ -8,6 +8,10 @@ export default {
         {
             name: '菜谱信息',
             url: '/index/caipuxinxi'
+        },
+        {
+            name: '智能采购',
+            url: '/index/shoppingList'
         },
         {
             name: '公告信息',

@@ -8,6 +8,28 @@
 	</div>
 	
 	<div class="list-preview" :style='{"width":"1200px","margin":"10px auto","position":"relative","background":"none"}'>
+		<!-- 智能推荐选择 -->
+		<div v-if="isLoggedIn" class="recommend-selector" :style='{"padding":"10px 20px","borderColor":"#dbd9f4","borderRadius":"8px","background":"linear-gradient(135deg, #667eea 0%, #764ba2 100%)","borderWidth":"2px","marginBottom":"10px","display":"flex","alignItems":"center","justifyContent":"space-between","width":"100%","borderStyle":"solid"}'>
+			<div style="display: flex; align-items: center; gap: 15px;">
+				<span style="color: #fff; font-size: 16px; font-weight: 600;">🎯 智能推荐：</span>
+				<el-radio-group v-model="recommendType" @change="changeRecommendType" size="small">
+					<el-radio-button label="stock_based">基于库存</el-radio-button>
+					<el-radio-button label="hot">热门推荐</el-radio-button>
+					<el-radio-button label="personalized">个性化</el-radio-button>
+					<el-radio-button label="normal">普通浏览</el-radio-button>
+				</el-radio-group>
+			</div>
+			<el-button 
+				v-if="recommendType !== 'normal'" 
+				size="small" 
+				icon="el-icon-refresh" 
+				@click="refreshRecommend"
+				:loading="refreshing"
+				style="background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.3); color: #fff;">
+				刷新推荐
+			</el-button>
+		</div>
+		
 		<div class="category-1" :style='{"padding":"10px","borderColor":"#dbd9f4","borderRadius":"8px","background":"#fff","borderWidth":"2px 1px 1px 1px","display":"flex","width":"100%","borderStyle":"solid","height":"auto"}'>
 			<div class="item" :class="swiperIndex == '-1' ? 'active' : ''" @click="getList(1, '全部')" :plain="isPlain">全部</div>
 			<div class="item" :class="swiperIndex == index ? 'active' : ''" v-for="(item, index) in fenlei" :key="index" @click="getList(1, item, 'btn' + index)" :ref="'btn' + index" plain>{{item}}</div>
@@ -55,7 +77,7 @@
 	<div class="hot" :style='{"border":"2px solid #dbd9f4","margin":"20px 0 0","borderRadius":"8px","background":"#fff","width":"100%","position":"relative","height":"auto"}'>
 	  <div :style='{"padding":"0 20px","margin":"0 auto","color":"#000","textAlign":"center","background":"url(http://codegen.caihongy.cn/20221105/bb1ea9437beb4e1da8fcd1583db2f111.png) no-repeat,radial-gradient(circle, rgba(219,217,244,1) 0%, rgba(181,177,240,1) 100%)","width":"260px","lineHeight":"42px","fontSize":"24px","height":"42px"}'>热门信息</div>
 	  <div :style='{"padding":"20px","margin":"4px 0 0 0","background":"none","display":"flex","width":"100%","justifyContent":"space-between","height":"auto"}'>
-	    <div v-for="item in hotList" :key="item" :style='{"cursor":"pointer","width":"23%","padding":"0 0 8px 0","borderRadius":"8px","background":"#f6f6f6","height":"auto"}' @click="toDetail(item)">
+	    <div v-for="(item, index) in hotList" :key="item.id || index" :style='{"cursor":"pointer","width":"23%","padding":"0 0 8px 0","borderRadius":"8px","background":"#f6f6f6","height":"auto"}' @click="toDetail(item)">
 	      <img :style='{"width":"calc(100% - 24px)","margin":"12px","objectFit":"cover","borderRadius":"8px","display":"block","height":"240px"}' v-if="item.caipufengmian && item.caipufengmian.substr(0,4)=='http'" :src="item.caipufengmian" alt="">
 	      <img :style='{"width":"calc(100% - 24px)","margin":"12px","objectFit":"cover","borderRadius":"8px","display":"block","height":"240px"}' v-else :src="baseUrl + (item.caipufengmian?item.caipufengmian.split(',')[0]:'')" alt="">
 	      <div :style='{"padding":"0 0 0 12px","margin":"0px 24px 4px 0","color":"#333","borderRadius":"0 20px 20px 0","background":"#ede9f6","lineHeight":"32px","fontSize":"14px"}'>{{item.caipumingcheng}}</div>
@@ -117,12 +139,27 @@
         isPlain: false,
         indexQueryCondition: '',
 	      caishileixingOptions: [],
-        timeRange: []
+        timeRange: [],
+        // 新增推荐相关
+        isLoggedIn: false,
+        userId: null,
+        recommendType: 'normal',
+        refreshing: false
       }
     },
     created() {
       this.indexQueryCondition = this.$route.query.indexQueryCondition ? this.$route.query.indexQueryCondition : '';
       this.baseUrl = this.$config.baseUrl;
+      
+      // 检查登录状态
+      this.isLoggedIn = !!localStorage.getItem('Token');
+      this.userId = localStorage.getItem('userid');
+      
+      // 如果已登录，默认使用基于库存的推荐
+      if (this.isLoggedIn) {
+        this.recommendType = 'stock_based';
+      }
+      
       this.$http.get('option/caishileixing/caishileixing').then(res => {
         if (res.data.code == 0) {
           this.caishileixingOptions = res.data.data;
@@ -173,6 +210,14 @@
         } else {
           this.isPlain = true;
         }
+        
+        // 如果是智能推荐模式且已登录，使用推荐接口
+        if (this.isLoggedIn && this.recommendType !== 'normal') {
+          this.getRecommendList(page);
+          return;
+        }
+        
+        // 普通列表模式
         let params = {page, limit: this.pageSize};
         let searchWhere = {};
         if (this.formSearch.caipumingcheng != '') searchWhere.caipumingcheng = '%' + this.formSearch.caipumingcheng + '%';
@@ -190,6 +235,77 @@
 			
 			this.pageSizes = [this.pageSize, this.pageSize*2, this.pageSize*3, this.pageSize*5];
           }
+        });
+      },
+      
+      // 获取智能推荐列表
+      getRecommendList(page) {
+        let params = {
+          userId: this.userId,
+          pageNum: page,
+          pageSize: this.pageSize,
+          recommendType: this.recommendType,
+          sortType: 'score'
+        };
+        
+        // 添加分类过滤
+        if (this.curFenlei != '全部') {
+          params.caishileixing = this.curFenlei;
+        }
+        
+        this.$http.get('caipuxinxi/recommend', {params}).then(res => {
+          if (res.data.code == 0) {
+            this.dataList = res.data.data.list;
+            this.total = res.data.data.total;
+            this.pageSize = res.data.data.pageSize;
+            this.totalPage = res.data.data.totalPage;
+            
+            this.pageSizes = [this.pageSize, this.pageSize*2, this.pageSize*3, this.pageSize*5];
+          } else {
+            this.$message.warning(res.data.msg || '获取推荐失败，切换到普通模式');
+            this.recommendType = 'normal';
+            this.getList(page, this.curFenlei);
+          }
+        }).catch(err => {
+          this.$message.error('推荐服务异常，切换到普通模式');
+          this.recommendType = 'normal';
+          this.getList(page, this.curFenlei);
+        });
+      },
+      
+      // 切换推荐类型
+      changeRecommendType(type) {
+        this.getList(1, this.curFenlei);
+      },
+      
+      // 刷新推荐
+      refreshRecommend() {
+        this.refreshing = true;
+        let params = {
+          userId: this.userId,
+          pageNum: 1,
+          pageSize: this.pageSize,
+          recommendType: this.recommendType,
+          sortType: 'score',
+          refresh: true  // 强制刷新缓存
+        };
+        
+        if (this.curFenlei != '全部') {
+          params.caishileixing = this.curFenlei;
+        }
+        
+        this.$http.get('caipuxinxi/recommend', {params}).then(res => {
+          this.refreshing = false;
+          if (res.data.code == 0) {
+            this.dataList = res.data.data.list;
+            this.total = res.data.data.total;
+            this.$message.success('推荐已刷新');
+          } else {
+            this.$message.error(res.data.msg || '刷新失败');
+          }
+        }).catch(err => {
+          this.refreshing = false;
+          this.$message.error('刷新失败：' + err.message);
         });
       },
       curChange(page) {
@@ -215,6 +331,24 @@
 <style rel="stylesheet/scss" lang="scss" scoped>
 	.list-preview .list-form-pv .el-input {
 		width: auto;
+	}
+	
+	.recommend-selector ::v-deep .el-radio-button__inner {
+		background: rgba(255,255,255,0.2);
+		border: 1px solid rgba(255,255,255,0.3);
+		color: #fff;
+		padding: 8px 15px;
+	}
+	
+	.recommend-selector ::v-deep .el-radio-button__orig-radio:checked+.el-radio-button__inner {
+		background: rgba(255,255,255,0.9);
+		border-color: rgba(255,255,255,0.9);
+		color: #667eea;
+		box-shadow: none;
+	}
+	
+	.recommend-selector ::v-deep .el-radio-button:first-child .el-radio-button__inner {
+		border-left: 1px solid rgba(255,255,255,0.3);
 	}
 
 	.breadcrumb-preview .el-breadcrumb ::v-deep .el-breadcrumb__separator {

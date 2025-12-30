@@ -31,6 +31,7 @@ import com.entity.YonghuEntity;
 import com.entity.view.YonghuView;
 
 import com.service.YonghuService;
+import com.service.CaipuxinxiService;
 import com.service.TokenService;
 import com.utils.PageUtils;
 import com.utils.R;
@@ -52,7 +53,8 @@ public class YonghuController {
     @Autowired
     private YonghuService yonghuService;
 
-
+    @Autowired
+    private CaipuxinxiService caipuxinxiService;
     
 	@Autowired
 	private TokenService tokenService;
@@ -252,14 +254,114 @@ public class YonghuController {
         return R.ok();
     }
     
-	
-
-
-
-
-
-
-
+    /**
+     * 获取用户偏好设置
+     * GET /yonghu/preference/{userId}
+     * 
+     * @param userId 用户ID
+     * @return 用户偏好设置（healthPreference和allergyInfo）
+     */
+    @RequestMapping("/preference/{userId}")
+    public R getPreference(@PathVariable("userId") Long userId) {
+        try {
+            if (userId == null) {
+                return R.error(400, "用户ID不能为空");
+            }
+            
+            com.dto.UserPreferenceDTO preference = yonghuService.getUserPreference(userId);
+            
+            if (preference == null) {
+                return R.error(404, "用户不存在");
+            }
+            
+            return R.ok().put("data", preference);
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+            return R.error(500, "系统异常，请稍后重试");
+        }
+    }
+    
+    /**
+     * 更新用户偏好设置
+     * PUT /yonghu/preference/update
+     * 
+     * @param request 更新请求（包含userId、healthPreference、allergyInfo）
+     * @param httpRequest HTTP请求对象
+     * @return 更新结果
+     */
+    @RequestMapping("/preference/update")
+    public R updatePreference(@RequestBody com.dto.PreferenceUpdateRequest request, HttpServletRequest httpRequest) {
+        try {
+            // 参数校验
+            if (request.getUserId() == null) {
+                return R.error(400, "用户ID不能为空");
+            }
+            
+            // 权限校验：仅允许修改自身偏好
+            Long sessionUserId = (Long) httpRequest.getSession().getAttribute("userId");
+            if (sessionUserId != null && !sessionUserId.equals(request.getUserId())) {
+                return R.error(403, "无权修改其他用户的偏好设置");
+            }
+            
+            // 执行更新
+            boolean result = yonghuService.updateUserPreference(request);
+            
+            if (result) {
+                // 清除用户推荐缓存
+                try {
+                    caipuxinxiService.clearUserRecommendCache(request.getUserId());
+                } catch (Exception e) {
+                    // 缓存清除失败不影响主流程
+                }
+                
+                return R.ok("偏好设置更新成功");
+            } else {
+                return R.error(400, "偏好设置更新失败，请检查参数");
+            }
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+            return R.error(500, "系统异常，请稍后重试");
+        }
+    }
+    
+    /**
+     * 初始化用户偏好设置（向导式）
+     * POST /yonghu/preference/init
+     * 
+     * @param request 初始化请求（包含基础偏好参数）
+     * @param httpRequest HTTP请求对象
+     * @return 初始化结果
+     */
+    @RequestMapping("/preference/init")
+    public R initPreference(@RequestBody com.dto.PreferenceInitRequest request, HttpServletRequest httpRequest) {
+        try {
+            // 参数校验
+            if (request.getUserId() == null) {
+                return R.error(400, "用户ID不能为空");
+            }
+            
+            // 权限校验：仅允许初始化自身偏好
+            Long sessionUserId = (Long) httpRequest.getSession().getAttribute("userId");
+            if (sessionUserId != null && !sessionUserId.equals(request.getUserId())) {
+                return R.error(403, "无权初始化其他用户的偏好设置");
+            }
+            
+            // 执行初始化
+            boolean result = yonghuService.initUserPreference(request);
+            
+            if (result) {
+                return R.ok("偏好设置初始化成功");
+            } else {
+                return R.error(400, "偏好设置初始化失败，请检查参数");
+            }
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+            return R.error(500, "系统异常，请稍后重试");
+        }
+    }
 
 
 }

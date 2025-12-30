@@ -34,6 +34,8 @@ import dietStatisticsDetail from '../pages/dietstatistics/detail'
 import dietStatisticsAdd from '../pages/dietstatistics/add'
 import foodUsageStatistics from '../pages/statistics/foodusage'
 import healthPreference from '../pages/statistics/healthpreference'
+import shoppingList from '../pages/shopping/list'
+import preferenceSettings from '../pages/preference/settings'
 
 const originalPush = VueRouter.prototype.push
 VueRouter.prototype.push = function push(location) {
@@ -170,6 +172,14 @@ export default new VueRouter({
 				{
 					path: 'healthPreference',
 					component: healthPreference
+				},
+				{
+					path: 'shoppingList',
+					component: shoppingList
+				},
+				{
+					path: 'preferenceSettings',
+					component: preferenceSettings
 				},
 			]
 		},

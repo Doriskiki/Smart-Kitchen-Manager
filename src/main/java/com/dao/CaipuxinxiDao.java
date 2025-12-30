@@ -38,6 +38,12 @@ public interface CaipuxinxiDao extends BaseMapper<CaipuxinxiEntity> {
 
     List<Map<String, Object>> selectGroup(@Param("params") Map<String, Object> params,@Param("ew") Wrapper<CaipuxinxiEntity> wrapper);
 
-
+	/**
+	 * 查询所有食谱及其所需食材
+	 * 一次性获取所有食谱数据，避免N+1查询问题
+	 * 
+	 * @return 食谱列表（包含食材信息）
+	 */
+	List<Map<String, Object>> selectAllRecipesWithIngredients();
 
 }

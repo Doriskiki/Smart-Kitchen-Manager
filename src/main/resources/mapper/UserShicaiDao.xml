@@ -15,4 +15,22 @@
         <result property="addtime" column="addtime"/>
     </resultMap>
 
+	<!-- 查询用户有效食材（状态为'new'或'used'） -->
+	<select id="selectValidIngredientsByUserId" resultMap="userShicaiMap">
+		SELECT 
+			id,
+			userid,
+			shicai_name,
+			quantity,
+			unit,
+			purchase_date,
+			expiry_date,
+			status,
+			addtime
+		FROM user_shicai
+		WHERE userid = #{userid}
+		  AND status IN ('new', 'used')
+		ORDER BY addtime DESC
+	</select>
+
 </mapper>

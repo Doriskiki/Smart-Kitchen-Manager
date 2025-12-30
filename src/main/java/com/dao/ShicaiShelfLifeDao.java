@@ -2,18 +2,21 @@ package com.dao;
 
 import com.entity.ShicaiShelfLifeEntity;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
-import java.util.List;
-import com.baomidou.mybatisplus.mapper.Wrapper;
-import com.baomidou.mybatisplus.plugins.pagination.Pagination;
 import org.apache.ibatis.annotations.Param;
 
 /**
- * 保质期参考库
+ * 食材保质期参考库
  * 
  * @author 
- * @email 
- * @date 2023-04-25 08:11:08
+ * @date 2023-04-25
  */
 public interface ShicaiShelfLifeDao extends BaseMapper<ShicaiShelfLifeEntity> {
-	
+    
+    /**
+     * 根据食材ID查询保质期信息
+     * 
+     * @param shicaiId 食材ID
+     * @return 保质期信息
+     */
+    ShicaiShelfLifeEntity selectByShicaiId(@Param("shicaiId") Long shicaiId);
 }

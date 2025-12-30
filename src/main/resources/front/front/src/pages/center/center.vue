@@ -149,6 +149,7 @@
           </div>
         </el-dialog>
       </el-tab-pane>
+      <el-tab-pane label="偏好设置"></el-tab-pane>
       <el-tab-pane label="我的收藏"></el-tab-pane>
     </el-tabs>
 </div>
@@ -345,6 +346,9 @@
         switch(event.target.outerText) {
           case '个人中心':
             tab.$router.push('/index/center');
+            break;
+          case '偏好设置':
+            tab.$router.push('/index/preferenceSettings');
             break;
           case '我的收藏':
             localStorage.setItem('storeupType', 1);

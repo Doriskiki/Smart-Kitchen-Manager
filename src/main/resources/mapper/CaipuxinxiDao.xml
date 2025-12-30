@@ -74,6 +74,20 @@
         limit 10
     </select>
 
-
+	<!-- 查询所有食谱及其所需食材，一次性获取避免N+1查询 -->
+	<select id="selectAllRecipesWithIngredients" resultType="map">
+		SELECT 
+			id,
+			caipumingcheng,
+			caipufengmian,
+			caishileixing,
+			pengrenfangshi,
+			fenshu,
+			cailiao,
+			zhizuoliucheng,
+			clicknum
+		FROM caipuxinxi
+		ORDER BY id
+	</select>
 
 </mapper>

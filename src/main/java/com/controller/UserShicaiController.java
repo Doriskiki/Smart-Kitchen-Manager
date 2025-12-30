@@ -18,6 +18,7 @@ import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.annotation.IgnoreAuth;
 import com.entity.UserShicaiEntity;
 import com.service.UserShicaiService;
+import com.service.CaipuxinxiService;
 import com.utils.PageUtils;
 import com.utils.R;
 import com.utils.MPUtil;
@@ -34,6 +35,9 @@ import com.utils.MPUtil;
 public class UserShicaiController {
     @Autowired
     private UserShicaiService userShicaiService;
+    
+    @Autowired
+    private CaipuxinxiService caipuxinxiService;
 
     /**
      * 后端列表
@@ -123,6 +127,16 @@ public class UserShicaiController {
 		
 		userShicai.setAddtime(new Date());
         userShicaiService.insert(userShicai);
+        
+        // 清除用户推荐缓存
+        if (userShicai.getUserid() != null) {
+            try {
+                caipuxinxiService.clearUserRecommendCache(userShicai.getUserid());
+            } catch (Exception e) {
+                // 缓存清除失败不影响主流程
+            }
+        }
+        
         return R.ok();
     }
     
@@ -158,6 +172,16 @@ public class UserShicaiController {
     @Transactional
     public R update(@RequestBody UserShicaiEntity userShicai, HttpServletRequest request){
         userShicaiService.updateById(userShicai);
+        
+        // 清除用户推荐缓存
+        if (userShicai.getUserid() != null) {
+            try {
+                caipuxinxiService.clearUserRecommendCache(userShicai.getUserid());
+            } catch (Exception e) {
+                // 缓存清除失败不影响主流程
+            }
+        }
+        
         return R.ok();
     }
 
@@ -166,7 +190,26 @@ public class UserShicaiController {
      */
     @RequestMapping("/delete")
     public R delete(@RequestBody Long[] ids){
+        // 获取要删除的食材信息，用于清除缓存
+        java.util.Set<Long> userIds = new java.util.HashSet<>();
+        for (Long id : ids) {
+            UserShicaiEntity entity = userShicaiService.selectById(id);
+            if (entity != null && entity.getUserid() != null) {
+                userIds.add(entity.getUserid());
+            }
+        }
+        
         userShicaiService.deleteBatchIds(Arrays.asList(ids));
+        
+        // 清除相关用户的推荐缓存
+        for (Long userId : userIds) {
+            try {
+                caipuxinxiService.clearUserRecommendCache(userId);
+            } catch (Exception e) {
+                // 缓存清除失败不影响主流程
+            }
+        }
+        
         return R.ok();
     }
     

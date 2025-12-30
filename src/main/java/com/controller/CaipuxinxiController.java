@@ -388,5 +388,109 @@ public class CaipuxinxiController {
         return R.ok().put("data", count);
     }
 
+    /**
+     * 智能推荐接口（优化版）
+     * 
+     * 基于用户当前的食材库存，计算食谱与用户食材的匹配度，
+     * 并过滤包含过敏原的食谱，为用户提供个性化的食谱推荐。
+     * 
+     * 新增功能：
+     * 1. 支持多种推荐类型（基于库存/热门/个性化）
+     * 2. 融合用户健康偏好
+     * 3. 热门权重计算
+     * 4. Redis缓存支持
+     * 5. 去重逻辑（收藏/浏览历史）
+     * 
+     * @param userId 用户ID（必传）
+     * @param pageNum 页码（默认1）
+     * @param pageSize 每页大小（默认10）
+     * @param sortType 排序类型（matchRate-匹配度, popularity-热度，默认matchRate）
+     * @param recommendType 推荐类型（stock_based-基于库存, hot-热门, personalized-个性化，默认stock_based）
+     * @param refresh 是否刷新缓存（true-跳过缓存重新计算，默认false）
+     * @return 推荐结果分页数据
+     */
+    @RequestMapping("/recommend")
+    public R recommend(
+        @RequestParam(required = false) Long userId,
+        @RequestParam(defaultValue = "1") Integer pageNum,
+        @RequestParam(defaultValue = "10") Integer pageSize,
+        @RequestParam(defaultValue = "matchRate") String sortType,
+        @RequestParam(defaultValue = "stock_based") String recommendType,
+        @RequestParam(defaultValue = "false") Boolean refresh,
+        HttpServletRequest request
+    ) {
+        try {
+            // 参数验证
+            if (userId == null) {
+                return R.error(400, "用户ID不能为空");
+            }
+            
+            if (pageNum == null || pageNum < 1) {
+                pageNum = 1;
+            }
+            
+            if (pageSize == null || pageSize < 1) {
+                pageSize = 10;
+            }
+            
+            if (sortType == null || sortType.trim().isEmpty()) {
+                sortType = "matchRate";
+            }
+            
+            if (recommendType == null || recommendType.trim().isEmpty()) {
+                recommendType = "stock_based";
+            }
+            
+            // 验证recommendType参数
+            if (!recommendType.equals("stock_based") && 
+                !recommendType.equals("hot") && 
+                !recommendType.equals("personalized")) {
+                return R.error(400, "推荐类型参数错误，支持：stock_based/hot/personalized");
+            }
+            
+            if (refresh == null) {
+                refresh = false;
+            }
+            
+            // 调用Service层获取推荐结果
+            PageUtils page = caipuxinxiService.getRecommendations(
+                userId, pageNum, pageSize, sortType, recommendType, refresh
+            );
+            
+            return R.ok().put("data", page);
+            
+        } catch (IllegalArgumentException e) {
+            return R.error(400, e.getMessage());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return R.error(500, "系统异常，请稍后重试");
+        }
+    }
+    
+    /**
+     * 清除用户推荐缓存
+     * 
+     * 当用户食材库存或偏好变更时调用
+     * 
+     * @param userId 用户ID
+     * @return 操作结果
+     */
+    @RequestMapping("/clearCache")
+    public R clearCache(@RequestParam(required = false) Long userId) {
+        try {
+            if (userId == null) {
+                return R.error(400, "用户ID不能为空");
+            }
+            
+            caipuxinxiService.clearUserRecommendCache(userId);
+            
+            return R.ok("缓存清除成功");
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+            return R.error(500, "清除缓存失败");
+        }
+    }
+
 
 }

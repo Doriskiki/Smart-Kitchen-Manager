@@ -150,9 +150,36 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
+		
+		<!-- QuickTheories for property-based testing -->
+		<dependency>
+			<groupId>org.quicktheories</groupId>
+			<artifactId>quicktheories</artifactId>
+			<version>0.26</version>
+			<scope>test</scope>
+		</dependency>
+		
+		<!-- Redis -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-redis</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-pool2</artifactId>
+		</dependency>
 	</dependencies>
 
 	<build>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<excludes>
+					<exclude>admin/admin/node_modules/**</exclude>
+					<exclude>front/front/node_modules/**</exclude>
+				</excludes>
+			</resource>
+		</resources>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
@@ -170,7 +197,7 @@
                <groupId>org.apache.maven.plugins</groupId>
                <artifactId>maven-surefire-plugin</artifactId>
                <configuration>
-                   <skipTests>true</skipTests>
+                   <skipTests>false</skipTests>
                </configuration>
            </plugin>
 		</plugins>
