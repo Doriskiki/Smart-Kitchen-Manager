@@ -5,6 +5,8 @@
 
     <resultMap type="com.entity.ShicaiShelfLifeEntity" id="shicaiShelfLifeMap">
         <result property="shicaiId" column="shicai_id"/>
+        <result property="shicaiName" column="shicai_name"/>
+        <result property="category" column="category"/>
         <result property="shelfLifeDays" column="shelf_life_days"/>
         <result property="storageMethod" column="storage_method"/>
         <result property="addtime" column="addtime"/>
@@ -15,6 +17,8 @@
         SELECT 
             id,
             shicai_id,
+            shicai_name,
+            category,
             shelf_life_days,
             storage_method,
             addtime

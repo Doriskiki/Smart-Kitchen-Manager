@@ -19,6 +19,7 @@ import com.annotation.IgnoreAuth;
 import com.entity.UserShicaiEntity;
 import com.service.UserShicaiService;
 import com.service.CaipuxinxiService;
+import com.service.ExpiryReminderService;
 import com.utils.PageUtils;
 import com.utils.R;
 import com.utils.MPUtil;
@@ -38,6 +39,9 @@ public class UserShicaiController {
     
     @Autowired
     private CaipuxinxiService caipuxinxiService;
+    
+    @Autowired
+    private ExpiryReminderService expiryReminderService;
 
     /**
      * 后端列表
@@ -45,9 +49,13 @@ public class UserShicaiController {
     @RequestMapping("/page")
     public R page(@RequestParam Map<String, Object> params, UserShicaiEntity userShicai,
 		HttpServletRequest request){
-		String tableName = request.getSession().getAttribute("tableName").toString();
-		if(tableName.equals("yonghu")) {
-			userShicai.setUserid((Long)request.getSession().getAttribute("userId"));
+		// 从session获取tableName，添加空值检查
+		Object tableNameObj = request.getSession().getAttribute("tableName");
+		if(tableNameObj != null) {
+			String tableName = tableNameObj.toString();
+			if(tableName.equals("yonghu")) {
+				userShicai.setUserid((Long)request.getSession().getAttribute("userId"));
+			}
 		}
 		// 如果参数中有userid，使用参数中的userid（前端传递）
 		if(params.get("userid") != null) {
@@ -56,6 +64,9 @@ public class UserShicaiController {
         EntityWrapper<UserShicaiEntity> ew = new EntityWrapper<UserShicaiEntity>();
 
 		PageUtils page = userShicaiService.queryPage(params, MPUtil.sort(MPUtil.between(MPUtil.likeOrEq(ew, userShicai), params), params));
+		
+		// 自动更新过期食材状态
+		userShicaiService.autoUpdateExpiredStatus();
 
         return R.ok().put("data", page);
     }
@@ -120,10 +131,19 @@ public class UserShicaiController {
     public R save(@RequestBody UserShicaiEntity userShicai, HttpServletRequest request){
     	userShicai.setId(new Date().getTime()+new Double(Math.floor(Math.random()*1000)).longValue());
     	
-		String tableName = request.getSession().getAttribute("tableName").toString();
-		if(tableName.equals("yonghu")) {
-			userShicai.setUserid((Long)request.getSession().getAttribute("userId"));
-		}
+    	// 从session获取用户信息（如果有）
+    	Object tableNameObj = request.getSession().getAttribute("tableName");
+    	if(tableNameObj != null) {
+    		String tableName = tableNameObj.toString();
+    		if(tableName.equals("yonghu")) {
+    			userShicai.setUserid((Long)request.getSession().getAttribute("userId"));
+    		}
+    	}
+    	
+    	// 如果userid仍然为空，返回错误
+    	if(userShicai.getUserid() == null) {
+    		return R.error("用户ID不能为空，请先登录");
+    	}
 		
 		userShicai.setAddtime(new Date());
         userShicaiService.insert(userShicai);
@@ -171,6 +191,26 @@ public class UserShicaiController {
     @RequestMapping("/update")
     @Transactional
     public R update(@RequestBody UserShicaiEntity userShicai, HttpServletRequest request){
+        // 获取旧的食材信息
+        UserShicaiEntity oldEntity = userShicaiService.selectById(userShicai.getId());
+        
+        if (oldEntity != null) {
+            // 如果状态变为used或discarded，删除待处理提醒
+            if (("used".equals(userShicai.getStatus()) || "discarded".equals(userShicai.getStatus()))
+                && !"used".equals(oldEntity.getStatus()) && !"discarded".equals(oldEntity.getStatus())) {
+                expiryReminderService.deletePendingRemindersByShicai(userShicai.getId());
+            }
+            
+            // 如果过期日期变化，更新提醒日期
+            if (userShicai.getExpiryDate() != null 
+                && !userShicai.getExpiryDate().equals(oldEntity.getExpiryDate())) {
+                expiryReminderService.updateReminderDateByShicai(
+                    userShicai.getId(), 
+                    userShicai.getExpiryDate()
+                );
+            }
+        }
+        
         userShicaiService.updateById(userShicai);
         
         // 清除用户推荐缓存
@@ -189,6 +229,7 @@ public class UserShicaiController {
      * 删除
      */
     @RequestMapping("/delete")
+    @Transactional
     public R delete(@RequestBody Long[] ids){
         // 获取要删除的食材信息，用于清除缓存
         java.util.Set<Long> userIds = new java.util.HashSet<>();
@@ -197,6 +238,12 @@ public class UserShicaiController {
             if (entity != null && entity.getUserid() != null) {
                 userIds.add(entity.getUserid());
             }
+            
+            // 删除食材前，先删除关联的提醒
+            expiryReminderService.delete(
+                new EntityWrapper<com.entity.ExpiryReminderEntity>()
+                    .eq("user_shicai_id", id)
+            );
         }
         
         userShicaiService.deleteBatchIds(Arrays.asList(ids));
@@ -235,7 +282,7 @@ public class UserShicaiController {
     }
     
     /**
-     * 查询即将过期的食材（7天内）
+     * 查询即将过期的食材（3天内）
      */
     @RequestMapping("/listExpiringSoon")
     public R listExpiringSoon(@RequestParam Long userid){
@@ -244,7 +291,7 @@ public class UserShicaiController {
         ew.eq("status", "new");
         
         Calendar calendar = Calendar.getInstance();
-        calendar.add(Calendar.DAY_OF_MONTH, 7);
+        calendar.add(Calendar.DAY_OF_MONTH, 3);
         ew.le("expiry_date", calendar.getTime());
         ew.ge("expiry_date", new Date());
         

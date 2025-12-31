@@ -9,15 +9,20 @@ server:
 
 spring:
     datasource:
-        driverClassName: com.mysql.cj.jdbc.Driver
-        url: jdbc:mysql://127.0.0.1:3306/springbootct3p7?useUnicode=true&characterEncoding=utf-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=GMT%2B8
-        username: root
-        password: Swx2004
+        # driverClassName: com.mysql.cj.jdbc.Driver
+        # url: jdbc:mysql://127.0.0.1:3306/springbootct3p7?useUnicode=true&characterEncoding=utf-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=GMT%2B8
+        # username: root
+        # password: Swx2004
 
 #        driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
 #        url: jdbc:sqlserver://127.0.0.1:1433;DatabaseName=springbootct3p7
 #        username: sa
 #        password: 123456
+
+        driverClassName: com.mysql.cj.jdbc.Driver
+        url: jdbc:mysql://127.0.0.1:3306/springbootct3p7?useUnicode=true&characterEncoding=utf-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=GMT%2B8
+        username: root
+        password: root
 
     servlet:
       multipart:
@@ -25,6 +30,13 @@ spring:
         max-request-size: 300MB
     resources:
       static-locations: classpath:static/,file:static/
+    
+    # 定时任务配置
+    task:
+      scheduling:
+        pool:
+          size: 5
+        thread-name-prefix: scheduled-task-
 
 #mybatis
 mybatis-plus:

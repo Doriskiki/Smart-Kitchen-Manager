@@ -19,4 +19,10 @@ public interface UserShicaiService extends IService<UserShicaiEntity> {
     PageUtils queryPage(Map<String, Object> params);
     
    	PageUtils queryPage(Map<String, Object> params, Wrapper<UserShicaiEntity> wrapper);
+   	
+   	/**
+   	 * 自动更新过期食材状态
+   	 * 将过期日期小于当前时间且状态为new的食材更新为expired
+   	 */
+   	void autoUpdateExpiredStatus();
 }

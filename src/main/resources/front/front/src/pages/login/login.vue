@@ -79,7 +79,7 @@ export default {
   },
 	created() {
 		for(let item in this.roleMenus) {
-			if(this.roleMenus[item] && this.roleMenus[item].hasFrontLogin) {
+			if(this.roleMenus[item] && this.roleMenus[item].hasFrontLogin === '是') {
 				this.roles.push(this.roleMenus[item]);
 			}
 		}

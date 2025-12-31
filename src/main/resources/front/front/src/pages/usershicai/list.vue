@@ -24,6 +24,27 @@
 			</div>
 		</div>
 
+		<!-- 过期提醒横幅 -->
+		<el-alert
+			v-if="unreadReminders.length > 0"
+			:title="`您有 ${unreadReminders.length} 条未读提醒`"
+			type="warning"
+			:closable="false"
+			:style='{"marginBottom":"20px","borderRadius":"8px"}'
+			show-icon>
+			<div slot="default">
+				<div v-for="(reminder, index) in unreadReminders.slice(0, 3)" :key="reminder.id" :style='{"padding":"5px 0","borderBottom":index < Math.min(2, unreadReminders.length - 1) ? "1px dashed #e6a23c" : "none"}'>
+					<span :style='{"fontWeight":"bold"}'>{{reminder.shicaiName}}</span>
+					<span :style='{"margin":"0 10px","color":"#909399"}'>|</span>
+					<span>{{formatRemindDate(reminder.expiryDate)}}</span>
+					<el-button type="text" size="mini" @click="markReminderAsRead(reminder.id)" :style='{"marginLeft":"10px","color":"#409eff"}'>标记已读</el-button>
+				</div>
+				<div v-if="unreadReminders.length > 3" :style='{"marginTop":"10px","textAlign":"center"}'>
+					<el-button type="text" size="small" @click="viewAllReminders">查看全部 {{unreadReminders.length}} 条提醒 >></el-button>
+				</div>
+			</div>
+		</el-alert>
+
 		<!-- 状态筛选 -->
 		<div class="category-1" :style='{"padding":"10px","borderColor":"#dbd9f4","borderRadius":"8px","background":"#fff","borderWidth":"2px 1px 1px 1px","display":"flex","width":"100%","borderStyle":"solid","height":"auto"}'>
 			<div class="item" :class="statusFilter == '' ? 'active' : ''" @click="filterByStatus('')">全部</div>
@@ -119,12 +140,14 @@ export default {
 			total: 0,
 			totalCount: 0,
 			expiringSoonCount: 0,
-			newCount: 0
+			newCount: 0,
+			unreadReminders: []
 		}
 	},
 	created() {
 		this.baseUrl = this.$config.baseUrl;
 		this.getStats();
+		this.getUnreadReminders();
 		this.getList(1);
 	},
 	methods: {
@@ -139,6 +162,65 @@ export default {
 					this.expiringSoonCount = list.filter(item => this.isExpiringSoon(item.expiryDate)).length;
 				}
 			});
+		},
+		// 获取未读提醒
+		getUnreadReminders() {
+			let userid = this.$storage.get('userid');
+			this.$http.get('expiryreminder/page', {
+				params: {
+					page: 1,
+					limit: 10,
+					userid: userid,
+					status: 'pending'
+				}
+			}).then(res => {
+				if (res.data && res.data.code === 0) {
+					this.unreadReminders = res.data.data.list || [];
+				}
+			});
+		},
+		// 标记提醒为已读
+		markReminderAsRead(reminderId) {
+			let userid = this.$storage.get('userid');
+			this.$http.post('expiryreminder/markAsRead', null, {
+				params: {
+					id: reminderId,
+					userid: userid
+				}
+			}).then(res => {
+				if (res.data && res.data.code === 0) {
+					this.$message.success('已标记为已读');
+					this.getUnreadReminders();
+				} else {
+					this.$message.error(res.data.msg || '操作失败');
+				}
+			});
+		},
+		// 查看所有提醒
+		viewAllReminders() {
+			this.$alert('提醒列表功能开发中...', '提示', {
+				confirmButtonText: '确定'
+			});
+		},
+		// 格式化提醒日期
+		formatRemindDate(date) {
+			if (!date) return '';
+			let d = new Date(date);
+			let now = new Date();
+			let diff = d - now;
+			let days = Math.ceil(diff / (1000 * 60 * 60 * 24));
+			
+			if (days < 0) {
+				return '已过期';
+			} else if (days === 0) {
+				return '今天过期';
+			} else if (days === 1) {
+				return '明天过期';
+			} else if (days <= 3) {
+				return `${days}天后过期`;
+			} else {
+				return this.formatDate(date);
+			}
 		},
 		// 获取列表
 		getList(page) {
@@ -185,14 +267,14 @@ export default {
 				   String(d.getMonth() + 1).padStart(2, '0') + '-' + 
 				   String(d.getDate()).padStart(2, '0');
 		},
-		// 判断是否即将过期
+		// 判断是否即将过期（3天内）
 		isExpiringSoon(expiryDate) {
 			if (!expiryDate) return false;
 			let now = new Date();
 			let expiry = new Date(expiryDate);
 			let diff = expiry - now;
 			let days = diff / (1000 * 60 * 60 * 24);
-			return days > 0 && days <= 7;
+			return days > 0 && days <= 3;
 		},
 		// 获取过期日期样式
 		getExpiryStyle(expiryDate) {

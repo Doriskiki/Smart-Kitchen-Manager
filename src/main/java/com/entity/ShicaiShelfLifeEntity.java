@@ -2,6 +2,7 @@ package com.entity;
 
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
+import com.baomidou.mybatisplus.annotations.TableField;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -28,6 +29,16 @@ public class ShicaiShelfLifeEntity implements Serializable {
      * 食材ID
      */
     private Long shicaiId;
+    
+    /**
+     * 食材名称（冗余字段，方便查询）
+     */
+    private String shicaiName;
+    
+    /**
+     * 食材分类（冗余字段，方便查询）
+     */
+    private String category;
 
     /**
      * 保质期天数
@@ -63,6 +74,22 @@ public class ShicaiShelfLifeEntity implements Serializable {
 
     public void setShicaiId(Long shicaiId) {
         this.shicaiId = shicaiId;
+    }
+    
+    public String getShicaiName() {
+        return shicaiName;
+    }
+
+    public void setShicaiName(String shicaiName) {
+        this.shicaiName = shicaiName;
+    }
+    
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     public Integer getShelfLifeDays() {

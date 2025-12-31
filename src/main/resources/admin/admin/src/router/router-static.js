@@ -21,6 +21,7 @@ import center from '@/views/center'
     import messages from '@/views/modules/messages/list'
     import pingfenxinxi from '@/views/modules/pingfenxinxi/list'
     import config from '@/views/modules/config/list'
+    import shicaishelflife from '@/views/modules/shicaishelflife/list'
 
 
 //2.配置路由   注意：名字
@@ -99,6 +100,11 @@ const routes = [{
 	path: '/config',
         name: '轮播图管理',
         component: config
+      }
+      ,{
+	path: '/shicaishelflife',
+        name: '保质期参考库',
+        component: shicaishelflife
       }
     ]
   },
