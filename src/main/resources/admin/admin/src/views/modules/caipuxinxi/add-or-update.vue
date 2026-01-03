@@ -1,21 +1,20 @@
 <template>
-	<div class="addEdit-block" :style='{"padding":"30px"}' style="width: 100%;">
+	<div class="addEdit-block" style="width: 100%; padding: 30px;">
 		<el-form
-			:style='{"padding":"30px","boxShadow":"0px 4px 10px 0px rgba(0,0,0,0.3020)","borderRadius":"6px","background":"rgba(255, 255, 255, 0.8)"}'
-			class="add-update-preview"
+			class="form-container"
 			ref="ruleForm"
 			:model="ruleForm"
 			:rules="rules"
 			label-width="140px"
 		>
 			<template >
-				<el-form-item :style='{"width":"100%","margin":"0 0 20px 0","display":"inline-block"}' class="input" v-if="type!='info'"  label="菜谱名称" prop="caipumingcheng">
+				<el-form-item class="input" v-if="type!='info'"  label="菜谱名称" prop="caipumingcheng">
 					<el-input v-model="ruleForm.caipumingcheng" placeholder="菜谱名称" clearable  :readonly="ro.caipumingcheng"></el-input>
 				</el-form-item>
-				<el-form-item :style='{"width":"100%","margin":"0 0 20px 0","display":"inline-block"}' v-else class="input" label="菜谱名称" prop="caipumingcheng">
+				<el-form-item v-else class="input" label="菜谱名称" prop="caipumingcheng">
 					<el-input v-model="ruleForm.caipumingcheng" placeholder="菜谱名称" readonly></el-input>
 				</el-form-item>
-				<el-form-item :style='{"width":"100%","margin":"0 0 20px 0","display":"inline-block"}' class="upload" v-if="type!='info' && !ro.caipufengmian" label="菜谱封面" prop="caipufengmian">
+				<el-form-item class="upload" v-if="type!='info' && !ro.caipufengmian" label="菜谱封面" prop="caipufengmian">
 					<file-upload
 						tip="点击上传菜谱封面"
 						action="file/upload"
@@ -25,11 +24,11 @@
 						@change="caipufengmianUploadChange"
 					></file-upload>
 				</el-form-item>
-				<el-form-item :style='{"width":"100%","margin":"0 0 20px 0","display":"inline-block"}' class="upload" v-else-if="ruleForm.caipufengmian" label="菜谱封面" prop="caipufengmian">
+				<el-form-item class="upload" v-else-if="ruleForm.caipufengmian" label="菜谱封面" prop="caipufengmian">
 					<img v-if="ruleForm.caipufengmian.substring(0,4)=='http'" class="upload-img" style="margin-right:20px;" v-bind:key="index" :src="ruleForm.caipufengmian.split(',')[0]" width="100" height="100">
 					<img v-else class="upload-img" style="margin-right:20px;" v-bind:key="index" v-for="(item,index) in ruleForm.caipufengmian.split(',')" :src="$base.url+item" width="100" height="100">
 				</el-form-item>
-				<el-form-item :style='{"width":"100%","margin":"0 0 20px 0","display":"inline-block"}' class="select" v-if="type!='info'"  label="菜式类型" prop="caishileixing">
+				<el-form-item class="select" v-if="type!='info'"  label="菜式类型" prop="caishileixing">
 					<el-select :disabled="ro.caishileixing" v-model="ruleForm.caishileixing" placeholder="请选择菜式类型" >
 						<el-option
 							v-for="(item,index) in caishileixingOptions"
@@ -39,23 +38,23 @@
 						</el-option>
 					</el-select>
 				</el-form-item>
-				<el-form-item :style='{"width":"100%","margin":"0 0 20px 0","display":"inline-block"}' v-else class="input" label="菜式类型" prop="caishileixing">
+				<el-form-item v-else class="input" label="菜式类型" prop="caishileixing">
 					<el-input v-model="ruleForm.caishileixing"
 						placeholder="菜式类型" readonly></el-input>
 				</el-form-item>
-				<el-form-item :style='{"width":"100%","margin":"0 0 20px 0","display":"inline-block"}' class="input" v-if="type!='info'"  label="烹饪方式" prop="pengrenfangshi">
+				<el-form-item class="input" v-if="type!='info'"  label="烹饪方式" prop="pengrenfangshi">
 					<el-input v-model="ruleForm.pengrenfangshi" placeholder="烹饪方式" clearable  :readonly="ro.pengrenfangshi"></el-input>
 				</el-form-item>
-				<el-form-item :style='{"width":"100%","margin":"0 0 20px 0","display":"inline-block"}' v-else class="input" label="烹饪方式" prop="pengrenfangshi">
+				<el-form-item v-else class="input" label="烹饪方式" prop="pengrenfangshi">
 					<el-input v-model="ruleForm.pengrenfangshi" placeholder="烹饪方式" readonly></el-input>
 				</el-form-item>
-				<el-form-item :style='{"width":"100%","margin":"0 0 20px 0","display":"inline-block"}' class="input" v-if="type!='info'"  label="分数" prop="fenshu">
+				<el-form-item class="input" v-if="type!='info'"  label="分数" prop="fenshu">
 					<el-input v-model="ruleForm.fenshu" placeholder="分数" clearable  :readonly="ro.fenshu"></el-input>
 				</el-form-item>
-				<el-form-item :style='{"width":"100%","margin":"0 0 20px 0","display":"inline-block"}' v-else class="input" label="分数" prop="fenshu">
+				<el-form-item v-else class="input" label="分数" prop="fenshu">
 					<el-input v-model="ruleForm.fenshu" placeholder="分数" readonly></el-input>
 				</el-form-item>
-				<el-form-item :style='{"width":"100%","margin":"0 0 20px 0","display":"inline-block"}' class="date" v-if="type!='info'" label="发布日期" prop="faburiqi">
+				<el-form-item class="date" v-if="type!='info'" label="发布日期" prop="faburiqi">
 					<el-date-picker
 						format="yyyy 年 MM 月 dd 日"
 						value-format="yyyy-MM-dd"
@@ -65,11 +64,11 @@
 						placeholder="发布日期"
 					></el-date-picker> 
 				</el-form-item>
-				<el-form-item :style='{"width":"100%","margin":"0 0 20px 0","display":"inline-block"}' class="input" v-else-if="ruleForm.faburiqi" label="发布日期" prop="faburiqi">
+				<el-form-item class="input" v-else-if="ruleForm.faburiqi" label="发布日期" prop="faburiqi">
 					<el-input v-model="ruleForm.faburiqi" placeholder="发布日期" readonly></el-input>
 				</el-form-item>
 			</template>
-				<el-form-item :style='{"width":"100%","margin":"0 0 20px 0","display":"inline-block"}' class="textarea" v-if="type!='info'" label="材料" prop="cailiao">
+				<el-form-item class="textarea" v-if="type!='info'" label="材料" prop="cailiao">
 					<el-input
 					  style="min-width: 200px; max-width: 600px;"
 					  type="textarea"
@@ -78,10 +77,10 @@
 					  v-model="ruleForm.cailiao" >
 					</el-input>
 				</el-form-item>
-				<el-form-item :style='{"width":"100%","margin":"0 0 20px 0","display":"inline-block"}' v-else-if="ruleForm.cailiao" label="材料" prop="cailiao">
-					<span :style='{"fontSize":"14px","lineHeight":"40px","color":"#333","fontWeight":"500","display":"inline-block"}'>{{ruleForm.cailiao}}</span>
+				<el-form-item v-else-if="ruleForm.cailiao" label="材料" prop="cailiao">
+					<span class="content-display">{{ruleForm.cailiao}}</span>
 				</el-form-item>
-				<el-form-item :style='{"width":"100%","margin":"0 0 20px 0","display":"inline-block"}' v-if="type!='info'"  label="制作流程" prop="zhizuoliucheng">
+				<el-form-item v-if="type!='info'"  label="制作流程" prop="zhizuoliucheng">
 					<editor 
 						style="min-width: 200px; max-width: 600px;"
 						v-model="ruleForm.zhizuoliucheng" 
@@ -89,13 +88,13 @@
 						action="file/upload">
 					</editor>
 				</el-form-item>
-				<el-form-item :style='{"width":"100%","margin":"0 0 20px 0","display":"inline-block"}' v-else-if="ruleForm.zhizuoliucheng" label="制作流程" prop="zhizuoliucheng">
-                    <span :style='{"fontSize":"14px","lineHeight":"40px","color":"#333","fontWeight":"500","display":"inline-block"}' v-html="ruleForm.zhizuoliucheng"></span>
+				<el-form-item v-else-if="ruleForm.zhizuoliucheng" label="制作流程" prop="zhizuoliucheng">
+                    <span class="content-display" v-html="ruleForm.zhizuoliucheng"></span>
                 </el-form-item>
-			<el-form-item :style='{"padding":"0","margin":"0"}' class="btn">
-				<el-button :style='{"border":"1px solid #65bbd2","cursor":"pointer","padding":"0","margin":"0 20px 0 0","outline":"none","color":"#333","borderRadius":"4px","background":"linear-gradient(180deg, #219EBF 0%, rgba(130,189,204,0) 53%, #249FC0 100%)","width":"128px","lineHeight":"40px","fontSize":"14px","height":"40px"}'  v-if="type!='info'" type="primary" class="btn-success" @click="onSubmit">提交</el-button>
-				<el-button :style='{"border":"1px solid #65bbd2","cursor":"pointer","padding":"0","margin":"0","outline":"none","color":"#333","borderRadius":"4px","background":"linear-gradient(180deg, #219EBF 0%, rgba(130,189,204,0) 53%, #249FC0 100%)","width":"128px","lineHeight":"40px","fontSize":"14px","height":"40px"}' v-if="type!='info'" class="btn-close" @click="back()">取消</el-button>
-				<el-button :style='{"border":"1px solid #65bbd2","cursor":"pointer","padding":"0","margin":"0","outline":"none","color":"#333","borderRadius":"4px","background":"linear-gradient(180deg, #219EBF 0%, rgba(130,189,204,0) 53%, #249FC0 100%)","width":"128px","lineHeight":"40px","fontSize":"14px","height":"40px"}' v-if="type=='info'" class="btn-close" @click="back()">返回</el-button>
+			<el-form-item class="form-buttons">
+				<el-button class="btn-standard btn-submit" v-if="type!='info'" type="primary" @click="onSubmit">提交</el-button>
+				<el-button class="btn-standard btn-cancel" v-if="type!='info'" @click="back()">取消</el-button>
+				<el-button class="btn-standard btn-back" v-if="type=='info'" @click="back()">返回</el-button>
 			</el-form-item>
 		</el-form>
     

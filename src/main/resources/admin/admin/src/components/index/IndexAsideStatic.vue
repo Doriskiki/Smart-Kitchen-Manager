@@ -2,12 +2,8 @@
 	<div class="menu-preview">
 		<!-- 竖向 -->
 		<el-scrollbar wrap-class="scrollbar-wrapper">
-			<el-menu :default-openeds="[]" :unique-opened="true" :style='{"border":0,"padding":"0","listStyle":"none","margin":"40px 0px 20px","position":"relative","background":"rgba(13, 54, 93, 1)"}' class="el-menu-vertical-demo" default-active="0">
+			<el-menu :default-openeds="[]" :unique-opened="true" :style='{"border":0,"padding":"0","listStyle":"none","margin":"40px 0px 20px","position":"relative","background":"linear-gradient(135deg, #667eea 0%, #764ba2 100%)"}' class="el-menu-vertical-demo" default-active="0">
 				<el-image v-if="false" :style='{"width":"44px","margin":"10px auto","objectFit":"cover","borderRadius":"100%","display":"block","height":"44px"}' src="http://codegen.caihongy.cn/20201114/7856ba26477849ea828f481fa2773a95.jpg" fit="cover"></el-image>
-				<!-- <el-menu-item index="0" @click="menuHandler('')">
-					<i v-if='true' :style='{"width":"20px","verticalAlign":"middle","margin":"0 3px","fontSize":"20px","color":"inherit","textAlign":"center"}' class="el-icon-menu el-icon-s-home" />
-					<span :style='{"color":"inherit","verticalAlign":"middle","fontSize":"13px"}'>系统首页</span>
-				</el-menu-item> -->
 				
 				<el-submenu index="0" @click.native="menuHandler('')">
 					<template slot="title">
@@ -134,7 +130,7 @@ export default {
 			this.$nextTick(() => {
 								document.querySelectorAll('.el-menu-vertical-demo .el-submenu .el-menu').forEach(el => {
 				  el.removeAttribute('style')
-				  const icon = {"border":"none","display":"none"}
+				  const icon = {"border":"none","display":"none","background":"transparent"}
 				  Object.keys(icon).forEach((key) => {
 					el.style[key] = icon[key]
 				  })
@@ -166,88 +162,88 @@ export default {
 		}
 		
 		.el-menu-vertical-demo>.el-menu-item {
-				  				  cursor: pointer;
-				  				  background-color: rgba(13, 54, 93, 1);
-				  				  padding: 0 15px;
-				  				  margin: 0 15px;
-				  				  background-size: 100% 100%;
-				  				  color: rgba(255, 255, 255, 1);
-				  				  white-space: nowrap;
-				  				  background-image: url(http://codegen.caihongy.cn/20220727/a51c3b30d3834bc393a7459c9ef6b156.png);
-				  				  position: relative;
-				  		}
-		
+			cursor: pointer;
+			background-color: transparent;
+			padding: 0 15px;
+			margin: 5px 15px;
+			border-radius: 8px;
+			color: rgba(255, 255, 255, 0.9);
+			white-space: nowrap;
+			position: relative;
+			transition: all 0.3s ease;
+		}
+
 		.el-menu-vertical-demo>.el-menu-item:hover {
-						background-color: rgba(13, 54, 93, 1);
-						background-size: 100% 100%;
-						color: rgba(255, 255, 255, 1);
-						background-image: url(http://codegen.caihongy.cn/20220727/da8741e7330f44e7bad021d7e93106e4.png);
-					}
-		
+			background-color: rgba(255, 255, 255, 0.1);
+			color: rgba(255, 255, 255, 1);
+			transform: translateX(5px);
+		}
+
 		.el-menu-vertical-demo .el-submenu ::v-deep .el-submenu__title {
-						cursor: pointer;
-						background-color: rgba(13, 54, 93, 1);
-						padding: 0 15px;
-						margin: 0 15px;
-						background-size: 100% 100%;
-						color: rgba(255, 255, 255, 1);
-						white-space: nowrap;
-						background-image: url(http://codegen.caihongy.cn/20220727/a51c3b30d3834bc393a7459c9ef6b156.png);
-						position: relative;
-					}
-		
+			cursor: pointer;
+			background-color: transparent;
+			padding: 0 15px;
+			margin: 5px 15px;
+			border-radius: 8px;
+			color: rgba(255, 255, 255, 0.9);
+			white-space: nowrap;
+			position: relative;
+			transition: all 0.3s ease;
+		}
+
 		.el-menu-vertical-demo .el-submenu ::v-deep .el-submenu__title:hover {
-						background-color: rgba(13, 54, 93, 1);
-						background-size: 100% 100%;
-						color: rgba(255, 255, 255, 1);
-						background-image: url(http://codegen.caihongy.cn/20220727/da8741e7330f44e7bad021d7e93106e4.png);
-					}
-		
+			background-color: rgba(255, 255, 255, 0.1);
+			color: rgba(255, 255, 255, 1);
+			transform: translateX(5px);
+		}
+
 		.el-menu-vertical-demo .el-submenu ::v-deep .el-submenu__title .el-submenu__icon-arrow {
-						margin: -7px 0 0 0;
-						top: 50%;
-						color: inherit;
-						vertical-align: middle;
-						font-size: 12px;
-						position: absolute;
-						right: 20px;
-					}
-		
+			margin: -7px 0 0 0;
+			top: 50%;
+			color: inherit;
+			vertical-align: middle;
+			font-size: 12px;
+			position: absolute;
+			right: 20px;
+		}
+
 		.el-menu-vertical-demo .el-submenu {
-						padding: 0;
-						margin: 20px 0 0;
-						list-style: none;
-					}
-		
-		// .el-menu-vertical-demo .el-submenu ::v-deep .el-menu {
-		// 				// 		border: none;
-		// 				// 		display: none;
-		// 				// }
-		
+			padding: 0;
+			margin: 10px 0;
+			list-style: none;
+		}
+
+		.el-menu-vertical-demo .el-submenu ::v-deep .el-menu {
+			background: transparent !important;
+		}
+
 		.el-menu-vertical-demo .el-submenu ::v-deep .el-menu .el-menu-item {
-						padding: 0 40px;
-						margin: 0px 0 1px;
-						color: #fff;
-						background: rgba(27, 73, 117, 1);
-						line-height: 50px;
-						height: 50px;
-					}
-		
+			padding: 0 40px;
+			margin: 2px 15px;
+			color: rgba(255, 255, 255, 0.8);
+			background: transparent;
+			border-radius: 6px;
+			line-height: 45px;
+			height: 45px;
+			transition: all 0.3s ease;
+		}
+
 		.el-menu-vertical-demo .el-submenu ::v-deep .el-menu .el-menu-item:hover {
-						padding: 0 40px;
-						color: #fff;
-						background: #4085a1;
-						line-height: 50px;
-						height: 50px;
-					}
-		
+			padding: 0 40px;
+			color: #fff;
+			background: rgba(255, 255, 255, 0.15);
+			transform: translateX(5px);
+			line-height: 45px;
+			height: 45px;
+		}
+
 		.el-menu-vertical-demo .el-submenu ::v-deep .el-menu .el-menu-item.is-active {
-						padding: 0 40px;
-						color: #fff;
-						background: #4085a1;
-						line-height: 50px;
-						height: 50px;
-					}
+			padding: 0 40px;
+			color: #fff;
+			background: rgba(255, 255, 255, 0.2);
+			line-height: 45px;
+			height: 45px;
+		}
 		// 竖向
 			  }
 	  	}

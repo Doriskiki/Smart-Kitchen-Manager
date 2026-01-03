@@ -44,7 +44,7 @@
 			<el-input v-model="ruleForm.username" placeholder="用户名"></el-input>
 		</el-form-item>
 		<el-form-item :style='{"padding":"0","margin":"0"}'>
-			<el-button :style='{"border":"1px solid #65bbd2","cursor":"pointer","padding":"0","margin":"0 20px 0 0","outline":"none","color":"#333","borderRadius":"4px","background":"linear-gradient(180deg, #219EBF 0%, rgba(130,189,204,0) 53%, #249FC0 100%)","width":"128px","lineHeight":"40px","fontSize":"14px","height":"40px"}' type="primary" @click="onUpdateHandler">修 改</el-button>
+			<el-button type="primary" @click="onUpdateHandler">修 改</el-button>
 		</el-form-item>
       </el-row>
     </el-form>

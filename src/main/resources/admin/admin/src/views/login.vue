@@ -1,22 +1,24 @@
 <template>
   <div>
-    <div class="container" :style='{"minHeight":"100vh","alignItems":"center","background":"url(http://codegen.caihongy.cn/20220804/44ce80dd25e14a6d9fc904c2682ef433.png)","display":"flex","width":"100%","backgroundSize":"cover","backgroundPosition":"center center","backgroundRepeat":"no-repeat","justifyContent":"center"}'>
+    <div class="container" :style='{"minHeight":"100vh","alignItems":"center","backgroundImage":"url(http://codegen.caihongy.cn/20221026/dfa16b1e27da4aacaf5408c8a8adddab.png)","display":"flex","width":"100%","backgroundSize":"100% 100%","backgroundPosition":"center center","backgroundRepeat":"no-repeat","justifyContent":"center"}'>
 
-      <el-form :style='{"padding":"0","margin":"0","borderRadius":"0","background":"rgba(255,255,255,0.5000)","flexDirection":"column","display":"flex","width":"749px","position":"absolute","right":"0","justifyContent":"center","height":"100vh"}'>
-        <div v-if="true" :style='{"margin":"0 0 20px 0","color":"rgba(0, 0, 0, 1)","textAlign":"center","width":"100%","lineHeight":"44px","fontSize":"24px","fontWeight":"600","height":"auto"}' class="title-container">智能菜谱推荐系统登录</div>
-        <div v-if="loginType==1" class="list-item" :style='{"width":"45%","margin":"0 auto 10px","alignItems":"center","flexWrap":"wrap","display":"flex"}'>
-          <div v-if="false" class="lable" :style='{"width":"64px","lineHeight":"44px","fontSize":"14px","color":"rgba(64, 158, 255, 1)"}'>用户名：</div>
-          <input :style='{"border":"0px solid rgba(64, 158, 255, 1)","padding":"0 10px","boxShadow":" 0px 4px 10px 0px rgba(0,0,0,0.3020)","color":"#333","outlineOffset":"4px","width":"100%","fontSize":"14px","height":"44px"}' placeholder="请输入用户名" name="username" type="text" v-model="rulesForm.username">
+      <el-form :style='{"padding":"40px 20px 20px","margin":"0","borderRadius":"10px","top":"0","background":"#fff","width":"570px","position":"absolute","right":"0","height":"100%"}'>
+        <div v-if="true" :style='{"width":"100%","margin":"150px  0 0 0","lineHeight":"1.5","fontSize":"32px","color":"rgba(51,51,51,1)","textAlign":"center"}'>ADMIN / LOGIN</div>
+        <div v-if="true" :style='{"width":"100%","margin":"20px 0","lineHeight":"1.5","fontSize":"24px","color":"#ab85d3","textAlign":"center"}'>智能菜谱推荐系统管理</div>
+        <div v-if="loginType==1" class="list-item" :style='{"width":"80%","margin":"50px auto","borderColor":"#ab85d3","borderStyle":"solid","borderWidth":"0 0  1px 0"}'>
+          <div v-if="true" :style='{"width":"20%","lineHeight":"44px","fontSize":"14px","color":"#000","textAlign":"center","display":"inline-block"}'>账号</div>
+          <input :style='{"border":"0","padding":"0 10px","color":"#999","display":"inline-block","width":"70%","fontSize":"14px","height":"44px"}' placeholder="请输入管理员账号" name="username" type="text" v-model="rulesForm.username">
         </div>
-        <div v-if="loginType==1" class="list-item" :style='{"width":"45%","margin":"0 auto 10px","alignItems":"center","flexWrap":"wrap","display":"flex"}'>
-          <div v-if="false" class="lable" :style='{"width":"64px","lineHeight":"44px","fontSize":"14px","color":"rgba(64, 158, 255, 1)"}'>密码：</div>
-          <input :style='{"border":"0px solid rgba(64, 158, 255, 1)","padding":"0 10px","boxShadow":" 0px 4px 10px 0px rgba(0,0,0,0.3020)","color":"#333","outlineOffset":"4px","width":"100%","fontSize":"14px","height":"44px"}' placeholder="请输入密码" name="password" type="password" v-model="rulesForm.password">
+        <div v-if="loginType==1" class="list-item" :style='{"width":"80%","margin":"50px auto","borderColor":"#ab85d3","borderStyle":"solid","borderWidth":"0 0  1px 0"}'>
+          <div v-if="true" :style='{"width":"20%","lineHeight":"44px","fontSize":"14px","color":"#000","textAlign":"center","display":"inline-block"}'>密码</div>
+          <input :style='{"border":"0","padding":"0 10px","color":"#999","display":"inline-block","width":"70%","fontSize":"14px","height":"44px"}' placeholder="请输入密码" name="password" type="password" v-model="rulesForm.password">
         </div>
-        <div :style='{"width":"70%","textAlign":"center","margin":"20px auto"}' v-if="roles.length>1" prop="loginInRole" class="list-type">
+        <div :style='{"width":"80%","margin":"20px auto"}' v-if="roles.length>1" prop="loginInRole" class="list-type">
           <el-radio v-for="item in roles" v-bind:key="item.roleName" v-model="rulesForm.role" :label="item.roleName">{{item.roleName}}</el-radio>
         </div>
-        <div :style='{"width":"80%","margin":"20px auto","alignItems":"center","justifyContent":"center","display":"flex"}'>
-          <el-button v-if="loginType==1" :style='{"border":"0","cursor":"pointer","padding":"0 24px","boxShadow":" 0px 4px 10px 0px #CFD5F8","margin":"0 10px","outline":"none","color":"#fff","borderRadius":"0","background":"linear-gradient(137deg, #792D3D 0%, #0D365D 100%)","width":"150px","fontSize":"18px","height":"70px"}' type="primary" @click="login()" class="loginInBt">登录</el-button>
+        <div :style='{"width":"80%","margin":"20px auto"}'>
+          <el-button v-if="loginType==1" :style='{"border":"0","cursor":"pointer","padding":"0 24px","margin":"10px 20px","outline":"none","color":"#666","borderRadius":"10px","background":"linear-gradient(90deg, rgba(255,233,100,1) 0%, rgba(194,248,126,1) 29%, rgba(181,233,252,1) 61%, rgba(246,172,218,1) 100%)","width":"40%","fontSize":"18px","height":"44px"}' @click="login()" class="loginInBt">登录</el-button>
+          <el-button v-if="loginType==1" :style='{"border":"2px solid #494592","cursor":"pointer","padding":"0 24px","margin":"10px 20px","outline":"none","color":"#000","borderRadius":"10px","background":"none","width":"40%","fontSize":"14px","height":"44px"}' @click="resetForm()">重置</el-button>
         </div>
       </el-form>
 
@@ -88,6 +90,15 @@ export default {
 		this.$storage.set("loginTable", tableName);
         this.$storage.set("pageFlag", "register");
 		this.$router.push({path:'/register'})
+    },
+    // 重置表单
+    resetForm() {
+      this.rulesForm = {
+        username: "",
+        password: "",
+        role: "",
+        code: '',
+      };
     },
     // 登陆
     login() {
@@ -175,51 +186,52 @@ export default {
 
 <style lang="scss" scoped>
 .container {
-  min-height: 100vh;
   position: relative;
-  background-repeat: no-repeat;
-  background-position: center center;
-  background-size: cover;
-      background: url(http://codegen.caihongy.cn/20220804/44ce80dd25e14a6d9fc904c2682ef433.png);
-        
+  
+  .el-form-item {
+    & ::v-deep .el-form-item__content {
+      width: 100%;
+    }
+  }
+  
   .list-item ::v-deep .el-input .el-input__inner {
-		border: 0px solid rgba(64, 158, 255, 1);
-		padding: 0 10px;
-		box-shadow:  0px 4px 10px 0px rgba(0,0,0,0.3020);
-		color: #333;
-		width: 100%;
-		font-size: 14px;
-		outline-offset: 4px;
-		height: 44px;
-	  }
+    border: 0;
+    padding: 0 10px;
+    color: #999;
+    display: inline-block;
+    width: 70%;
+    font-size: 14px;
+    height: 44px;
+  }
   
   .list-code ::v-deep .el-input .el-input__inner {
-  	  	border: 0px solid rgba(64, 158, 255, 1);
-  	  	border-radius: 0;
-  	  	padding: 0 10px;
-  	  	box-shadow:  0px 4px 10px 0px rgba(0,0,0,0.3020);
-  	  	outline: none;
-  	  	color: #333;
-  	  	width: 100%;
-  	  	font-size: 14px;
-  	  	height: 44px;
-  	  }
-
+    border: 0;
+    padding: 0 10px;
+    outline: none;
+    color: #999;
+    background: rgba(232, 240, 255,1);
+    display: inline-block;
+    vertical-align: middle;
+    width: calc(100% - 154px);
+    font-size: 14px;
+    height: 44px;
+  }
+  
   .list-type ::v-deep .el-radio__input .el-radio__inner {
-		background: rgba(53, 53, 53, 0);
-		border-color: #333;
-	  }
+    background: rgba(53, 53, 53, 0);
+    border-color: #666666;
+  }
   .list-type ::v-deep .el-radio__input.is-checked .el-radio__inner {
-        background: rgba(0, 57, 109, 1);
-        border-color: rgba(0, 57, 109, 1);
-      }
+    background: rgba(76, 72, 147, 1);
+    border-color: rgba(76, 72, 147, 1);
+  }
   .list-type ::v-deep .el-radio__label {
-		color: #333;
-		font-size: 14px;
-	  }
+    color: #999;
+    font-size: 14px;
+  }
   .list-type ::v-deep .el-radio__input.is-checked+.el-radio__label {
-        color: rgba(0, 57, 109, 1);
-        font-size: 14px;
-      }
+    color: rgba(76, 72, 147, 1);
+    font-size: 14px;
+  }
 }
 </style>

@@ -1,31 +1,30 @@
 <template>
-<div class="content" :style='{"padding":"30px"}'>
-	<div class="text" :style='{"margin":"50px auto","fontSize":"24px","color":"rgb(51, 51, 51)","textAlign":"center","fontWeight":"bold"}'>欢迎使用 {{this.$project.projectName}}</div>
+<div class="content" :style='{"padding":"20px"}'>
+	<div class="welcome-header" :style='{"padding":"30px","margin":"20px 0","borderRadius":"12px","background":"linear-gradient(135deg, #667eea 0%, #764ba2 100%)","textAlign":"center","color":"#fff"}'>
+		<div :style='{"fontSize":"28px","fontWeight":"bold","marginBottom":"10px"}'>欢迎使用 {{this.$project.projectName}}</div>
+		<div :style='{"fontSize":"16px","opacity":"0.9"}'>智能菜谱推荐系统管理平台</div>
+	</div>
+    
     <div class="cardView">
-        <div class="cards" :style='{"margin":"0 0 20px 0","alignItems":"center","justifyContent":"center","display":"flex"}'>
-			<div :style='{"boxShadow":"0 1px 6px rgba(0,0,0,.3)","margin":"5px 10px","borderRadius":"0px","display":"flex"}' v-if="isAuth('caipuxinxi','首页总数')">
-				<div :style='{"background":"red"}'></div>
-				<div :style='{"width":"160px","alignItems":"center","flexDirection":"column","justifyContent":"center","display":"flex"}'>
-					<div :style='{"margin":"5px 0","lineHeight":"24px","fontSize":"20px","color":"#333","fontWeight":"bold","height":"24px"}'>{{caipuxinxiCount}}</div>
-					<div :style='{"margin":"5px 0","lineHeight":"24px","fontSize":"16px","color":"#666","height":"24px"}'>菜谱信息总数</div>
-				</div>
+        <div class="stats-cards" :style='{"margin":"0 0 30px 0","alignItems":"center","justifyContent":"center","display":"flex","gap":"20px"}'>
+			<div :style='{"padding":"25px","borderRadius":"12px","background":"linear-gradient(135deg, #f093fb 0%, #f5576c 100%)","color":"#fff","textAlign":"center","minWidth":"200px","boxShadow":"0 4px 15px rgba(0,0,0,0.1)"}' v-if="isAuth('caipuxinxi','首页总数')">
+				<div :style='{"fontSize":"32px","fontWeight":"bold","marginBottom":"8px"}'>{{caipuxinxiCount}}</div>
+				<div :style='{"fontSize":"16px","opacity":"0.9"}'>菜谱信息总数</div>
 			</div>
-			<div :style='{"boxShadow":"0 1px 6px rgba(0,0,0,.3)","margin":"5px 10px","borderRadius":"0px","display":"flex"}' v-if="isAuth('pingfenxinxi','首页总数')">
-				<div :style='{"background":"red"}'></div>
-				<div :style='{"width":"160px","alignItems":"center","flexDirection":"column","justifyContent":"center","display":"flex"}'>
-					<div :style='{"margin":"5px 0","lineHeight":"24px","fontSize":"20px","color":"#333","fontWeight":"bold","height":"24px"}'>{{pingfenxinxiCount}}</div>
-					<div :style='{"margin":"5px 0","lineHeight":"24px","fontSize":"16px","color":"#666","height":"24px"}'>评分信息总数</div>
-				</div>
+			<div :style='{"padding":"25px","borderRadius":"12px","background":"linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)","color":"#fff","textAlign":"center","minWidth":"200px","boxShadow":"0 4px 15px rgba(0,0,0,0.1)"}' v-if="isAuth('pingfenxinxi','首页总数')">
+				<div :style='{"fontSize":"32px","fontWeight":"bold","marginBottom":"8px"}'>{{pingfenxinxiCount}}</div>
+				<div :style='{"fontSize":"16px","opacity":"0.9"}'>评分信息总数</div>
 			</div>
         </div>
-        <div style="display: flex;align-items: center;width: 100%;margin-bottom: 10px;">
-            <el-card style="width: 33.3%;margin: 0 10px;" v-if="isAuth('caipuxinxi','首页统计')">
+        
+        <div class="charts-container" style="display: flex;align-items: flex-start;width: 100%;gap: 20px;flex-wrap: wrap;">
+            <el-card :style='{"borderRadius":"12px","border":"2px solid #dbd9f4","boxShadow":"0 4px 15px rgba(0,0,0,0.08)","flex":"1","minWidth":"300px"}' v-if="isAuth('caipuxinxi','首页统计')">
                 <div id="caipuxinxiChart1" style="width:100%;height:400px;"></div>
             </el-card>
-            <el-card style="width: 33.3%;margin: 0 10px;" v-if="isAuth('caipuxinxi','首页统计')">
+            <el-card :style='{"borderRadius":"12px","border":"2px solid #dbd9f4","boxShadow":"0 4px 15px rgba(0,0,0,0.08)","flex":"1","minWidth":"300px"}' v-if="isAuth('caipuxinxi','首页统计')">
                 <div id="caipuxinxiChart2" style="width:100%;height:400px;"></div>
             </el-card>
-            <el-card style="width: 33.3%;margin: 0 10px;" v-if="isAuth('pingfenxinxi','首页统计')">
+            <el-card :style='{"borderRadius":"12px","border":"2px solid #dbd9f4","boxShadow":"0 4px 15px rgba(0,0,0,0.08)","flex":"1","minWidth":"300px"}' v-if="isAuth('pingfenxinxi','首页统计')">
                 <div id="pingfenxinxiChart1" style="width:100%;height:400px;"></div>
             </el-card>
         </div>
@@ -276,24 +275,36 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+    .content {
+        background: #f8f8fc;
+        min-height: calc(100vh - 120px);
+    }
+    
     .cardView {
         display: flex;
-        flex-wrap: wrap;
+        flex-direction: column;
         width: 100%;
 
-        .cards {
+        .stats-cards {
             display: flex;
             align-items: center;
             width: 100%;
-            margin-bottom: 10px;
+            margin-bottom: 30px;
             justify-content: center;
-            .card {
-                width: calc(25% - 20px);
-                margin: 0 10px;
-                ::v-deep .el-card__body{
-                    padding: 0;
-                }
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .charts-container {
+            ::v-deep .el-card__body {
+                padding: 20px;
             }
         }
+    }
+    
+    ::v-deep .el-card {
+        border-radius: 12px;
+        border: 2px solid #dbd9f4;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.08);
     }
 </style>

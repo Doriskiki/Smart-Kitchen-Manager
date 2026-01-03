@@ -2,13 +2,8 @@
 	<div class="main-content" :style='{"padding":"30px"}'>
 		<!-- 列表页 -->
 		<template v-if="showFlag">
-			<el-form class="center-form-pv" :style='{"margin":"0 0 20px"}' :inline="true" :model="searchForm">
-
-				<el-row :style='{"margin":"20px 0","display":"flex"}'>
-
-
-
-
+			<el-form class="search-form" :inline="true" :model="searchForm">
+				<el-row class="button-row">
 				</el-row>
 			</el-form>
 			
@@ -40,13 +35,8 @@
 					</el-table-column>
 					<el-table-column width="300" label="操作">
 						<template slot-scope="scope">
-							<el-button :style='{"border":"2px solid #43acc7","cursor":"pointer","padding":"0 24px","margin":"0 10px 0 0","outline":"none","color":"#333","borderRadius":"4px","background":"linear-gradient(180deg, #219EBF 0%, rgba(130,189,204,0) 53%, #249FC0 100%)","width":"auto","fontSize":"14px","height":"32px"}' v-if=" isAuth('config','查看')" type="success" size="mini" @click="addOrUpdateHandler(scope.row.id,'info')">详情</el-button>
-							<el-button :style='{"border":"2px solid #43acc7","cursor":"pointer","padding":"0 24px","margin":"0 10px 0 0","outline":"none","color":"#333","borderRadius":"4px","background":"linear-gradient(180deg, #219EBF 0%, rgba(130,189,204,0) 53%, #249FC0 100%)","width":"auto","fontSize":"14px","height":"32px"}' v-if=" isAuth('config','修改')" type="primary" size="mini" @click="addOrUpdateHandler(scope.row.id)">修改</el-button>
-
-
-
-
-
+							<el-button v-if=" isAuth('config','查看')" type="success" size="mini" @click="addOrUpdateHandler(scope.row.id,'info')">详情</el-button>
+							<el-button v-if=" isAuth('config','修改')" type="primary" size="mini" @click="addOrUpdateHandler(scope.row.id)">修改</el-button>
 						</template>
 					</el-table-column>
 				</el-table>

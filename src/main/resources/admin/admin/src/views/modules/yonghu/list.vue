@@ -1,97 +1,75 @@
 <template>
-	<div class="main-content" :style='{"padding":"30px"}'>
+	<div class="main-content">
 		<!-- 列表页 -->
 		<template v-if="showFlag">
-			<el-form class="center-form-pv" :style='{"margin":"0 0 20px"}' :inline="true" :model="searchForm">
-				<el-row :style='{"display":"block"}' >
-					<div :style='{"margin":"0 20px 0 0","display":"inline-block"}'>
-						<label :style='{"margin":"0 10px 0 0","color":"#333","display":"inline-block","lineHeight":"40px","fontSize":"14px","fontWeight":"500","height":"40px"}' class="item-label">账号</label>
+			<el-form class="search-form" :inline="true" :model="searchForm">
+				<el-row>
+					<el-form-item label="账号">
 						<el-input v-model="searchForm.zhanghao" placeholder="账号" clearable></el-input>
-					</div>
-					<div :style='{"margin":"0 20px 0 0","display":"inline-block"}'>
-						<label :style='{"margin":"0 10px 0 0","color":"#333","display":"inline-block","lineHeight":"40px","fontSize":"14px","fontWeight":"500","height":"40px"}' class="item-label">姓名</label>
+					</el-form-item>
+					<el-form-item label="姓名">
 						<el-input v-model="searchForm.xingming" placeholder="姓名" clearable></el-input>
-					</div>
-					<el-button :style='{"border":"2px solid #43acc7","cursor":"pointer","padding":"0 24px","outline":"none","color":"#333","borderRadius":"4px","background":"linear-gradient(180deg, #219EBF 0%, rgba(130,189,204,0) 53%, #249FC0 100%)","width":"auto","fontSize":"14px","height":"40px"}' type="success" @click="search()">查询</el-button>
+					</el-form-item>
+					<el-form-item>
+						<el-button type="primary" @click="search()">查询</el-button>
+					</el-form-item>
 				</el-row>
 
-				<el-row :style='{"margin":"20px 0","display":"flex"}'>
-					<el-button :style='{"border":"2px solid #43acc7","cursor":"pointer","padding":"0 24px","margin":"0 10px 0 0","outline":"none","color":"#333","borderRadius":"4px","background":"linear-gradient(180deg, #219EBF 0%, rgba(130,189,204,0) 53%, #249FC0 100%)","width":"auto","fontSize":"14px","height":"40px"}' v-if="isAuth('yonghu','新增')" type="success" @click="addOrUpdateHandler()">新增</el-button>
-					<el-button :style='{"border":"2px solid #43acc7","cursor":"pointer","padding":"0 24px","margin":"0 10px 0 0","outline":"none","color":"#333","borderRadius":"4px","background":"linear-gradient(180deg, #219EBF 0%, rgba(130,189,204,0) 53%, #249FC0 100%)","width":"auto","fontSize":"14px","height":"40px"}' v-if="isAuth('yonghu','删除')" :disabled="dataListSelections.length <= 0" type="danger" @click="deleteHandler()">删除</el-button>
-
-
-
-
+				<el-row class="button-row">
+					<el-button v-if="isAuth('yonghu','新增')" type="success" @click="addOrUpdateHandler()">新增</el-button>
+					<el-button v-if="isAuth('yonghu','删除')" :disabled="dataListSelections.length <= 0" type="danger" @click="deleteHandler()">删除</el-button>
 				</el-row>
 			</el-form>
 			
-			<!-- <div> -->
-				<el-table class="tables"
-					:stripe='false'
-					:style='{"padding":"0","borderColor":"rgba(227, 241, 245, 1)","borderRadius":"40px 40px 15px 15px","borderWidth":"10px","background":"#fff","width":"100%","borderStyle":"solid"}' 
-					v-if="isAuth('yonghu','查看')"
-					:data="dataList"
-					v-loading="dataListLoading"
+			<el-table class="data-table"
+				v-if="isAuth('yonghu','查看')"
+				:data="dataList"
+				v-loading="dataListLoading"
 				@selection-change="selectionChangeHandler">
-					<el-table-column :resizable='true' type="selection" align="center" width="50"></el-table-column>
-					<el-table-column :resizable='true' :sortable='true' label="索引" type="index" width="50" />
-					<el-table-column :resizable='true' :sortable='true'  
-						prop="zhanghao"
-					label="账号">
-						<template slot-scope="scope">
-							{{scope.row.zhanghao}}
-						</template>
-					</el-table-column>
-					<el-table-column :resizable='true' :sortable='true'  
-						prop="xingming"
-					label="姓名">
-						<template slot-scope="scope">
-							{{scope.row.xingming}}
-						</template>
-					</el-table-column>
-					<el-table-column :resizable='true' :sortable='true'  
-						prop="xingbie"
-					label="性别">
-						<template slot-scope="scope">
-							{{scope.row.xingbie}}
-						</template>
-					</el-table-column>
-					<el-table-column :resizable='true' :sortable='true'  
-						prop="youxiang"
-					label="邮箱">
-						<template slot-scope="scope">
-							{{scope.row.youxiang}}
-						</template>
-					</el-table-column>
-					<el-table-column :resizable='true' :sortable='true'  
-						prop="shoujihaoma"
-					label="手机号码">
-						<template slot-scope="scope">
-							{{scope.row.shoujihaoma}}
-						</template>
-					</el-table-column>
-					<el-table-column :resizable='true' :sortable='true' prop="touxiang" width="200" label="头像">
-						<template slot-scope="scope">
-							<div v-if="scope.row.touxiang">
-								<img v-if="scope.row.touxiang.substring(0,4)=='http'" :src="scope.row.touxiang.split(',')[0]" width="100" height="100">
-								<img v-else :src="$base.url+scope.row.touxiang.split(',')[0]" width="100" height="100">
-							</div>
-							<div v-else>无图片</div>
-						</template>
-					</el-table-column>
-					<el-table-column width="300" label="操作">
-						<template slot-scope="scope">
-							<el-button :style='{"border":"2px solid #43acc7","cursor":"pointer","padding":"0 24px","margin":"0 10px 0 0","outline":"none","color":"#333","borderRadius":"4px","background":"linear-gradient(180deg, #219EBF 0%, rgba(130,189,204,0) 53%, #249FC0 100%)","width":"auto","fontSize":"14px","height":"32px"}' v-if=" isAuth('yonghu','查看')" type="success" size="mini" @click="addOrUpdateHandler(scope.row.id,'info')">详情</el-button>
-							<el-button :style='{"border":"2px solid #43acc7","cursor":"pointer","padding":"0 24px","margin":"0 10px 0 0","outline":"none","color":"#333","borderRadius":"4px","background":"linear-gradient(180deg, #219EBF 0%, rgba(130,189,204,0) 53%, #249FC0 100%)","width":"auto","fontSize":"14px","height":"32px"}' v-if=" isAuth('yonghu','修改')" type="primary" size="mini" @click="addOrUpdateHandler(scope.row.id)">修改</el-button>
-
-
-
-
-
-							<el-button :style='{"border":"2px solid #43acc7","cursor":"pointer","padding":"0 24px","margin":"0 10px 0 0","outline":"none","color":"#333","borderRadius":"4px","background":"linear-gradient(180deg, #219EBF 0%, rgba(130,189,204,0) 53%, #249FC0 100%)","width":"auto","fontSize":"14px","height":"32px"}' v-if="isAuth('yonghu','删除') " type="danger" size="mini" @click="deleteHandler(scope.row.id)">删除</el-button>
-						</template>
-					</el-table-column>
-				</el-table>
+				<el-table-column type="selection" align="center" width="50"></el-table-column>
+				<el-table-column label="索引" type="index" width="50" />
+				<el-table-column prop="zhanghao" label="账号">
+					<template slot-scope="scope">
+						{{scope.row.zhanghao}}
+					</template>
+				</el-table-column>
+				<el-table-column prop="xingming" label="姓名">
+					<template slot-scope="scope">
+						{{scope.row.xingming}}
+					</template>
+				</el-table-column>
+				<el-table-column prop="xingbie" label="性别">
+					<template slot-scope="scope">
+						{{scope.row.xingbie}}
+					</template>
+				</el-table-column>
+				<el-table-column prop="youxiang" label="邮箱">
+					<template slot-scope="scope">
+						{{scope.row.youxiang}}
+					</template>
+				</el-table-column>
+				<el-table-column prop="shoujihaoma" label="手机号码">
+					<template slot-scope="scope">
+						{{scope.row.shoujihaoma}}
+					</template>
+				</el-table-column>
+				<el-table-column prop="touxiang" width="200" label="头像">
+					<template slot-scope="scope">
+						<div v-if="scope.row.touxiang" class="image-preview">
+							<img v-if="scope.row.touxiang.substring(0,4)=='http'" :src="scope.row.touxiang.split(',')[0]" width="60" height="60">
+							<img v-else :src="$base.url+scope.row.touxiang.split(',')[0]" width="60" height="60">
+						</div>
+						<div v-else class="no-image">无图片</div>
+					</template>
+				</el-table-column>
+				<el-table-column width="300" label="操作">
+					<template slot-scope="scope">
+						<el-button v-if="isAuth('yonghu','查看')" type="info" size="mini" @click="addOrUpdateHandler(scope.row.id,'info')">详情</el-button>
+						<el-button v-if="isAuth('yonghu','修改')" type="primary" size="mini" @click="addOrUpdateHandler(scope.row.id)">修改</el-button>
+						<el-button v-if="isAuth('yonghu','删除')" type="danger" size="mini" @click="deleteHandler(scope.row.id)">删除</el-button>
+					</template>
+				</el-table-column>
+			</el-table>
 				<el-pagination
 					@size-change="sizeChangeHandle"
 					@current-change="currentChangeHandle"
@@ -653,4 +631,42 @@ export default {
 				text-align: center;
 				height: 28px;
 			}
+</style>
+
+<style lang="scss" scoped>
+.main-content {
+  padding: 20px;
+  
+  .search-form {
+    .button-row {
+      margin-top: 15px;
+      
+      .el-button {
+        margin-right: 10px;
+      }
+    }
+  }
+  
+  .data-table {
+    margin-top: 20px;
+    
+    .image-preview {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      
+      img {
+        border-radius: 6px;
+        object-fit: cover;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      }
+    }
+    
+    .no-image {
+      color: #999;
+      font-size: 12px;
+      text-align: center;
+    }
+  }
+}
 </style>

@@ -1,8 +1,7 @@
 <template>
-	<div class="addEdit-block" :style='{"padding":"30px"}' style="width: 100%;">
+	<div class="addEdit-block" style="width: 100%; padding: 30px;">
 		<el-form
-			:style='{"padding":"30px","boxShadow":"0px 4px 10px 0px rgba(0,0,0,0.3020)","borderRadius":"6px","background":"rgba(255, 255, 255, 0.8)"}'
-			class="add-update-preview"
+			class="form-container"
 			ref="ruleForm"
 			:model="ruleForm"
 			:rules="rules"
@@ -75,10 +74,10 @@
 				<el-form-item :style='{"width":"100%","margin":"0 0 20px 0","display":"inline-block"}' v-else-if="ruleForm.content" label="内容" prop="content">
                     <span :style='{"fontSize":"14px","lineHeight":"40px","color":"#333","fontWeight":"500","display":"inline-block"}' v-html="ruleForm.content"></span>
                 </el-form-item>
-			<el-form-item :style='{"padding":"0","margin":"0"}' class="btn">
-				<el-button :style='{"border":"1px solid #65bbd2","cursor":"pointer","padding":"0","margin":"0 20px 0 0","outline":"none","color":"#333","borderRadius":"4px","background":"linear-gradient(180deg, #219EBF 0%, rgba(130,189,204,0) 53%, #249FC0 100%)","width":"128px","lineHeight":"40px","fontSize":"14px","height":"40px"}'  v-if="type!='info'" type="primary" class="btn-success" @click="onSubmit">提交</el-button>
-				<el-button :style='{"border":"1px solid #65bbd2","cursor":"pointer","padding":"0","margin":"0","outline":"none","color":"#333","borderRadius":"4px","background":"linear-gradient(180deg, #219EBF 0%, rgba(130,189,204,0) 53%, #249FC0 100%)","width":"128px","lineHeight":"40px","fontSize":"14px","height":"40px"}' v-if="type!='info'" class="btn-close" @click="back()">取消</el-button>
-				<el-button :style='{"border":"1px solid #65bbd2","cursor":"pointer","padding":"0","margin":"0","outline":"none","color":"#333","borderRadius":"4px","background":"linear-gradient(180deg, #219EBF 0%, rgba(130,189,204,0) 53%, #249FC0 100%)","width":"128px","lineHeight":"40px","fontSize":"14px","height":"40px"}' v-if="type=='info'" class="btn-close" @click="back()">返回</el-button>
+			<el-form-item class="form-buttons">
+				<el-button class="btn-standard btn-submit" v-if="type!='info'" type="primary" @click="onSubmit">提交</el-button>
+				<el-button class="btn-standard btn-cancel" v-if="type!='info'" @click="back()">取消</el-button>
+				<el-button class="btn-standard btn-back" v-if="type=='info'" @click="back()">返回</el-button>
 			</el-form-item>
 		</el-form>
     

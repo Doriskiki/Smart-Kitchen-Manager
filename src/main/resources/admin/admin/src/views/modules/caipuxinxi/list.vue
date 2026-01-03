@@ -1,128 +1,108 @@
 <template>
-	<div class="main-content" :style='{"padding":"30px"}'>
+	<div class="main-content">
 		<!-- 列表页 -->
 		<template v-if="showFlag">
-			<el-form class="center-form-pv" :style='{"margin":"0 0 20px"}' :inline="true" :model="searchForm">
-				<el-row :style='{"display":"block"}' >
-					<div :style='{"margin":"0 20px 0 0","display":"inline-block"}'>
-						<label :style='{"margin":"0 10px 0 0","color":"#333","display":"inline-block","lineHeight":"40px","fontSize":"14px","fontWeight":"500","height":"40px"}' class="item-label">菜谱名称</label>
+			<el-form class="search-form" :inline="true" :model="searchForm">
+				<el-row>
+					<el-form-item label="菜谱名称">
 						<el-input v-model="searchForm.caipumingcheng" placeholder="菜谱名称" clearable></el-input>
-					</div>
-					<div :style='{"margin":"0 20px 0 0","display":"inline-block"}' class="select" label="菜式类型" prop="caishileixing">
-						<label :style='{"margin":"0 10px 0 0","color":"#333","display":"inline-block","lineHeight":"40px","fontSize":"14px","fontWeight":"500","height":"40px"}' class="item-label">菜式类型</label>
-						<el-select  @change="caishileixingChange" clearable v-model="searchForm.caishileixing" placeholder="请选择菜式类型">
+					</el-form-item>
+					<el-form-item label="菜式类型" prop="caishileixing">
+						<el-select @change="caishileixingChange" clearable v-model="searchForm.caishileixing" placeholder="请选择菜式类型">
 							<el-option v-for="(item,index) in caishileixingOptions" v-bind:key="index" :label="item" :value="item"></el-option>
 						</el-select>
-					</div>
-					<div :style='{"margin":"0 20px 0 0","display":"inline-block"}'>
-						<label :style='{"margin":"0 10px 0 0","color":"#333","display":"inline-block","lineHeight":"40px","fontSize":"14px","fontWeight":"500","height":"40px"}' class="item-label">烹饪方式</label>
+					</el-form-item>
+					<el-form-item label="烹饪方式">
 						<el-input v-model="searchForm.pengrenfangshi" placeholder="烹饪方式" clearable></el-input>
-					</div>
-					<el-button :style='{"border":"2px solid #43acc7","cursor":"pointer","padding":"0 24px","outline":"none","color":"#333","borderRadius":"4px","background":"linear-gradient(180deg, #219EBF 0%, rgba(130,189,204,0) 53%, #249FC0 100%)","width":"auto","fontSize":"14px","height":"40px"}' type="success" @click="search()">查询</el-button>
+					</el-form-item>
+					<el-form-item>
+						<el-button type="primary" @click="search()">查询</el-button>
+					</el-form-item>
 				</el-row>
 
-				<el-row :style='{"margin":"20px 0","display":"flex"}'>
-					<el-button :style='{"border":"2px solid #43acc7","cursor":"pointer","padding":"0 24px","margin":"0 10px 0 0","outline":"none","color":"#333","borderRadius":"4px","background":"linear-gradient(180deg, #219EBF 0%, rgba(130,189,204,0) 53%, #249FC0 100%)","width":"auto","fontSize":"14px","height":"40px"}' v-if="isAuth('caipuxinxi','新增')" type="success" @click="addOrUpdateHandler()">新增</el-button>
-					<el-button :style='{"border":"2px solid #43acc7","cursor":"pointer","padding":"0 24px","margin":"0 10px 0 0","outline":"none","color":"#333","borderRadius":"4px","background":"linear-gradient(180deg, #219EBF 0%, rgba(130,189,204,0) 53%, #249FC0 100%)","width":"auto","fontSize":"14px","height":"40px"}' v-if="isAuth('caipuxinxi','删除')" :disabled="dataListSelections.length <= 0" type="danger" @click="deleteHandler()">删除</el-button>
+				<el-row class="button-row">
+					<el-button v-if="isAuth('caipuxinxi','新增')" type="success" @click="addOrUpdateHandler()">新增</el-button>
+					<el-button v-if="isAuth('caipuxinxi','删除')" :disabled="dataListSelections.length <= 0" type="danger" @click="deleteHandler()">删除</el-button>
 
 
 
 
-					<el-button :style='{"border":"2px solid #43acc7","cursor":"pointer","padding":"0 24px","margin":"0 10px 0 0","outline":"none","color":"#333","borderRadius":"4px","background":"linear-gradient(180deg, #219EBF 0%, rgba(130,189,204,0) 53%, #249FC0 100%)","width":"auto","fontSize":"14px","height":"40px"}' v-if="isAuth('caipuxinxi','菜谱分类统计')" type="warning" @click="chartDialog1()">菜谱分类统计</el-button>
-					<el-button :style='{"border":"2px solid #43acc7","cursor":"pointer","padding":"0 24px","margin":"0 10px 0 0","outline":"none","color":"#333","borderRadius":"4px","background":"linear-gradient(180deg, #219EBF 0%, rgba(130,189,204,0) 53%, #249FC0 100%)","width":"auto","fontSize":"14px","height":"40px"}' v-if="isAuth('caipuxinxi','菜谱评分统计')" type="warning" @click="chartDialog2()">菜谱评分统计</el-button>
+					<el-button v-if="isAuth('caipuxinxi','菜谱分类统计')" type="warning" @click="chartDialog1()">菜谱分类统计</el-button>
+					<el-button v-if="isAuth('caipuxinxi','菜谱评分统计')" type="warning" @click="chartDialog2()">菜谱评分统计</el-button>
 				</el-row>
 			</el-form>
 			
-			<!-- <div> -->
-				<el-table class="tables"
-					:stripe='false'
-					:style='{"padding":"0","borderColor":"rgba(227, 241, 245, 1)","borderRadius":"40px 40px 15px 15px","borderWidth":"10px","background":"#fff","width":"100%","borderStyle":"solid"}' 
-					v-if="isAuth('caipuxinxi','查看')"
-					:data="dataList"
-					v-loading="dataListLoading"
+			<el-table class="data-table"
+				v-if="isAuth('caipuxinxi','查看')"
+				:data="dataList"
+				v-loading="dataListLoading"
 				@selection-change="selectionChangeHandler">
-					<el-table-column :resizable='true' type="selection" align="center" width="50"></el-table-column>
-					<el-table-column :resizable='true' :sortable='true' label="索引" type="index" width="50" />
-					<el-table-column :resizable='true' :sortable='true'  
-						prop="caipumingcheng"
-					label="菜谱名称">
-						<template slot-scope="scope">
-							{{scope.row.caipumingcheng}}
-						</template>
-					</el-table-column>
-					<el-table-column :resizable='true' :sortable='true' prop="caipufengmian" width="200" label="菜谱封面">
-						<template slot-scope="scope">
-							<div v-if="scope.row.caipufengmian">
-								<img v-if="scope.row.caipufengmian.substring(0,4)=='http'" :src="scope.row.caipufengmian.split(',')[0]" width="100" height="100">
-								<img v-else :src="$base.url+scope.row.caipufengmian.split(',')[0]" width="100" height="100">
-							</div>
-							<div v-else>无图片</div>
-						</template>
-					</el-table-column>
-					<el-table-column :resizable='true' :sortable='true'  
-						prop="caishileixing"
-					label="菜式类型">
-						<template slot-scope="scope">
-							{{scope.row.caishileixing}}
-						</template>
-					</el-table-column>
-					<el-table-column :resizable='true' :sortable='true'  
-						prop="pengrenfangshi"
-					label="烹饪方式">
-						<template slot-scope="scope">
-							{{scope.row.pengrenfangshi}}
-						</template>
-					</el-table-column>
-					<el-table-column :resizable='true' :sortable='true'  
-						prop="fenshu"
-					label="分数">
-						<template slot-scope="scope">
-							{{scope.row.fenshu}}
-						</template>
-					</el-table-column>
-					<el-table-column :resizable='true' :sortable='true'  
-						prop="faburiqi"
-					label="发布日期">
-						<template slot-scope="scope">
-							{{scope.row.faburiqi}}
-						</template>
-					</el-table-column>
-					<el-table-column :resizable='true' :sortable='true'  
-						prop="clicknum"
-					label="点击次数">
-						<template slot-scope="scope">
-							{{scope.row.clicknum}}
-						</template>
-					</el-table-column>
-					<el-table-column width="300" label="操作">
-						<template slot-scope="scope">
-							<el-button :style='{"border":"2px solid #43acc7","cursor":"pointer","padding":"0 24px","margin":"0 10px 0 0","outline":"none","color":"#333","borderRadius":"4px","background":"linear-gradient(180deg, #219EBF 0%, rgba(130,189,204,0) 53%, #249FC0 100%)","width":"auto","fontSize":"14px","height":"32px"}' v-if=" isAuth('caipuxinxi','查看')" type="success" size="mini" @click="addOrUpdateHandler(scope.row.id,'info')">详情</el-button>
-							<el-button :style='{"border":"2px solid #43acc7","cursor":"pointer","padding":"0 24px","margin":"0 10px 0 0","outline":"none","color":"#333","borderRadius":"4px","background":"linear-gradient(180deg, #219EBF 0%, rgba(130,189,204,0) 53%, #249FC0 100%)","width":"auto","fontSize":"14px","height":"32px"}' v-if="isAuth('caipuxinxi','评分')" type="success" size="mini" @click="pingfenxinxiCrossAddOrUpdateHandler(scope.row,'cross','','[1]','该菜系已评分')">评分</el-button>
-							<el-button :style='{"border":"2px solid #43acc7","cursor":"pointer","padding":"0 24px","margin":"0 10px 0 0","outline":"none","color":"#333","borderRadius":"4px","background":"linear-gradient(180deg, #219EBF 0%, rgba(130,189,204,0) 53%, #249FC0 100%)","width":"auto","fontSize":"14px","height":"32px"}' v-if=" isAuth('caipuxinxi','修改')" type="primary" size="mini" @click="addOrUpdateHandler(scope.row.id)">修改</el-button>
+				<el-table-column type="selection" align="center" width="50"></el-table-column>
+				<el-table-column label="索引" type="index" width="50" />
+				<el-table-column prop="caipumingcheng" label="菜谱名称">
+					<template slot-scope="scope">
+						{{scope.row.caipumingcheng}}
+					</template>
+				</el-table-column>
+				<el-table-column prop="caipufengmian" width="200" label="菜谱封面">
+					<template slot-scope="scope">
+						<div v-if="scope.row.caipufengmian" class="image-preview">
+							<img v-if="scope.row.caipufengmian.substring(0,4)=='http'" :src="scope.row.caipufengmian.split(',')[0]" width="100" height="100">
+							<img v-else :src="$base.url+scope.row.caipufengmian.split(',')[0]" width="100" height="100">
+						</div>
+						<div v-else class="no-image">无图片</div>
+					</template>
+				</el-table-column>
+				<el-table-column prop="caishileixing" label="菜式类型">
+					<template slot-scope="scope">
+						{{scope.row.caishileixing}}
+					</template>
+				</el-table-column>
+				<el-table-column prop="pengrenfangshi" label="烹饪方式">
+					<template slot-scope="scope">
+						{{scope.row.pengrenfangshi}}
+					</template>
+				</el-table-column>
+				<el-table-column prop="fenshu" label="分数">
+					<template slot-scope="scope">
+						{{scope.row.fenshu}}
+					</template>
+				</el-table-column>
+				<el-table-column prop="faburiqi" label="发布日期">
+					<template slot-scope="scope">
+						{{scope.row.faburiqi}}
+					</template>
+				</el-table-column>
+				<el-table-column prop="clicknum" label="点击次数">
+					<template slot-scope="scope">
+						{{scope.row.clicknum}}
+					</template>
+				</el-table-column>
+				<el-table-column width="300" label="操作">
+					<template slot-scope="scope">
+						<el-button v-if="isAuth('caipuxinxi','查看')" type="info" size="mini" @click="addOrUpdateHandler(scope.row.id,'info')">详情</el-button>
+						<el-button v-if="isAuth('caipuxinxi','评分')" type="success" size="mini" @click="pingfenxinxiCrossAddOrUpdateHandler(scope.row,'cross','','[1]','该菜系已评分')">评分</el-button>
+						<el-button v-if="isAuth('caipuxinxi','修改')" type="primary" size="mini" @click="addOrUpdateHandler(scope.row.id)">修改</el-button>
 
 
-							<el-button :style='{"border":"2px solid #43acc7","cursor":"pointer","padding":"0 24px","margin":"0 10px 0 0","outline":"none","color":"#333","borderRadius":"4px","background":"linear-gradient(180deg, #219EBF 0%, rgba(130,189,204,0) 53%, #249FC0 100%)","width":"auto","fontSize":"14px","height":"32px"}' v-if="isAuth('caipuxinxi','查看评论')" type="primary" size="mini" @click="disscussListHandler(scope.row.id)">查看评论</el-button>
-
-
-
-							<el-button :style='{"border":"2px solid #43acc7","cursor":"pointer","padding":"0 24px","margin":"0 10px 0 0","outline":"none","color":"#333","borderRadius":"4px","background":"linear-gradient(180deg, #219EBF 0%, rgba(130,189,204,0) 53%, #249FC0 100%)","width":"auto","fontSize":"14px","height":"32px"}' v-if="isAuth('caipuxinxi','删除') " type="danger" size="mini" @click="deleteHandler(scope.row.id)">删除</el-button>
-						</template>
-					</el-table-column>
-				</el-table>
-				<el-pagination
-					@size-change="sizeChangeHandle"
-					@current-change="currentChangeHandle"
-					:current-page="pageIndex"
-					background
-					:page-sizes="[10, 20, 30, 50]"
-					:page-size="pageSize"
-					:layout="layouts.join()"
-					:total="totalPage"
-					prev-text="<"
-					next-text=">"
-					:hide-on-single-page="false"
-					:style='{"padding":"0","margin":"20px 0 0","whiteSpace":"nowrap","color":"#333","textAlign":"center","width":"100%","fontWeight":"500"}'
-				></el-pagination>
+							<el-button v-if="isAuth('caipuxinxi','查看评论')" type="primary" size="mini" @click="disscussListHandler(scope.row.id)">查看评论</el-button>
+						<el-button v-if="isAuth('caipuxinxi','删除')" type="danger" size="mini" @click="deleteHandler(scope.row.id)">删除</el-button>
+					</template>
+				</el-table-column>
+			</el-table>
+			<el-pagination
+				@size-change="sizeChangeHandle"
+				@current-change="currentChangeHandle"
+				:current-page="pageIndex"
+				background
+				:page-sizes="[10, 20, 30, 50]"
+				:page-size="pageSize"
+				:layout="layouts.join()"
+				:total="totalPage"
+				prev-text="<"
+				next-text=">"
+				:hide-on-single-page="false"
+			></el-pagination>
 			<!-- </div> -->
 		</template>
 		

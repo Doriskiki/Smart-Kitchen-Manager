@@ -1,170 +1,187 @@
 <template>
-<div class="home-preview" :style='{"width":"1200px","margin":"10px auto","flexWrap":"wrap","justifyContent":"space-between","display":"flex"}'>
+<div class="home-preview" :style='{"maxWidth":"1200px","margin":"0 auto","padding":"0 16px"}'>
 
-
-	<!-- 我的食材库 -->
-	<div v-if="Token" @click="goMenu('/index/usershicaiList')" :style='{"padding":"20px","margin":"20px 0 0 0","borderColor":"#dbd9f4","borderRadius":"8px","background":"linear-gradient(135deg, #667eea 0%, #764ba2 100%)","borderWidth":"2px 1px 1px 1px","display":"block","width":"30%","position":"relative","borderStyle":"solid","height":"240px","order":"1","cursor":"pointer"}'>
-	  <div :style='{"margin":"0 auto","color":"#fff","borderRadius":"0px","textAlign":"center","width":"100%","fontSize":"24px","lineHeight":"42px","height":"42px"}'>我的食材库</div>
-	  <div :style='{"margin":"20px 0","color":"rgba(255,255,255,0.9)","textAlign":"center","fontSize":"16px","lineHeight":"24px"}'>管理您的食材库存</div>
-	  <div :style='{"margin":"10px 0","color":"rgba(255,255,255,0.8)","textAlign":"center","fontSize":"14px","lineHeight":"20px"}'>查看食材、添加新食材、过期提醒</div>
-	  <div :style='{"margin":"20px auto 0","padding":"8px 20px","borderRadius":"20px","background":"rgba(255,255,255,0.2)","color":"#fff","textAlign":"center","width":"120px","fontSize":"14px"}'>立即查看</div>
-	</div>
-
-	<!-- 饮食统计 -->
-	<div v-if="Token" @click="goMenu('/index/dietStatisticsList')" :style='{"padding":"20px","margin":"20px 0 0 0","borderColor":"#dbd9f4","borderRadius":"8px","background":"linear-gradient(135deg, #f093fb 0%, #f5576c 100%)","borderWidth":"2px 1px 1px 1px","display":"block","width":"30%","position":"relative","borderStyle":"solid","height":"240px","order":"2","cursor":"pointer"}'>
-	  <div :style='{"margin":"0 auto","color":"#fff","borderRadius":"0px","textAlign":"center","width":"100%","fontSize":"24px","lineHeight":"42px","height":"42px"}'>饮食统计</div>
-	  <div :style='{"margin":"20px 0","color":"rgba(255,255,255,0.9)","textAlign":"center","fontSize":"16px","lineHeight":"24px"}'>查看您的饮食数据</div>
-	  <div :style='{"margin":"10px 0","color":"rgba(255,255,255,0.8)","textAlign":"center","fontSize":"14px","lineHeight":"20px"}'>消耗统计、健康分析</div>
-	  <div :style='{"margin":"20px auto 0","padding":"8px 20px","borderRadius":"20px","background":"rgba(255,255,255,0.2)","color":"#fff","textAlign":"center","width":"120px","fontSize":"14px"}'>查看统计</div>
-	</div>
-
-	<!-- 常用食材分析 -->
-	<div v-if="Token" @click="goMenu('/index/foodUsageStatistics')" :style='{"padding":"20px","margin":"20px 0 0 0","borderColor":"#dbd9f4","borderRadius":"8px","background":"linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)","borderWidth":"2px 1px 1px 1px","display":"block","width":"30%","position":"relative","borderStyle":"solid","height":"240px","order":"3","cursor":"pointer"}'>
-	  <div :style='{"margin":"0 auto","color":"#fff","borderRadius":"0px","textAlign":"center","width":"100%","fontSize":"24px","lineHeight":"42px","height":"42px"}'>常用食材分析</div>
-	  <div :style='{"margin":"20px 0","color":"rgba(255,255,255,0.9)","textAlign":"center","fontSize":"16px","lineHeight":"24px"}'>了解您的食材使用习惯</div>
-	  <div :style='{"margin":"10px 0","color":"rgba(255,255,255,0.8)","textAlign":"center","fontSize":"14px","lineHeight":"20px"}'>使用排行、频率分析</div>
-	  <div :style='{"margin":"20px auto 0","padding":"8px 20px","borderRadius":"20px","background":"rgba(255,255,255,0.2)","color":"#fff","textAlign":"center","width":"120px","fontSize":"14px"}'>查看分析</div>
-	</div>
-
-	<!-- 健康偏好管理 -->
-	<div v-if="Token" @click="goMenu('/index/healthPreference')" :style='{"padding":"20px","margin":"20px 0 0 0","borderColor":"#dbd9f4","borderRadius":"8px","background":"linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)","borderWidth":"2px 1px 1px 1px","display":"block","width":"30%","position":"relative","borderStyle":"solid","height":"240px","order":"4","cursor":"pointer"}'>
-	  <div :style='{"margin":"0 auto","color":"#fff","borderRadius":"0px","textAlign":"center","width":"100%","fontSize":"24px","lineHeight":"42px","height":"42px"}'>健康偏好管理</div>
-	  <div :style='{"margin":"20px 0","color":"rgba(255,255,255,0.9)","textAlign":"center","fontSize":"16px","lineHeight":"24px"}'>设置您的健康目标</div>
-	  <div :style='{"margin":"10px 0","color":"rgba(255,255,255,0.8)","textAlign":"center","fontSize":"14px","lineHeight":"20px"}'>营养目标、饮食偏好</div>
-	  <div :style='{"margin":"20px auto 0","padding":"8px 20px","borderRadius":"20px","background":"rgba(255,255,255,0.2)","color":"#fff","textAlign":"center","width":"120px","fontSize":"14px"}'>设置偏好</div>
-	</div>
-
-	<!-- 关于我们 -->
-	<div :style='{"padding":"0px","margin":"20px 0 0 0","borderColor":"#dbd9f4","borderRadius":"8px","background":"#fff","borderWidth":"2px 1px 1px 1px","display":"block","width":"30%","position":"relative","borderStyle":"solid","height":"500px","order":"5"}'>
-	  <div :style='{"margin":"0 auto","color":"#333","borderRadius":"0px","textAlign":"center","background":"url(http://codegen.caihongy.cn/20221105/bb1ea9437beb4e1da8fcd1583db2f111.png) no-repeat,radial-gradient(circle, rgba(219,217,244,1) 0%, rgba(181,177,240,1) 100%)","width":"260px","fontSize":"22px","lineHeight":"42px","height":"42px"}'>{{aboutUsDetail.title}}</div>
-	  <div :style='{"margin":"4px auto 12px","color":"#999","textAlign":"center","background":"none","display":"none","width":"75%","fontSize":"16px","lineHeight":"24px","height":"24px"}'>{{aboutUsDetail.subtitle}}</div>
-	  <div :style='{"width":"100%","padding":"0 20px","margin":"20px 0 0 0","flexWrap":"wrap","display":"block","height":"200px"}'>
-	    <img :style='{"width":"100%","margin":"0px","objectFit":"cover","borderRadius":"4px","display":"block","height":"100%"}' :src="baseUrl + aboutUsDetail.picture1">
-	    <img :style='{"margin":"0 10px","objectFit":"0","flex":1,"display":"none","height":"120px"}' :src="baseUrl + aboutUsDetail.picture2">
-	    <img :style='{"margin":"0 10px","objectFit":"cover","flex":1,"display":"none","height":"120px"}' :src="baseUrl + aboutUsDetail.picture3">
-	  </div>
-	  <div :style='{"padding":"20px","boxShadow":"0px 0px 2px #e6e6e6","margin":"0 auto","color":"#333","textIndent":"2em","overflow":"hidden","borderRadius":"4px","top":"240px","left":"38px","background":"rgba(248,248,252,.8)","width":"280px","lineHeight":"2","fontSize":"14px","position":"absolute","height":"216px"}' v-html="aboutUsDetail.content"></div>
-	  <div :style='{"width":"285px","background":"url(\"http://codegen.caihongy.cn/20201114/7856ba26477849ea828f481fa2773a95.jpg\") 0% 0% / cover no-repeat","display":"none","height":"100px"}' />
-	  <div :style='{"width":"285px","background":"url(\"http://codegen.caihongy.cn/20201114/7856ba26477849ea828f481fa2773a95.jpg\") 0% 0% / cover no-repeat","display":"none","height":"100px"}' />
-	  <div :style='{"width":"285px","background":"url(\"http://codegen.caihongy.cn/20201114/7856ba26477849ea828f481fa2773a95.jpg\") 0% 0% / cover no-repeat","display":"none","height":"100px"}' />
-	  <div :style='{"width":"285px","background":"url(\"http://codegen.caihongy.cn/20201114/7856ba26477849ea828f481fa2773a95.jpg\") 0% 0% / cover no-repeat","display":"none","height":"100px"}' />
-	</div>
-	<!-- 系统简介 -->
-	<div :style='{"padding":"0px 20px 40px 20px","margin":"20px 0 0 0","borderColor":"#dbd9f4","display":"flex","justifyContent":"space-between","borderRadius":"8px","flexWrap":"wrap","background":"#fff","borderWidth":"2px 1px 1px 1px","width":"100%","position":"relative","borderStyle":"solid","height":"auto","order":"6"}'>
-	  <div :style='{"margin":"0 auto","color":"#333","textAlign":"center","left":"39%","background":"url(http://codegen.caihongy.cn/20221105/bb1ea9437beb4e1da8fcd1583db2f111.png) no-repeat,radial-gradient(circle, rgba(219,217,244,1) 0%, rgba(181,177,240,1) 100%)","width":"260px","lineHeight":"42px","fontSize":"22px","position":"absolute","height":"42px","order":"0"}'>{{systemIntroductionDetail.title}}</div>
-	  <div :style='{"margin":"0","color":"#999","textAlign":"center","display":"none","width":"100%","lineHeight":"1.5","fontSize":"20px","height":"40px"}'>{{systemIntroductionDetail.subtitle}}</div>
-	  <div :style='{"padding":"0px","margin":"70px 0 0 0","flexWrap":"wrap","background":"none","display":"flex","width":"61%","float":"left","height":"420px","order":"2"}'>
-	    <img :style='{"margin":"0 10px 0 0","transform":"rotate(0deg)","objectFit":"cover","borderRadius":"4px","display":"block","width":"100%","height":"100%"}' :src="baseUrl + systemIntroductionDetail.picture1">
-	    <img :style='{"width":"240px","margin":"0","transform":"rotate(4deg)","objectFit":"cover","display":"none","height":"180px"}' :src="baseUrl + systemIntroductionDetail.picture2">
-	    <img :style='{"margin":"0 10px","objectFit":"cover","display":"none","height":"120px"}' :src="baseUrl + systemIntroductionDetail.picture3">
-	  </div>
-	  <div :style='{"padding":"12px","boxShadow":"0px 0px 2px #e0e0e0","margin":"62px 0 0 0","color":"#333","right":"50px","float":"right","textIndent":"2em","overflow":"hidden","top":"44px","borderRadius":"4px","background":"rgba(248,248,252,.8)","width":"56%","lineHeight":"24px","fontSize":"14px","position":"absolute","height":"352px","order":"3"}' v-html="systemIntroductionDetail.content"></div>
-	  <div :style='{"transform":"rotate(5deg)","top":"74px","left":"140px","background":"url(\"http://codegen.caihongy.cn/20201114/7856ba26477849ea828f481fa2773a95.jpg\") 0% 0% / cover no-repeat","display":"none","width":"320px","position":"absolute","height":"240px","order":"4","zIndex":"99"}' />
-	  <div :style='{"width":"285px","background":"url(\"http://codegen.caihongy.cn/20201114/7856ba26477849ea828f481fa2773a95.jpg\") 0% 0% / cover no-repeat","display":"none","height":"100px"}' />
-	  <div :style='{"width":"285px","background":"url(\"http://codegen.caihongy.cn/20201114/7856ba26477849ea828f481fa2773a95.jpg\") 0% 0% / cover no-repeat","display":"none","height":"100px"}' />
-	  <div :style='{"width":"285px","background":"url(\"http://codegen.caihongy.cn/20201114/7856ba26477849ea828f481fa2773a95.jpg\") 0% 0% / cover no-repeat","display":"none","height":"100px"}' />
-	</div>
-
-<div class="recommend" :style='{"padding":"0px 10px 10px 10px","margin":"20px 0px 0px","borderColor":"#dbd9f4","borderRadius":"8px","background":"#fff","borderWidth":"2px 1px 1px 1px","width":"100%","borderStyle":"solid","height":"auto","order":"7"}'>
-	
-    <div class="title" :style='{"width":"260px","margin":"0px auto","lineHeight":"42px","textAlign":"center","background":"url(http://codegen.caihongy.cn/20221105/bb1ea9437beb4e1da8fcd1583db2f111.png) no-repeat,radial-gradient(circle, rgba(219,217,244,1) 0%, rgba(181,177,240,1) 100%)","height":"42px"}'>
-		<span :style='{"color":"#333","fontSize":"22px"}'>菜谱信息推荐</span>
-	</div>
-	
-	
-	
-	
-	<!-- 样式三 -->
-	<div class="list list3 index-pv1">
-		<div :style='{"width":"100%","padding":"10px","margin":"12px 0 0px 0","borderRadius":"8px","background":"#fff","height":"auto"}' class="swiper-container" id="recommendcaipuxinxi">
-			<div class="swiper-wrapper">
-				<div class="swiper-slide animation-box" :style='{"border":"0","cursor":"pointer","padding":"0 0 8px 0","borderRadius":"8px","background":"rgba(242, 242, 242,.6)","fontSize":"0","position":"relative"}' v-for="(item,index) in caipuxinxiRecommend" :key="index" @click="toDetail('caipuxinxiDetail', item)">
-					<img :name="item.id" :style='{"border":"0","width":"100%","borderRadius":"8px 8px 0 0","height":"220px"}' v-if="preHttp(item.caipufengmian)" :src="item.caipufengmian.split(',')[0]" alt="" />
-					<img :name="item.id" :style='{"border":"0","width":"100%","borderRadius":"8px 8px 0 0","height":"220px"}' v-else :src="baseUrl + (item.caipufengmian?item.caipufengmian.split(',')[0]:'')" alt="" />
-					<div class="line1" :style='{"padding":"0 10px","fontSize":"14px","lineHeight":"24px","color":"#333","background":"#f8f8fc"}'>{{item.caipumingcheng}}</div>
-					<div class="line1" :style='{"padding":"0 10px","fontSize":"14px","lineHeight":"24px","color":"#333","background":"#f8f8fc"}'>{{item.caishileixing}}</div>
-					<div class="line1" :style='{"padding":"0 10px","fontSize":"14px","lineHeight":"24px","color":"#333","background":"#f8f8fc"}'>分数:{{item.fenshu}}</div>
-				</div>
+	<!-- 功能卡片区域 -->
+	<div v-if="Token" class="features-section" :style='{"display":"grid","gridTemplateColumns":"repeat(auto-fit, minmax(280px, 1fr))","gap":"24px","margin":"32px 0"}'>
+		<!-- 我的食材库 -->
+		<div @click="goMenu('/index/usershicaiList')" class="feature-card" :style='{"background":"#ffffff","borderRadius":"16px","boxShadow":"0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)","border":"1px solid #e5e7eb","overflow":"hidden","transition":"all 0.3s ease","cursor":"pointer"}'>
+			<div class="card-header" :style='{"padding":"24px","textAlign":"center","background":"linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)","color":"white"}'>
+				<div class="card-title" :style='{"fontSize":"20px","fontWeight":"700","marginBottom":"8px"}'>我的食材库</div>
+				<div class="card-subtitle" :style='{"fontSize":"16px","opacity":"0.9","marginBottom":"16px"}'>管理您的食材库存</div>
+				<div class="card-description" :style='{"fontSize":"14px","opacity":"0.8","marginBottom":"24px"}'>查看食材、添加新食材、过期提醒</div>
+				<div class="card-action" :style='{"display":"inline-flex","alignItems":"center","padding":"12px 24px","background":"rgba(255,255,255,0.2)","borderRadius":"12px","fontSize":"14px","fontWeight":"500","transition":"all 0.2s ease"}'>立即查看</div>
 			</div>
-			<!-- 如果需要导航按钮 -->
-			<div class="swiper-button-prev"></div>
-			<div class="swiper-button-next"></div>
+		</div>
+
+		<!-- 饮食统计 -->
+		<div @click="goMenu('/index/dietStatisticsList')" class="feature-card" :style='{"background":"#ffffff","borderRadius":"16px","boxShadow":"0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)","border":"1px solid #e5e7eb","overflow":"hidden","transition":"all 0.3s ease","cursor":"pointer"}'>
+			<div class="card-header" :style='{"padding":"24px","textAlign":"center","background":"linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%)","color":"white"}'>
+				<div class="card-title" :style='{"fontSize":"20px","fontWeight":"700","marginBottom":"8px"}'>饮食统计</div>
+				<div class="card-subtitle" :style='{"fontSize":"16px","opacity":"0.9","marginBottom":"16px"}'>查看您的饮食数据</div>
+				<div class="card-description" :style='{"fontSize":"14px","opacity":"0.8","marginBottom":"24px"}'>消耗统计、健康分析</div>
+				<div class="card-action" :style='{"display":"inline-flex","alignItems":"center","padding":"12px 24px","background":"rgba(255,255,255,0.2)","borderRadius":"12px","fontSize":"14px","fontWeight":"500","transition":"all 0.2s ease"}'>查看统计</div>
+			</div>
+		</div>
+
+		<!-- 常用食材分析 -->
+		<div @click="goMenu('/index/foodUsageStatistics')" class="feature-card" :style='{"background":"#ffffff","borderRadius":"16px","boxShadow":"0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)","border":"1px solid #e5e7eb","overflow":"hidden","transition":"all 0.3s ease","cursor":"pointer"}'>
+			<div class="card-header" :style='{"padding":"24px","textAlign":"center","background":"linear-gradient(135deg, #a855f7 0%, #9333ea 100%)","color":"white"}'>
+				<div class="card-title" :style='{"fontSize":"20px","fontWeight":"700","marginBottom":"8px"}'>常用食材分析</div>
+				<div class="card-subtitle" :style='{"fontSize":"16px","opacity":"0.9","marginBottom":"16px"}'>了解您的食材使用习惯</div>
+				<div class="card-description" :style='{"fontSize":"14px","opacity":"0.8","marginBottom":"24px"}'>使用排行、频率分析</div>
+				<div class="card-action" :style='{"display":"inline-flex","alignItems":"center","padding":"12px 24px","background":"rgba(255,255,255,0.2)","borderRadius":"12px","fontSize":"14px","fontWeight":"500","transition":"all 0.2s ease"}'>查看分析</div>
+			</div>
+		</div>
+
+		<!-- 健康偏好管理 -->
+		<div @click="goMenu('/index/healthPreference')" class="feature-card" :style='{"background":"#ffffff","borderRadius":"16px","boxShadow":"0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)","border":"1px solid #e5e7eb","overflow":"hidden","transition":"all 0.3s ease","cursor":"pointer"}'>
+			<div class="card-header" :style='{"padding":"24px","textAlign":"center","background":"linear-gradient(135deg, #c084fc 0%, #a855f7 100%)","color":"white"}'>
+				<div class="card-title" :style='{"fontSize":"20px","fontWeight":"700","marginBottom":"8px"}'>健康偏好管理</div>
+				<div class="card-subtitle" :style='{"fontSize":"16px","opacity":"0.9","marginBottom":"16px"}'>设置您的健康目标</div>
+				<div class="card-description" :style='{"fontSize":"14px","opacity":"0.8","marginBottom":"24px"}'>营养目标、饮食偏好</div>
+				<div class="card-action" :style='{"display":"inline-flex","alignItems":"center","padding":"12px 24px","background":"rgba(255,255,255,0.2)","borderRadius":"12px","fontSize":"14px","fontWeight":"500","transition":"all 0.2s ease"}'>设置偏好</div>
+			</div>
 		</div>
 	</div>
-	
-	
-	
-	
-	
-	
-	
-	<div @click="moreBtn('caipuxinxi')" :style='{"border":"0","cursor":"pointer","margin":"10px auto","borderRadius":"30%","textAlign":"center","background":"radial-gradient(circle, rgba(231,230,244,1) 0%, rgba(219,217,244,1) 100%),#dbd9f4","display":"block","width":"18%","lineHeight":"32px"}'>
-		<span :style='{"color":"#666","fontSize":"14px"}'>查看更多</span>
-		<i v-if="true" :style='{"color":"#666","fontSize":"14px"}' class="el-icon-d-arrow-right"></i>
-	</div>
-	
-	<div v-if="false" class="idea recommendIdea" :style='{"padding":"20px","flexWrap":"wrap","background":"url(http://codegen.caihongy.cn/20221025/e0decb7681914db296f8d7e15ca1fe48.gif)","justifyContent":"space-between","display":"flex","height":"100px"}'>
-		<div class="box1" :style='{"width":"10%","background":"#fff","display":"none","height":"80px"}'></div>
-		<div class="box2" :style='{"width":"20%","background":"#fff","display":"none","height":"80px"}'></div>
-		<div class="box3" :style='{"width":"20%","background":"#fff","display":"none","height":"80px"}'></div>
-		<div class="box4" :style='{"width":"20%","background":"#fff","display":"none","height":"80px"}'></div>
-		<div class="box5" :style='{"width":"20%","background":"#fff","display":"none","height":"80px"}'></div>
-		<div class="box6" :style='{"width":"20%","background":"#fff","display":"none","height":"80px"}'></div>
-		<div class="box7" :style='{"width":"20%","background":"#fff","display":"none","height":"80px"}'></div>
-		<div class="box8" :style='{"width":"20%","background":"#fff","display":"none","height":"80px"}'></div>
-		<div class="box9" :style='{"width":"20%","background":"#fff","display":"none","height":"80px"}'></div>
-		<div class="box10" :style='{"width":"20%","background":"#fff","display":"none","height":"80px"}'></div>
-	</div>
-</div>
 
-	
-<div class="news" :style='{"margin":"20px 0 0 0","borderColor":"#dbd9f4","borderRadius":"8px","background":"#fff","borderWidth":"2px 1px 1px 1px","width":"68%","borderStyle":"solid","height":"auto","order":"4"}'>
-	
-	<div class="title" :style='{"margin":"0px auto","borderRadius":"0 0 30px 30px","textAlign":"center","background":"url(http://codegen.caihongy.cn/20221105/bb1ea9437beb4e1da8fcd1583db2f111.png) no-repeat,radial-gradient(circle, rgba(219,217,244,1) 0%, rgba(181,177,240,1) 100%)","width":"260px","lineHeight":"42px","height":"42px"}'>
-		<span :style='{"color":"#333","fontSize":"22px"}'>公告信息</span>
-	</div>
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	<!-- 样式九 -->
-	<div v-if="newsList.length" class="list list9 index-pv1" :style='{"width":"100%","padding":"16px 20px 0 20px","flexWrap":"wrap","background":"none","display":"flex","height":"auto"}'>
-	  <div v-for="(item,index) in newsList" v-if="index<6" :key="index" @click="toDetail('newsDetail', item)" :style='{"cursor":"pointer","padding":"0 20px 8px","margin":"0px auto 0","borderColor":"#ccc","background":"#f8f8fc","borderWidth":"0 0 1px 0","width":"100%","position":"relative","borderStyle":"solid","height":"auto"}' class="new9-list-item animation-box">
-		<div :style='{"margin":"0 30px","whiteSpace":"nowrap","overflow":"hidden","color":"#333","background":"none","width":"86%","fontSize":"16px","lineHeight":"34px","textOverflow":"ellipsis"}' class="new9-list-item-title line1">{{ item.title }}</div>
-		<div :style='{"fontSize":"12px","lineHeight":"24px","position":"absolute","right":"10px","color":"#999","top":"4px"}' class="new9-list-item-time">{{ item.addtime.split(' ')[0] }}</div>
-	    <div :style='{"margin":"0 0 0 30px","overflow":"hidden","color":"#666","background":"none","fontSize":"14px","lineHeight":"24px","textIndent":"2em","height":"48px"}' class="new9-list-item-descript line2">{{ item.introduction }}</div>
-		<div :style='{"padding":"5px 10px","color":"#333","top":"8px","left":"8px","background":"#dbd9f4","display":"inline-block","width":"30px","fontSize":"12px","position":"absolute"}' class="new9-list-item-identification">新闻动态</div>
-	  </div>
-	</div>
-	
-	
-	<div @click="moreBtn('news')" :style='{"border":"0","cursor":"pointer","margin":"16px auto 0","borderRadius":"16px","textAlign":"center","background":"#dbd9f4","display":"block","width":"80px","lineHeight":"32px"}'>
-		<span :style='{"color":"#666","fontSize":"14px"}'>查看更多</span>
-		<i v-if="true" :style='{"color":"#666","fontSize":"14px"}' class="el-icon-d-arrow-right"></i>
-	</div>
-	
-	<div v-if="false" class="idea newsIdea" :style='{"padding":"20px","flexWrap":"wrap","background":"url(http://codegen.caihongy.cn/20221025/e0decb7681914db296f8d7e15ca1fe48.gif)","justifyContent":"space-between","display":"flex","height":"100px"}'>
-		<div class="box1" :style='{"width":"20%","background":"#fff","display":"none","height":"80px"}'></div>
-		<div class="box2" :style='{"width":"20%","background":"#fff","display":"none","height":"80px"}'></div>
-		<div class="box3" :style='{"width":"20%","background":"#fff","display":"none","height":"80px"}'></div>
-		<div class="box4" :style='{"width":"20%","background":"#fff","display":"none","height":"80px"}'></div>
-		<div class="box5" :style='{"width":"20%","background":"#fff","display":"none","height":"80px"}'></div>
-		<div class="box6" :style='{"width":"20%","background":"#fff","display":"none","height":"80px"}'></div>
-		<div class="box7" :style='{"width":"20%","background":"#fff","display":"none","height":"80px"}'></div>
-		<div class="box8" :style='{"width":"20%","background":"#fff","display":"none","height":"80px"}'></div>
-		<div class="box9" :style='{"width":"20%","background":"#fff","display":"none","height":"80px"}'></div>
-		<div class="box10" :style='{"width":"20%","background":"#fff","display":"none","height":"80px"}'></div>
-	</div>
-</div>
+	<!-- 主要内容区域 -->
+	<div class="main-content" :style='{"display":"grid","gridTemplateColumns":"2fr 1fr","gap":"32px","margin":"32px 0"}'>
+		
+		<!-- 菜谱推荐 -->
+		<div class="content-card recommend" :style='{"background":"#ffffff","borderRadius":"16px","boxShadow":"0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)","border":"1px solid #e5e7eb","overflow":"hidden"}'>
+			<div class="card-header" :style='{"padding":"24px 24px 16px","borderBottom":"1px solid #e5e7eb","background":"linear-gradient(135deg, #667eea 0%, #764ba2 100%)","color":"white"}'>
+				<div class="card-title" :style='{"fontSize":"20px","fontWeight":"700","textAlign":"center","marginBottom":"8px"}'>菜谱信息推荐</div>
+				<div class="card-subtitle" :style='{"fontSize":"14px","opacity":"0.9","textAlign":"center"}'>发现美味，享受烹饪乐趣</div>
+			</div>
+			
+			<div class="card-body" :style='{"padding":"24px"}'>
+				<div class="recipe-grid-container" :style='{"position":"relative","overflow":"hidden","borderRadius":"12px"}'>
+					<div class="swiper-container" id="recommendcaipuxinxi">
+						<div class="swiper-wrapper">
+							<!-- 每个 slide 包含 4 个菜谱，2x2 布局 -->
+							<div class="swiper-slide grid-slide" v-for="(slideItems, slideIndex) in chunkedRecommendList" :key="slideIndex" :style='{"display":"grid","gridTemplateColumns":"1fr 1fr","gridTemplateRows":"1fr 1fr","gap":"20px","padding":"0","height":"auto"}'>
+								<div class="recipe-card" v-for="(item, index) in slideItems" :key="item.id" @click="toDetail('caipuxinxiDetail', item)" :style='{"background":"#ffffff","borderRadius":"12px","boxShadow":"0 2px 12px rgba(0, 0, 0, 0.08)","border":"1px solid #e5e7eb","overflow":"hidden","transition":"all 0.3s ease","cursor":"pointer","position":"relative","height":"200px"}'>
+									
+									<!-- 图片区域 -->
+									<div class="card-image-container" :style='{"position":"relative","height":"120px","overflow":"hidden"}'>
+										<img :name="item.id" class="card-image" :style='{"width":"100%","height":"100%","objectFit":"cover","transition":"all 0.3s ease"}' v-if="preHttp(item.caipufengmian)" :src="item.caipufengmian.split(',')[0]" alt="" />
+										<img :name="item.id" class="card-image" :style='{"width":"100%","height":"100%","objectFit":"cover","transition":"all 0.3s ease"}' v-else :src="baseUrl + (item.caipufengmian?item.caipufengmian.split(',')[0]:'')" alt="" />
+										
+										<!-- 评分徽章 -->
+										<div class="rating-badge" :style='{"position":"absolute","top":"8px","right":"8px","background":"rgba(0,0,0,0.75)","color":"white","padding":"3px 8px","borderRadius":"10px","fontSize":"11px","fontWeight":"600","display":"flex","alignItems":"center","gap":"2px","backdropFilter":"blur(10px)"}'>
+											<span style="color: #ffd700;">★</span>
+											<span>{{item.fenshu || '5.0'}}</span>
+										</div>
+										
+										<!-- 收藏按钮 -->
+										<div class="favorite-btn" :style='{"position":"absolute","top":"8px","left":"8px","width":"28px","height":"28px","background":"rgba(255,255,255,0.9)","borderRadius":"50%","display":"flex","alignItems":"center","justifyContent":"center","cursor":"pointer","transition":"all 0.3s ease","boxShadow":"0 2px 6px rgba(0,0,0,0.1)"}'>
+											<i class="el-icon-heart" :style='{"fontSize":"12px","color":"#ff6b6b"}'></i>
+										</div>
+										
+										<!-- 图片遮罩 -->
+										<div class="image-overlay" :style='{"position":"absolute","bottom":"0","left":"0","right":"0","height":"30px","background":"linear-gradient(transparent, rgba(0,0,0,0.2))","pointerEvents":"none"}'></div>
+									</div>
+									
+									<!-- 内容区域 -->
+									<div class="card-content" :style='{"padding":"12px","height":"80px","display":"flex","flexDirection":"column","justifyContent":"space-between"}'>
+										<!-- 标题 -->
+										<div class="card-title" :style='{"fontSize":"14px","fontWeight":"700","color":"#1f2937","lineHeight":"1.3","overflow":"hidden","textOverflow":"ellipsis","whiteSpace":"nowrap","marginBottom":"6px"}'>{{item.caipumingcheng}}</div>
+										
+										<!-- 标签和信息 -->
+										<div class="card-meta" :style='{"display":"flex","alignItems":"center","justifyContent":"space-between","marginBottom":"8px"}'>
+											<div class="category-tag" :style='{"background":"#f3f4f6","color":"#6b7280","padding":"2px 6px","borderRadius":"6px","fontSize":"10px","fontWeight":"500"}'>
+												{{item.caishileixing || '美食'}}
+											</div>
+											<div class="view-count" :style='{"display":"flex","alignItems":"center","gap":"3px","fontSize":"10px","color":"#9ca3af"}'>
+												<i class="el-icon-view" :style='{"fontSize":"10px"}'></i>
+												<span>{{item.clicknum || 0}}</span>
+											</div>
+										</div>
+										
+										<!-- 操作按钮 -->
+										<div class="card-action" :style='{"display":"flex","alignItems":"center","justifyContent":"center","background":"linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)","color":"white","padding":"6px 12px","borderRadius":"8px","fontSize":"11px","fontWeight":"600","cursor":"pointer","transition":"all 0.3s ease"}'>
+											<span>查看详情</span>
+											<i class="el-icon-d-arrow-right" :style='{"fontSize":"9px","marginLeft":"4px"}'></i>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						
+						<!-- 导航按钮 -->
+						<div class="swiper-button-prev" :style='{"color":"#6366f1","fontWeight":"bold"}' ></div>
+						<div class="swiper-button-next" :style='{"color":"#6366f1","fontWeight":"bold"}'></div>
+						
+						<!-- 分页指示器 -->
+						<div class="swiper-pagination" :style='{"bottom":"10px","textAlign":"center"}'></div>
+					</div>
+				</div>
+				
+				<!-- 查看更多按钮 -->
+				<div @click="moreBtn('caipuxinxi')" class="more-recipes-btn" :style='{"display":"flex","alignItems":"center","justifyContent":"center","padding":"14px 28px","border":"2px solid #6366f1","borderRadius":"12px","background":"transparent","color":"#6366f1","fontSize":"14px","fontWeight":"600","cursor":"pointer","transition":"all 0.3s ease","margin":"24px auto 0","width":"fit-content","position":"relative","overflow":"hidden"}'>
+					<span :style='{"position":"relative","zIndex":"2"}'>查看更多菜谱</span>
+					<i class="el-icon-d-arrow-right" :style='{"marginLeft":"8px","fontSize":"14px","position":"relative","zIndex":"2"}'></i>
+					<div class="btn-bg" :style='{"position":"absolute","top":"0","left":"-100%","width":"100%","height":"100%","background":"linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)","transition":"left 0.3s ease","zIndex":"1"}'></div>
+				</div>
+			</div>
+		</div>
 
+		<!-- 公告信息 -->
+		<div class="content-card news" :style='{"background":"#ffffff","borderRadius":"16px","boxShadow":"0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)","border":"1px solid #e5e7eb","overflow":"hidden"}'>
+			<div class="card-header" :style='{"padding":"24px 24px 16px","borderBottom":"1px solid #e5e7eb"}'>
+				<div class="card-title" :style='{"fontSize":"20px","fontWeight":"700","color":"#1f2937","textAlign":"center"}'>公告信息</div>
+			</div>
+			
+			<div class="card-body" :style='{"padding":"0"}'>
+				<div v-if="newsList.length" class="news-list">
+					<div v-for="(item,index) in newsList" v-if="index<6" :key="index" @click="toDetail('newsDetail', item)" class="news-item" :style='{"padding":"16px","borderBottom":"1px solid #e5e7eb","transition":"all 0.2s ease","cursor":"pointer"}'>
+						<div class="news-meta" :style='{"display":"flex","justifyContent":"space-between","alignItems":"center","marginBottom":"8px"}'>
+							<div class="news-tag" :style='{"display":"inline-flex","alignItems":"center","padding":"4px 12px","background":"#6366f1","color":"white","borderRadius":"8px","fontSize":"12px","fontWeight":"500"}'>新闻动态</div>
+							<div class="news-date" :style='{"fontSize":"12px","color":"#9ca3af"}'>{{ item.addtime.split(' ')[0] }}</div>
+						</div>
+						<div class="news-title" :style='{"fontSize":"16px","fontWeight":"600","color":"#1f2937","marginBottom":"8px","lineHeight":"1.4","overflow":"hidden","textOverflow":"ellipsis","whiteSpace":"nowrap"}'>{{ item.title }}</div>
+						<div class="news-description" :style='{"fontSize":"14px","color":"#6b7280","lineHeight":"1.5","overflow":"hidden","display":"-webkit-box","-webkitLineClamp":"2","-webkitBoxOrient":"vertical"}'>{{ item.introduction }}</div>
+					</div>
+				</div>
+				
+				<div class="card-footer" :style='{"padding":"16px","textAlign":"center","borderTop":"1px solid #e5e7eb"}'>
+					<div @click="moreBtn('news')" class="modern-btn btn-secondary" :style='{"display":"inline-flex","alignItems":"center","justifyContent":"center","padding":"8px 16px","border":"none","borderRadius":"8px","background":"#f3f4f6","color":"#374151","fontSize":"14px","fontWeight":"500","cursor":"pointer","transition":"all 0.2s ease"}'>
+						<span>查看更多</span>
+						<i class="el-icon-d-arrow-right" :style='{"marginLeft":"8px","fontSize":"14px"}'></i>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 
+	<!-- 关于我们和系统简介 -->
+	<div class="info-section" :style='{"display":"grid","gridTemplateColumns":"1fr 1fr","gap":"32px","margin":"32px 0"}'>
+		<!-- 关于我们 -->
+		<div class="content-card" :style='{"background":"#ffffff","borderRadius":"16px","boxShadow":"0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)","border":"1px solid #e5e7eb","overflow":"hidden"}'>
+			<div class="card-header" :style='{"padding":"24px 24px 16px","borderBottom":"1px solid #e5e7eb"}'>
+				<div class="card-title" :style='{"fontSize":"20px","fontWeight":"700","color":"#1f2937","textAlign":"center"}'>{{aboutUsDetail.title}}</div>
+			</div>
+			<div class="card-body" :style='{"padding":"24px"}'>
+				<div class="image-container" :style='{"marginBottom":"16px"}'>
+					<img :style='{"width":"100%","height":"200px","objectFit":"cover","borderRadius":"12px"}' :src="baseUrl + aboutUsDetail.picture1">
+				</div>
+				<div class="content-text" :style='{"fontSize":"14px","color":"#6b7280","lineHeight":"1.6","overflow":"hidden","display":"-webkit-box","-webkitLineClamp":"4","-webkitBoxOrient":"vertical"}' v-html="aboutUsDetail.content"></div>
+			</div>
+		</div>
 
+		<!-- 系统简介 -->
+		<div class="content-card" :style='{"background":"#ffffff","borderRadius":"16px","boxShadow":"0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)","border":"1px solid #e5e7eb","overflow":"hidden"}'>
+			<div class="card-header" :style='{"padding":"24px 24px 16px","borderBottom":"1px solid #e5e7eb"}'>
+				<div class="card-title" :style='{"fontSize":"20px","fontWeight":"700","color":"#1f2937","textAlign":"center"}'>{{systemIntroductionDetail.title}}</div>
+			</div>
+			<div class="card-body" :style='{"padding":"24px"}'>
+				<div class="image-container" :style='{"marginBottom":"16px"}'>
+					<img :style='{"width":"100%","height":"200px","objectFit":"cover","borderRadius":"12px"}' :src="baseUrl + systemIntroductionDetail.picture1">
+				</div>
+				<div class="content-text" :style='{"fontSize":"14px","color":"#6b7280","lineHeight":"1.6","overflow":"hidden","display":"-webkit-box","-webkitLineClamp":"4","-webkitBoxOrient":"vertical"}' v-html="systemIntroductionDetail.content"></div>
+			</div>
+		</div>
+	</div>
 
 </div>
 </template>
@@ -180,6 +197,17 @@
         newsList: [],
         caipuxinxiRecommend: [],
         Token: localStorage.getItem('Token')
+      }
+    },
+    computed: {
+      // 将菜谱数据分组，每4个一组用于2x2网格显示
+      chunkedRecommendList() {
+        const chunks = [];
+        const items = this.caipuxinxiRecommend || [];
+        for (let i = 0; i < items.length; i += 4) {
+          chunks.push(items.slice(i, i + 4));
+        }
+        return chunks;
       }
     },
     created() {
@@ -234,7 +262,7 @@
 				if (res.data.code == 0) {
 					this.caipuxinxiRecommend = res.data.data.list;
 					
-					let options = {"observer":true,"navigation":{"nextEl":".swiper-button-next","prevEl":".swiper-button-prev"},"observeParents":true,"loop":true,"slidesPerView":"5","speed":500,"spaceBetween":20,"autoplay":{"delay":3000,"disableOnInteraction":false}}
+					let options = {"observer":true,"navigation":{"nextEl":".swiper-button-next","prevEl":".swiper-button-prev"},"observeParents":true,"loop":true,"slidesPerView":"1","speed":500,"spaceBetween":0,"autoplay":{"delay":4000,"disableOnInteraction":false},"pagination":{"el":".swiper-pagination","clickable":true}}
 					options.pagination = {el:'null'}
 					if(options.slidesPerView) {
 						options.slidesPerView = Number(options.slidesPerView);
@@ -270,225 +298,458 @@
 </script>
 
 <style rel="stylesheet/scss" lang="scss" scoped>
+	@import '@/assets/css/front-theme.scss';
+	
 	.home-preview {
-	
-		.recommend {
-			.list3 .swiper-button-prev {
-				left: 10px;
-				right: auto;
-			}
-			
-			.list3 .swiper-button-prev::after {
-				color: #ab93dd;
-			}
-			
-			.list3 .swiper-button-next {
-				left: auto;
-				right: 10px;
-			}
-			
-			.list3 .swiper-button-next::after {
-				color: #ab93dd;
-			}
-			
-			.list5 .swiper-button-prev {
-				left: 10px;
-				right: auto;
-			}
-			
-			.list5 .swiper-button-prev::after {
-				color: rgb(64, 158, 255);
-        }
-        
-        .list5 .swiper-button-next {
-				left: auto;
-				right: 10px;
-			}
-			
-			.list5 .swiper-button-next::after {
-				color: rgb(64, 158, 255);
-			}
-			
-			.list5 {
-				.swiper-slide-prev {
-					position: relative;
-					z-index: 3;
-				}
 		
-				.swiper-slide-next {
-					position: relative;
-					z-index: 3;
-				}
-		
-				.swiper-slide-active {
-					position: relative;
-					z-index: 5;
-				}
-			}
+		// 功能卡片悬停效果增强
+		.feature-card:hover {
+			transform: translateY(-8px) scale(1.02);
+			box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
 			
-			.index-pv1 .animation-box {
-				transform: rotate(0deg) scale(1) skew(0deg, 0deg) translate3d(0px, 0px, 0px);
-				z-index: initial;
-			}
-			
-			.index-pv1 .animation-box:hover {
-				transform: rotate(0) scale(0.98) skew(0deg, 0deg) translate3d(0px, 0px, 0px);
-				-webkit-perspective: 1000px;
-				perspective: 1000px;
-				transition: 0.3s;
-				z-index: 1;
-			}
-			
-			.index-pv1 .animation-box img {
-				transform: rotate(0deg) scale(1) skew(0deg, 0deg) translate3d(0px, 0px, 0px);
-			}
-			
-			.index-pv1 .animation-box img:hover {
-				transform: rotate(0) scale(0.98) skew(0deg, 0deg) translate3d(0px, 0px, 0px);
-				-webkit-perspective: 1000px;
-				perspective: 1000px;
-				transition: 0.3s;
+			.card-action {
+				background: rgba(255,255,255,0.3) !important;
+				transform: translateY(-2px) scale(1.05);
 			}
 		}
 		
-		.news {
-			.list3 .swiper-button-prev {
-				left: 10px;
-				right: auto;
-			}
-			
-			.list3 .swiper-button-prev::after {
-				color: rgb(64, 158, 255);
-			}
-			
-			.list3 .swiper-button-next {
-				left: auto;
-				right: 10px;
-			}
-			
-			.list3 .swiper-button-next::after {
-				color: rgb(64, 158, 255);
-			}
-			
-			.list6 .swiper-button-prev {
-				left: 10px;
-				right: auto;
-			}
-			
-			.list6 .swiper-button-prev::after {
-				color: rgb(64, 158, 255);
-			}
-			
-			.list6 .swiper-button-next {
-				left: auto;
-				right: 10px;
-			}
-			
-			.list6 .swiper-button-next::after {
-				color: rgb(64, 158, 255);
-			}
-			
-			.index-pv1 .animation-box {
-				transform: rotate(0deg) scale(1) skew(0deg, 0deg) translate3d(0px, 0px, 0px);
-				z-index: initial;
-			}
-			
-			.index-pv1 .animation-box:hover {
-				transform: rotate(0) scale(0.99) skew(0deg, 0deg) translate3d(0px, 0px, 0px);
-				-webkit-perspective: 1000px;
-				perspective: 1000px;
-				transition: 0.3s;
-				z-index: 1;
-			}
-			
-			.index-pv1 .animation-box img {
-				transform: rotate(0deg) scale(1) skew(0deg, 0deg) translate3d(0px, 0px, 0px);
-			}
-			
-			.index-pv1 .animation-box img:hover {
-				transform: 0;
-				-webkit-perspective: 1000px;
-				perspective: 1000px;
-				transition: 0.3s;
+		// 内容卡片悬停效果增强
+		.content-card:hover {
+			transform: translateY(-4px);
+			box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+		}
+		
+		// 推荐项目悬停效果增强
+		.recipe-card {
+			&:hover {
+				transform: translateY(-8px) scale(1.02);
+				box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.15);
+				
+				.card-image {
+					transform: scale(1.1);
+				}
+				
+				.rating-badge {
+					transform: scale(1.1);
+					background: rgba(0,0,0,0.8);
+				}
+				
+				.favorite-btn {
+					transform: scale(1.15);
+					background: rgba(255, 255, 255, 1);
+					box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+					
+					i {
+						color: #ff4757 !important;
+					}
+				}
+				
+				.card-action {
+					background: linear-gradient(135deg, #5a67d8 0%, #7c3aed 100%);
+					transform: translateY(-2px);
+					box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+				}
 			}
 		}
-	
-		.lists {
-			.list3 .swiper-button-prev {
-				left: 10px;
-				right: auto;
-			}
-			
-			.list3 .swiper-button-prev::after {
-				color: rgb(64, 158, 255);
-			}
-			
-			.list3 .swiper-button-next {
-				left: auto;
-				right: 10px;
-        }
-        
-        .list3 .swiper-button-next::after {
-				color: rgb(64, 158, 255);
-			}
-			
-			.list5 .swiper-button-prev {
-				left: 10px;
-				right: auto;
-			}
-			
-			.list5 .swiper-button-prev::after {
-				color: rgb(64, 158, 255);
-			}
-			
-			.list5 .swiper-button-next {
-            left: auto;
-            right: 10px;
-			}
-			
-			.list5 .swiper-button-next::after {
-				color: rgb(64, 158, 255);
-			}
-			
-			.list5 {
-				.swiper-slide-prev {
-					position: relative;
-					z-index: 3;
-				}
 		
-				.swiper-slide-next {
-					position: relative;
-					z-index: 3;
-				}
+		// 网格布局样式
+		.grid-slide {
+			min-height: 420px;
+			
+			.recipe-card {
+				transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+			}
+		}
 		
-				.swiper-slide-active {
-					position: relative;
-					z-index: 5;
+		// 查看更多按钮样式
+		.more-recipes-btn {
+			&:hover {
+				color: white !important;
+				transform: translateY(-2px);
+				box-shadow: 0 10px 25px rgba(99, 102, 241, 0.3);
+				border-color: transparent !important;
+				
+				.btn-bg {
+					left: 0 !important;
+				}
+			}
+		}
+		
+		// 新闻项目悬停效果增强
+		.news-item:hover {
+			background: linear-gradient(135deg, rgba(99, 102, 241, 0.02) 0%, rgba(139, 92, 246, 0.02) 100%) !important;
+		}
+		
+		// 按钮悬停效果增强
+		.modern-btn:hover {
+			&.btn-outline {
+				color: white !important;
+				transform: translateY(-2px);
+				box-shadow: 0 10px 25px rgba(99, 102, 241, 0.3);
+				border-color: transparent !important;
+				
+				.btn-bg {
+					left: 0 !important;
 				}
 			}
 			
-			.index-pv1 .animation-box {
-				transform: rotate(0deg) scale(1) skew(0deg, 0deg) translate3d(0px, 0px, 0px);
-				z-index: initial;
+			&.btn-secondary {
+				background: #e5e7eb !important;
+				transform: translateY(-1px);
+			}
+		}
+		
+		// Swiper 按钮样式增强
+		.swiper-button-prev, .swiper-button-next {
+			width: 48px !important;
+			height: 48px !important;
+			margin-top: -24px !important;
+			background: rgba(255, 255, 255, 0.95) !important;
+			border-radius: 50% !important;
+			box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15) !important;
+			backdrop-filter: blur(10px) !important;
+			transition: all 0.3s ease !important;
+			border: 2px solid rgba(99, 102, 241, 0.1) !important;
+			
+			&::after {
+				font-size: 18px !important;
+				color: #6366f1 !important;
+				font-weight: 700;
 			}
 			
-			.index-pv1 .animation-box:hover {
-				transform: rotate(0) scale(0.98) skew(0deg, 0deg) translate3d(0px, 0px, 0px);
-				-webkit-perspective: 1000px;
-				perspective: 1000px;
-				transition: 0.3s;
+			&:hover {
+				background: white !important;
+				box-shadow: 0 15px 35px rgba(99, 102, 241, 0.2) !important;
+				transform: scale(1.15) !important;
+				border-color: rgba(99, 102, 241, 0.3) !important;
+				
+				&::after {
+					color: #4338ca !important;
+				}
+			}
+		}
+		
+		.swiper-button-prev {
+			left: 15px !important;
+		}
+		
+		.swiper-button-next {
+			right: 15px !important;
+		}
+		
+		// 菜谱推荐区域特殊样式
+		.content-card.recommend {
+			position: relative;
+			overflow: visible;
+			background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+			
+			&::before {
+				content: '';
+				position: absolute;
+				top: -2px;
+				left: -2px;
+				right: -2px;
+				bottom: -2px;
+				background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+				border-radius: 18px;
+				z-index: -1;
+				opacity: 0;
+				transition: opacity 0.3s ease;
+			}
+			
+			&::after {
+				content: '';
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				background: 
+					radial-gradient(circle at 20% 80%, rgba(99, 102, 241, 0.03) 0%, transparent 50%),
+					radial-gradient(circle at 80% 20%, rgba(139, 92, 246, 0.03) 0%, transparent 50%),
+					radial-gradient(circle at 40% 40%, rgba(168, 85, 247, 0.02) 0%, transparent 50%);
+				pointer-events: none;
+				z-index: 0;
+			}
+			
+			&:hover::before {
+				opacity: 0.1;
+			}
+			
+			.card-header {
+				position: relative;
+				z-index: 1;
+				
+				&::after {
+					content: '';
+					position: absolute;
+					bottom: 0;
+					left: 50%;
+					transform: translateX(-50%);
+					width: 60px;
+					height: 3px;
+					background: rgba(255, 255, 255, 0.3);
+					border-radius: 2px;
+				}
+			}
+			
+			.card-body {
+				position: relative;
+				z-index: 1;
+			}
+		}
+		
+		// 加载动画效果
+		.recommend-item {
+			animation: fadeInUp 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+			opacity: 0;
+			transform: translateY(40px);
+			
+			@for $i from 1 through 10 {
+				&:nth-child(#{$i}) {
+					animation-delay: #{$i * 0.15}s;
+				}
+			}
+		}
+		
+		@keyframes fadeInUp {
+			to {
+				opacity: 1;
+				transform: translateY(0);
+			}
+		}
+		
+		// 彩虹动画
+		@keyframes rainbow {
+			0% { background-position: 0% 50%; }
+			50% { background-position: 100% 50%; }
+			100% { background-position: 0% 50%; }
+		}
+		
+		// 脉冲动画
+		@keyframes pulse {
+			0%, 100% { transform: scale(1); }
+			50% { transform: scale(1.05); }
+		}
+		
+		// 闪烁动画
+		@keyframes shimmer {
+			0% { transform: translateX(-100%); }
+			100% { transform: translateX(100%); }
+		}
+		
+		// 图片加载效果
+		.image-container {
+			position: relative;
+			
+			&::before {
+				content: '';
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+				background-size: 200% 100%;
+				animation: shimmer 1.5s infinite;
 				z-index: 1;
 			}
 			
-			.index-pv1 .animation-box img {
-				transform: rotate(0deg) scale(1) skew(0deg, 0deg) translate3d(0px, 0px, 0px);
+			img {
+				position: relative;
+				z-index: 2;
+			}
+		}
+		
+		@keyframes shimmer {
+			0% {
+				background-position: -200% 0;
+			}
+			100% {
+				background-position: 200% 0;
+			}
+		}
+		
+		// 响应式设计
+		@media (max-width: 1024px) {
+			.main-content {
+				grid-template-columns: 1fr !important;
+				gap: 24px !important;
 			}
 			
-			.index-pv1 .animation-box img:hover {
-				transform: rotate(0) scale(0.98) skew(0deg, 0deg) translate3d(0px, 0px, 0px);
-				-webkit-perspective: 1000px;
-				perspective: 1000px;
-				transition: 0.3s;
+			.info-section {
+				grid-template-columns: 1fr !important;
+				gap: 24px !important;
+			}
+			
+			// 平板端网格调整
+			.grid-slide {
+				gap: 16px !important;
+				
+				.recipe-card {
+					height: 180px !important;
+					
+					.card-image-container {
+						height: 100px !important;
+					}
+					
+					.card-content {
+						height: 80px !important;
+						padding: 10px !important;
+					}
+				}
+			}
+		}
+		
+		@media (max-width: 768px) {
+			padding: 0 16px !important;
+			
+			.features-section {
+				grid-template-columns: 1fr !important;
+				gap: 16px !important;
+				margin: 24px 0 !important;
+			}
+			
+			.main-content {
+				gap: 16px !important;
+				margin: 24px 0 !important;
+			}
+			
+			.info-section {
+				gap: 16px !important;
+				margin: 24px 0 !important;
+			}
+			
+			.feature-card {
+				.card-header {
+					padding: 20px !important;
+					
+					.card-title {
+						font-size: 18px !important;
+					}
+				}
+				
+				&:hover {
+					transform: translateY(-4px) scale(1.01) !important;
+				}
+			}
+			
+			.content-card .card-header .card-title {
+				font-size: 18px !important;
+			}
+			
+			// 移动端网格布局
+			.grid-slide {
+				grid-template-columns: 1fr !important;
+				grid-template-rows: repeat(4, 1fr) !important;
+				gap: 12px !important;
+				min-height: auto !important;
+				
+				.recipe-card {
+					height: 140px !important;
+					display: flex !important;
+					flex-direction: row !important;
+					
+					.card-image-container {
+						width: 120px !important;
+						height: 100% !important;
+						flex-shrink: 0 !important;
+					}
+					
+					.card-content {
+						flex: 1 !important;
+						height: 100% !important;
+						padding: 8px !important;
+						
+						.card-title {
+							font-size: 13px !important;
+							margin-bottom: 4px !important;
+						}
+						
+						.card-meta {
+							margin-bottom: 6px !important;
+							
+							.category-tag {
+								font-size: 9px !important;
+								padding: 1px 4px !important;
+							}
+							
+							.view-count {
+								font-size: 9px !important;
+							}
+						}
+						
+						.card-action {
+							padding: 4px 8px !important;
+							font-size: 10px !important;
+							border-radius: 6px !important;
+						}
+					}
+					
+					&:hover {
+						transform: translateY(-4px) scale(1.01) !important;
+						box-shadow: 0 12px 25px -8px rgba(0, 0, 0, 0.12) !important;
+					}
+				}
+			}
+			
+			// 移动端 Swiper 按钮
+			.swiper-button-prev, .swiper-button-next {
+				width: 40px !important;
+				height: 40px !important;
+				margin-top: -20px !important;
+				
+				&::after {
+					font-size: 14px !important;
+				}
+			}
+			
+			.swiper-button-prev {
+				left: 8px !important;
+			}
+			
+			.swiper-button-next {
+				right: 8px !important;
+			}
+			
+			// 移动端查看更多按钮
+			.more-recipes-btn {
+				padding: 12px 20px !important;
+				font-size: 13px !important;
+				margin: 20px auto 0 !important;
+			}
+		}
+		
+		@media (max-width: 480px) {
+			.grid-slide {
+				.recipe-card {
+					height: 120px !important;
+					
+					.card-image-container {
+						width: 100px !important;
+					}
+					
+					.card-content {
+						.card-title {
+							font-size: 12px !important;
+						}
+						
+						.card-meta {
+							.category-tag {
+								font-size: 8px !important;
+							}
+							
+							.view-count {
+								font-size: 8px !important;
+							}
+						}
+						
+						.card-action {
+							font-size: 9px !important;
+							padding: 3px 6px !important;
+						}
+					}
+				}
 			}
 		}
 	}

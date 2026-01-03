@@ -8,7 +8,9 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
+  @import './assets/css/front-theme.scss';
+  
   * {
 	  box-sizing: border-box;
   }
@@ -25,10 +27,10 @@ export default {
     font-size: 18px;
   }
   .el-loading-spinner .el-loading-text {
-    color: #4169E1;
+    color: #ab85d3;
   }
   .el-loading-spinner .path {
-    stroke: #4169E1;
+    stroke: #ab85d3;
   }
   .el-breadcrumb {
     line-height: 60px;

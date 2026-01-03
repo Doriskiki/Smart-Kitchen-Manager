@@ -1,27 +1,26 @@
 <template>
-	<div class="addEdit-block" :style='{"padding":"30px"}' style="width: 100%;">
+	<div class="addEdit-block" style="width: 100%; padding: 30px;">
 		<el-form
-			:style='{"padding":"30px","boxShadow":"0px 4px 10px 0px rgba(0,0,0,0.3020)","borderRadius":"6px","background":"rgba(255, 255, 255, 0.8)"}'
-			class="add-update-preview"
+			class="form-container"
 			ref="ruleForm"
 			:model="ruleForm"
 			:rules="rules"
 			label-width="140px"
 		>
 			<template >
-				<el-form-item :style='{"width":"100%","margin":"0 0 20px 0","display":"inline-block"}' class="input" v-if="type!='info'"  label="菜谱名称" prop="caipumingcheng">
+				<el-form-item class="input" v-if="type!='info'"  label="菜谱名称" prop="caipumingcheng">
 					<el-input v-model="ruleForm.caipumingcheng" placeholder="菜谱名称" clearable  :readonly="ro.caipumingcheng"></el-input>
 				</el-form-item>
-				<el-form-item :style='{"width":"100%","margin":"0 0 20px 0","display":"inline-block"}' v-else class="input" label="菜谱名称" prop="caipumingcheng">
+				<el-form-item v-else class="input" label="菜谱名称" prop="caipumingcheng">
 					<el-input v-model="ruleForm.caipumingcheng" placeholder="菜谱名称" readonly></el-input>
 				</el-form-item>
-				<el-form-item :style='{"width":"100%","margin":"0 0 20px 0","display":"inline-block"}' class="input" v-if="type!='info'"  label="菜式类型" prop="caishileixing">
+				<el-form-item class="input" v-if="type!='info'"  label="菜式类型" prop="caishileixing">
 					<el-input v-model="ruleForm.caishileixing" placeholder="菜式类型" clearable  :readonly="ro.caishileixing"></el-input>
 				</el-form-item>
-				<el-form-item :style='{"width":"100%","margin":"0 0 20px 0","display":"inline-block"}' v-else class="input" label="菜式类型" prop="caishileixing">
+				<el-form-item v-else class="input" label="菜式类型" prop="caishileixing">
 					<el-input v-model="ruleForm.caishileixing" placeholder="菜式类型" readonly></el-input>
 				</el-form-item>
-				<el-form-item :style='{"width":"100%","margin":"0 0 20px 0","display":"inline-block"}' class="select" v-if="type!='info'"  label="分数" prop="fenshu">
+				<el-form-item class="select" v-if="type!='info'"  label="分数" prop="fenshu">
 					<el-select :disabled="ro.fenshu" v-model="ruleForm.fenshu" placeholder="请选择分数" >
 						<el-option
 							v-for="(item,index) in fenshuOptions"
@@ -31,23 +30,23 @@
 						</el-option>
 					</el-select>
 				</el-form-item>
-				<el-form-item :style='{"width":"100%","margin":"0 0 20px 0","display":"inline-block"}' v-else class="input" label="分数" prop="fenshu">
+				<el-form-item v-else class="input" label="分数" prop="fenshu">
 					<el-input v-model="ruleForm.fenshu"
 						placeholder="分数" readonly></el-input>
 				</el-form-item>
-				<el-form-item :style='{"width":"100%","margin":"0 0 20px 0","display":"inline-block"}' class="input" v-if="type!='info'"  label="账号" prop="zhanghao">
+				<el-form-item class="input" v-if="type!='info'"  label="账号" prop="zhanghao">
 					<el-input v-model="ruleForm.zhanghao" placeholder="账号" clearable  :readonly="ro.zhanghao"></el-input>
 				</el-form-item>
-				<el-form-item :style='{"width":"100%","margin":"0 0 20px 0","display":"inline-block"}' v-else class="input" label="账号" prop="zhanghao">
+				<el-form-item v-else class="input" label="账号" prop="zhanghao">
 					<el-input v-model="ruleForm.zhanghao" placeholder="账号" readonly></el-input>
 				</el-form-item>
-				<el-form-item :style='{"width":"100%","margin":"0 0 20px 0","display":"inline-block"}' class="input" v-if="type!='info'"  label="姓名" prop="xingming">
+				<el-form-item class="input" v-if="type!='info'"  label="姓名" prop="xingming">
 					<el-input v-model="ruleForm.xingming" placeholder="姓名" clearable  :readonly="ro.xingming"></el-input>
 				</el-form-item>
-				<el-form-item :style='{"width":"100%","margin":"0 0 20px 0","display":"inline-block"}' v-else class="input" label="姓名" prop="xingming">
+				<el-form-item v-else class="input" label="姓名" prop="xingming">
 					<el-input v-model="ruleForm.xingming" placeholder="姓名" readonly></el-input>
 				</el-form-item>
-				<el-form-item :style='{"width":"100%","margin":"0 0 20px 0","display":"inline-block"}' class="date" v-if="type!='info'" label="评分日期" prop="pingfenriqi">
+				<el-form-item class="date" v-if="type!='info'" label="评分日期" prop="pingfenriqi">
 					<el-date-picker
 						format="yyyy 年 MM 月 dd 日"
 						value-format="yyyy-MM-dd"
@@ -57,14 +56,14 @@
 						placeholder="评分日期"
 					></el-date-picker> 
 				</el-form-item>
-				<el-form-item :style='{"width":"100%","margin":"0 0 20px 0","display":"inline-block"}' class="input" v-else-if="ruleForm.pingfenriqi" label="评分日期" prop="pingfenriqi">
+				<el-form-item class="input" v-else-if="ruleForm.pingfenriqi" label="评分日期" prop="pingfenriqi">
 					<el-input v-model="ruleForm.pingfenriqi" placeholder="评分日期" readonly></el-input>
 				</el-form-item>
 			</template>
-			<el-form-item :style='{"padding":"0","margin":"0"}' class="btn">
-				<el-button :style='{"border":"1px solid #65bbd2","cursor":"pointer","padding":"0","margin":"0 20px 0 0","outline":"none","color":"#333","borderRadius":"4px","background":"linear-gradient(180deg, #219EBF 0%, rgba(130,189,204,0) 53%, #249FC0 100%)","width":"128px","lineHeight":"40px","fontSize":"14px","height":"40px"}'  v-if="type!='info'" type="primary" class="btn-success" @click="onSubmit">提交</el-button>
-				<el-button :style='{"border":"1px solid #65bbd2","cursor":"pointer","padding":"0","margin":"0","outline":"none","color":"#333","borderRadius":"4px","background":"linear-gradient(180deg, #219EBF 0%, rgba(130,189,204,0) 53%, #249FC0 100%)","width":"128px","lineHeight":"40px","fontSize":"14px","height":"40px"}' v-if="type!='info'" class="btn-close" @click="back()">取消</el-button>
-				<el-button :style='{"border":"1px solid #65bbd2","cursor":"pointer","padding":"0","margin":"0","outline":"none","color":"#333","borderRadius":"4px","background":"linear-gradient(180deg, #219EBF 0%, rgba(130,189,204,0) 53%, #249FC0 100%)","width":"128px","lineHeight":"40px","fontSize":"14px","height":"40px"}' v-if="type=='info'" class="btn-close" @click="back()">返回</el-button>
+			<el-form-item class="form-buttons">
+				<el-button class="btn-standard btn-submit" v-if="type!='info'" type="primary" @click="onSubmit">提交</el-button>
+				<el-button class="btn-standard btn-cancel" v-if="type!='info'" @click="back()">取消</el-button>
+				<el-button class="btn-standard btn-back" v-if="type=='info'" @click="back()">返回</el-button>
 			</el-form-item>
 		</el-form>
     
@@ -494,108 +493,9 @@ var objcross = this.$storage.getObj('crossObj');
 		width: auto;
 	}
 	
-	.add-update-preview .el-form-item ::v-deep .el-form-item__label {
-	  	  padding: 0 10px 0 0;
-	  	  color: #333;
-	  	  font-weight: 500;
-	  	  width: 140px;
-	  	  font-size: 14px;
-	  	  line-height: 40px;
-	  	  text-align: right;
-	  	}
-	
-	.add-update-preview .el-form-item ::v-deep .el-form-item__content {
-	  margin-left: 140px;
+	// 移除大部分自定义样式，使用主题样式
+	// 保留必要的布局样式
+	.addEdit-block {
+		width: 100%;
 	}
-	
-	.add-update-preview .el-input ::v-deep .el-input__inner {
-	  	  border: 2px solid #797979;
-	  	  border-radius: 4px;
-	  	  padding: 0 12px;
-	  	  outline: none;
-	  	  color: #333;
-	  	  width: 400px;
-	  	  font-size: 14px;
-	  	  height: 40px;
-	  	}
-	
-	.add-update-preview .el-select ::v-deep .el-input__inner {
-	  	  border: 2px solid #797979;
-	  	  border-radius: 4px;
-	  	  padding: 0 10px;
-	  	  outline: none;
-	  	  color: #333;
-	  	  width: auto;
-	  	  font-size: 14px;
-	  	  height: 40px;
-	  	}
-	
-	.add-update-preview .el-date-editor ::v-deep .el-input__inner {
-	  	  border: 2px solid #797979;
-	  	  border-radius: 4px;
-	  	  padding: 0 10px 0 30px;
-	  	  outline: none;
-	  	  color: #333;
-	  	  width: auto;
-	  	  font-size: 14px;
-	  	  height: 40px;
-	  	}
-	
-	.add-update-preview ::v-deep .el-upload--picture-card {
-		background: transparent;
-		border: 0;
-		border-radius: 0;
-		width: auto;
-		height: auto;
-		line-height: initial;
-		vertical-align: middle;
-	}
-	
-	.add-update-preview ::v-deep .upload .upload-img {
-	  	  border: 2px dashed #797979;
-	  	  cursor: pointer;
-	  	  border-radius: 6px;
-	  	  color: #797979;
-	  	  width: 150px;
-	  	  font-size: 32px;
-	  	  line-height: 100px;
-	  	  text-align: center;
-	  	  height: 100px;
-	  	}
-	
-	.add-update-preview ::v-deep .el-upload-list .el-upload-list__item {
-	  	  border: 2px dashed #797979;
-	  	  cursor: pointer;
-	  	  border-radius: 6px;
-	  	  color: #797979;
-	  	  width: 150px;
-	  	  font-size: 32px;
-	  	  line-height: 100px;
-	  	  text-align: center;
-	  	  height: 100px;
-	  	}
-	
-	.add-update-preview ::v-deep .el-upload .el-icon-plus {
-	  	  border: 2px dashed #797979;
-	  	  cursor: pointer;
-	  	  border-radius: 6px;
-	  	  color: #797979;
-	  	  width: 150px;
-	  	  font-size: 32px;
-	  	  line-height: 100px;
-	  	  text-align: center;
-	  	  height: 100px;
-	  	}
-	
-	.add-update-preview .el-textarea ::v-deep .el-textarea__inner {
-	  	  border: 2px solid #797979;
-	  	  border-radius: 4px;
-	  	  padding: 12px;
-	  	  outline: none;
-	  	  color: #333;
-	  	  width: 400px;
-	  	  font-size: 14px;
-	  	  min-height: 120px;
-	  	  height: auto;
-	  	}
 </style>

@@ -1,54 +1,52 @@
 <template>
 	<div class="main-containers">
-		<div class="top-container" :style='{"padding":"0 20px","alignItems":"center","display":"flex","justifyContent":"space-around","overflow":"hidden","top":"0","left":"0","flexWrap":"wrap","background":"#fff","width":"100%","position":"fixed","height":"auto","zIndex":"1002"}'>
-			<img v-if='false' :style='{"width":"44px","objectFit":"cover","borderRadius":"100%","display":"block","height":"44px"}' src='http://codegen.caihongy.cn/20201114/7856ba26477849ea828f481fa2773a95.jpg'>
-			<div v-if="true" :style='{"boxShadow":"10px 10px 0 rgba(184, 180, 233,.5)","padding":"0 30px","margin":"0 0 24px 0%","color":"rgba(171,133,211,1)","borderRadius":"0 0 10px 10px","textAlign":"center","background":"rgba(239, 239, 239,.5)","width":"auto","fontSize":"30px","fontWeight":"600","order":"0"}'>智能菜谱推荐系统</div>
-			<div>
-				<div v-if="false" :style='{"color":"#666","fontSize":"16px","display":"inline-block"}'>0753-1234567</div>
-				<div v-if="Token" :style='{"color":"#666","fontSize":"16px","display":"inline-block"}'>{{username}}</div>
-				<el-button v-if="!Token" @click="toLogin()" :style='{"border":"0","padding":"0 12px","margin":"10px 10px","color":"#666","borderRadius":"20px","background":"linear-gradient(90deg, rgba(255,233,100,1) 0%, rgba(194,248,126,1) 29%, rgba(181,233,252,1) 61%, rgba(246,172,218,1) 100%)","display":"inline-block","width":"80px","fontSize":"16px","lineHeight":"32px","height":"32px","order":"1"}'>登录/注册</el-button>
-                <el-button v-if="Token" @click="logout" :style='{"padding":"0 12px","margin":"10px 0 0 0px","borderColor":"rgba(171,133,211,1)","color":"#666","display":"inline-block","borderRadius":"20px","background":"none","borderWidth":"1px","width":"80px","fontSize":"16px","lineHeight":"32px","borderStyle":"solid","height":"32px","order":"5"}'>退出</el-button>
+		<!-- 装饰性背景元素 -->
+		<div class="geometric-bg"></div>
+		
+		<div class="top-container" :style='{"padding":"0 20px","alignItems":"center","display":"flex","justifyContent":"space-between","overflow":"hidden","top":"0","left":"0","background":"rgba(255, 255, 255, 0.95)","width":"100%","position":"fixed","height":"70px","zIndex":"1002","borderBottom":"1px solid rgba(229, 231, 235, 0.8)","backdropFilter":"blur(20px) saturate(180%)"}'>
+			<div v-if="true" class="system-title" :style='{"color":"#1f2937","fontSize":"24px","fontWeight":"700","background":"linear-gradient(135deg, #667eea 0%, #764ba2 100%)","-webkitBackgroundClip":"text","-webkitTextFillColor":"transparent","backgroundClip":"text"}'>智能菜谱推荐系统</div>
+			<div class="nav-actions">
+				<div v-if="Token" class="user-info" :style='{"color":"#6b7280","fontSize":"16px","marginRight":"16px","display":"inline-block","fontWeight":"500"}'>{{username}}</div>
+				<el-button v-if="!Token" @click="toLogin()" class="login-btn" :style='{"background":"linear-gradient(135deg, #667eea 0%, #764ba2 100%)","border":"none","color":"white","borderRadius":"16px","padding":"8px 20px","fontSize":"14px","fontWeight":"500","transition":"all 0.3s ease","position":"relative","overflow":"hidden"}'>登录/注册</el-button>
+                <el-button v-if="Token" @click="logout" class="logout-btn" :style='{"background":"linear-gradient(135deg, #667eea 0%, #764ba2 100%)","border":"none","color":"white","borderRadius":"16px","padding":"8px 20px","fontSize":"14px","fontWeight":"500","transition":"all 0.3s ease","position":"relative","overflow":"hidden"}'>退出</el-button>
 			</div>
 		</div>
 		
-		
-		<div class="body-containers" :style='"horizontal" == "vertical" ? {"minHeight":"100vh","padding":"64px 0 0","margin":"0 0 0 210px","position":"relative","background":"rgba(64, 158, 255, .3)","display":"block"} : {"minHeight":"100vh","padding":"64px 0 0","margin":"0","position":"relative","background":"url(http://codegen.caihongy.cn/20221107/2b1ea40e3b86476581f55111adaaf415.png) fixed"}'>
-			<div class="menu-preview" :style='{"padding":"0","borderColor":"#e2cbf7","background":"rgba(205, 210, 239,.8)","borderWidth":"0px 0 0px 0","width":"100%","borderStyle":"solid","height":"auto"}'>
-				<el-menu class="el-menu-horizontal-demo" :style='{"border":0,"padding":"16px 0 0px 0","listStyle":"none","margin":"0 auto","alignItems":"center","background":"none","display":"flex","width":"1200px","position":"relative","justifyContent":"space-between","height":"76px"}' :default-active="activeIndex" :unique-opened="true" mode="horizontal" :router="true" @select="handleSelect">
-					<el-image v-if="false" :style='{"width":"44px","margin":"8px 10px 8px 0","objectFit":"cover","borderRadius":"100%","float":"left","height":"44px"}' src="http://codegen.caihongy.cn/20201114/7856ba26477849ea828f481fa2773a95.jpg" fit="cover"></el-image>
+		<div class="body-containers" :style='{"minHeight":"100vh","paddingTop":"70px","margin":"0","position":"relative","background":"#f9fafb"}'>
+			<div class="menu-preview" :style='{"background":"rgba(255, 255, 255, 0.95)","borderBottom":"1px solid rgba(229, 231, 235, 0.8)","boxShadow":"0 1px 2px 0 rgba(0, 0, 0, 0.05)","backdropFilter":"blur(20px) saturate(180%)"}'>
+				<el-menu class="el-menu-horizontal-demo" :style='{"border":"none","padding":"0","margin":"0 auto","alignItems":"center","background":"transparent","display":"flex","maxWidth":"1200px","position":"relative","justifyContent":"center","height":"60px"}' :default-active="activeIndex" :unique-opened="true" mode="horizontal" :router="true" @select="handleSelect">
 					<el-menu-item v-for="(menu, index) in menuList" :index="index + ''" :key="index" :route="menu.url">
-						<i v-if="true" :style='{"padding":"0 10px 0 0","margin":"0","color":"inherit","width":"14px","lineHeight":"56px","fontSize":"14px","height":"60px"}' :class="iconArr[index]"></i>
-						<span :style='{"padding":"0 10px 0 4px","lineHeight":"56px","fontSize":"14px","color":"inherit","height":"60px"}'>{{menu.name}}</span>
+						<i v-if="true" :style='{"marginRight":"8px","color":"inherit","fontSize":"16px","transition":"transform 0.3s ease"}' :class="iconArr[index]"></i>
+						<span :style='{"color":"inherit","fontSize":"16px","fontWeight":"500"}'>{{menu.name}}</span>
 					</el-menu-item>
 					<el-menu-item @click="goBackend">
-						<i v-if="true" :style='{"padding":"0 10px 0 0","margin":"0","color":"inherit","width":"14px","lineHeight":"56px","fontSize":"14px","height":"60px"}' class="el-icon-box"></i>
-						<span :style='{"padding":"0 10px 0 4px","lineHeight":"56px","fontSize":"14px","color":"inherit","height":"60px"}'>后台管理</span>
+						<i v-if="true" :style='{"marginRight":"8px","color":"inherit","fontSize":"16px","transition":"transform 0.3s ease"}' class="el-icon-box"></i>
+						<span :style='{"color":"inherit","fontSize":"16px","fontWeight":"500"}'>后台管理</span>
 					</el-menu-item>
 					<el-menu-item :index="menuList.length + 2 + ''" v-if="Token && notAdmin" @click="goMenu('/index/center')">
-						<i v-if="true" :style='{"padding":"0 10px 0 0","margin":"0","color":"inherit","width":"14px","lineHeight":"56px","fontSize":"14px","height":"60px"}' class="el-icon-user"></i>
-						<span :style='{"padding":"0 10px 0 4px","lineHeight":"56px","fontSize":"14px","color":"inherit","height":"60px"}'>个人中心</span>
+						<i v-if="true" :style='{"marginRight":"8px","color":"inherit","fontSize":"16px","transition":"transform 0.3s ease"}' class="el-icon-user"></i>
+						<span :style='{"color":"inherit","fontSize":"16px","fontWeight":"500"}'>个人中心</span>
 					</el-menu-item>
 				</el-menu>
 			</div>
 			
-			<div class="banner-preview" :style='{"width":"100%","height":"auto"}'>
-				<el-carousel :style='{"width":"1200px","margin":"10px auto"}' trigger="click" indicator-position="inside" arrow="always" type="default" direction="horizontal" height="400px" :autoplay="true" :interval="3000" :loop="true">
-					<el-carousel-item :style='{"borderRadius":"10px","width":"100%","height":"100%"}' v-for="item in carouselList" :key="item.id">
-						<el-image :style='{"objectFit":"cover","width":"100%","height":"100%"}' :src="baseUrl + item.value" fit="cover"></el-image>
+			<div class="banner-preview" :style='{"width":"100%","padding":"32px 16px"}'>
+				<el-carousel :style='{"maxWidth":"1200px","margin":"0 auto","borderRadius":"24px","overflow":"hidden","boxShadow":"0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)"}' trigger="click" indicator-position="inside" arrow="always" type="default" direction="horizontal" height="400px" :autoplay="true" :interval="3000" :loop="true">
+					<el-carousel-item :style='{"width":"100%","height":"100%"}' v-for="item in carouselList" :key="item.id">
+						<el-image :style='{"objectFit":"cover","width":"100%","height":"100%","display":"block"}' :src="baseUrl + item.value" fit="cover"></el-image>
 					</el-carousel-item>
 				</el-carousel>
 			</div>
 			
 			<router-view></router-view>
 			
-			<div class="bottom-preview" :style='{"minHeight":"150px","padding":"20px 0","margin":"20px 0 0 0","alignItems":"center","background":"#404040","flexDirection":"column","display":"flex","width":"100%","justifyContent":"center"}'>
-			    <img :style='{"width":"84px","objectFit":"cover","borderRadius":"10px","display":"none","height":"84px"}' src="http://codegen.caihongy.cn/20221025/08cc4c2a6d624b3a81c474cda7a103a1.webp" >
-			    <div :style='{"margin":"10px 0 0","fontSize":"14px","lineHeight":"28px","color":"#ccc"}'></div>
-			    <div :style='{"margin":"10px 0 0","fontSize":"14px","lineHeight":"28px","color":"#ccc"}'></div>
-			    <div :style='{"margin":"10px 0 0","fontSize":"14px","lineHeight":"28px","color":"#ccc"}'></div>
+			<div class="bottom-preview" :style='{"background":"linear-gradient(135deg, #1f2937 0%, #111827 100%)","color":"#d1d5db","padding":"48px 0","marginTop":"80px","position":"relative","overflow":"hidden"}'>
+				<div class="footer-content" :style='{"maxWidth":"1200px","margin":"0 auto","padding":"0 16px","textAlign":"center","position":"relative","zIndex":"2"}'>
+					<div class="footer-title" :style='{"fontSize":"18px","fontWeight":"600","color":"white","marginBottom":"16px","background":"linear-gradient(135deg, #667eea 0%, #764ba2 100%)","-webkitBackgroundClip":"text","-webkitTextFillColor":"transparent","backgroundClip":"text"}'>智能菜谱推荐系统</div>
+					<div class="footer-description" :style='{"fontSize":"14px","color":"#9ca3af","lineHeight":"1.6"}'>为您提供个性化的菜谱推荐和智能饮食管理服务</div>
+				</div>
 			</div>
 		</div>
-		
 	</div>
 </template>
 
@@ -169,6 +167,8 @@ export default {
 </script>
 
 <style rel="stylesheet/scss" lang="scss" scoped>
+	@import '@/assets/css/front-theme.scss';
+	
 	.menu-preview {
 	  .el-scrollbar {
 	    height: 100%;
@@ -179,57 +179,38 @@ export default {
 	  }
 	}
 	
-	
 	.menu-preview .el-menu-horizontal-demo .el-menu-item {
 		cursor: pointer;
-		border: 0;
-		padding: 0 24px 0 12px;
-		margin: 0;
-		background-size: 100% 100%;
-		color: #666;
+		border: none !important;
+		padding: 0 24px !important;
+		margin: 0 4px;
+		background: none !important;
+		color: #6b7280 !important;
 		white-space: nowrap;
 		display: flex;
-		font-size: 20px;
-		line-height: 100px;
+		font-size: 16px !important;
+		font-weight: 500;
+		line-height: 60px !important;
 		align-items: center;
-		background-image: url(http://codegen.caihongy.cn/20221025/ef39df5caf8e4e78913bd4825807ccce.png);
 		position: relative;
 		list-style: none;
-		height: 100px;
+		height: 60px !important;
+		border-radius: 12px;
+		transition: all 0.2s ease;
 	}
 	
 	.menu-preview .el-menu-horizontal-demo .el-menu-item:hover {
-		cursor: pointer;
-		border: 0;
-		padding: 0 24px 0 12px;
-		margin: 0;
-		background-size: 100% 100%;
-		color: #000;
-		white-space: nowrap;
-		font-size: 14px;
-		line-height: 100px;
-		background-color: rgba(0,0,0,0);
-		background-image: url(http://codegen.caihongy.cn/20221105/5256a4756f514175b3cb9ff7c031a49b.png);
-		position: relative;
-		list-style: none;
-		height: 100px;
+		background: #f3f4f6 !important;
+		color: #6366f1 !important;
+		transform: none;
+		box-shadow: none;
 	}
 	
 	.menu-preview .el-menu-horizontal-demo .el-menu-item.is-active {
-		cursor: pointer;
-		border: 0;
-		padding: 0 24px 0 12px;
-		margin: 0;
-		background-size: 100% 100%;
-		color: #000;
-		white-space: nowrap;
-		font-size: 18px;
-		line-height: 100px;
-		background-color: rgba(0,0,0,0);
-		background-image: url(http://codegen.caihongy.cn/20221105/5256a4756f514175b3cb9ff7c031a49b.png);
-		position: relative;
-		list-style: none;
-		height: 100px;
+		background: #6366f1 !important;
+		color: white !important;
+		font-weight: 600;
+		box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
 	}
 	
 	.banner-preview {
@@ -238,31 +219,52 @@ export default {
 	    height: 0;
 	    display: none;
 	  }
+	  
+	  // 确保轮播图容器正常显示
+	  .el-carousel {
+	    .el-carousel-item {
+	      .el-image {
+	        display: block !important;
+	        width: 100% !important;
+	        height: 100% !important;
+	      }
+	    }
+	  }
 	}
 	
 	.banner-preview .el-carousel ::v-deep .el-carousel__container .el-carousel__arrow--left {
-		width: 36px;
-		font-size: 12px;
-		height: 36px;
+		width: 44px;
+		height: 44px;
+		font-size: 16px;
+		background: rgba(255, 255, 255, 0.9);
+		color: #6366f1;
+		border-radius: 50%;
+		box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 	}
 	
 	.banner-preview .el-carousel ::v-deep .el-carousel__container .el-carousel__arrow--left:hover {
-		background: rgba(204,204,204,.5);
+		background: white;
+		color: #4338ca;
 	}
 	
 	.banner-preview .el-carousel ::v-deep .el-carousel__container .el-carousel__arrow--right {
-		width: 36px;
-		font-size: 12px;
-		height: 36px;
+		width: 44px;
+		height: 44px;
+		font-size: 16px;
+		background: rgba(255, 255, 255, 0.9);
+		color: #6366f1;
+		border-radius: 50%;
+		box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 	}
 	
 	.banner-preview .el-carousel ::v-deep .el-carousel__container .el-carousel__arrow--right:hover {
-		background: rgba(204,204,204,.5);
+		background: white;
+		color: #4338ca;
 	}
 
 	.banner-preview .el-carousel ::v-deep .el-carousel__indicators {
 		padding: 0;
-		margin: 0 0 8px 0;
+		margin: 0 0 16px 0;
 		z-index: 2;
 		position: absolute;
 		list-style: none;
@@ -271,35 +273,26 @@ export default {
 	.banner-preview .el-carousel ::v-deep .el-carousel__indicators li {
 		border-radius: 50%;
 		padding: 0;
-		margin: 0 4px;
-		background: #fff;
+		margin: 0 6px;
+		background: rgba(255, 255, 255, 0.5);
 		display: inline-block;
 		width: 12px;
-		opacity: 0.4;
-		transition: 0.3s;
+		opacity: 0.6;
+		transition: all 0.3s ease;
 		height: 12px;
 	}
 	
 	.banner-preview .el-carousel ::v-deep .el-carousel__indicators li:hover {
-		border-radius: 50%;
-		padding: 0;
-		margin: 0 4px;
-		background: #fff;
-		display: inline-block;
-		width: 12px;
-		opacity: 0.7;
-		height: 12px;
+		background: rgba(255, 255, 255, 0.8);
+		opacity: 0.9;
+		transform: scale(1.1);
 	}
 	
 	.banner-preview .el-carousel ::v-deep .el-carousel__indicators li.is-active {
-		border-radius: 50%;
-		padding: 0;
-		margin: 0 4px;
-		background: #fff;
-		display: inline-block;
-		width: 12px;
+		background: white;
 		opacity: 1;
-		height: 12px;
+		transform: scale(1.2);
+		box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 	}
 
     .chat-content {
@@ -310,6 +303,52 @@ export default {
       .right-content {
           width: 100%;
           text-align: right;
+      }
+    }
+    
+    // 响应式设计
+    @media (max-width: 768px) {
+      .menu-preview .el-menu-horizontal-demo {
+        flex-wrap: wrap;
+        height: auto !important;
+        padding: 16px 0;
+        
+        .el-menu-item {
+          flex: 1;
+          min-width: 120px;
+          text-align: center;
+          margin: 4px 2px;
+          padding: 0 16px !important;
+        }
+      }
+      
+      .top-container {
+        flex-direction: column;
+        height: auto !important;
+        padding: 16px 20px !important;
+        
+        .system-title {
+          margin-bottom: 16px !important;
+          font-size: 20px !important;
+        }
+        
+        .nav-actions {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+        }
+      }
+      
+      .body-containers {
+        padding-top: 120px !important;
+      }
+      
+      .banner-preview {
+        padding: 16px !important;
+        
+        .el-carousel {
+          height: 250px !important;
+        }
       }
     }
 </style>

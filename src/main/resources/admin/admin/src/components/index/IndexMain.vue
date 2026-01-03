@@ -1,10 +1,10 @@
 <template>
 	<div style="height: 100%;">
-		<index-aside v-if="'vertical' == 'vertical'" :style='{"boxShadow":"0px 4px 10px 0px rgba(0,0,0,0.3020)","overflow":"hidden","top":"0","left":"0","background":"rgba(13, 54, 93, 1)","bottom":"0","width":"210px","fontSize":"0px","position":"fixed","height":"100%","zIndex":"1001"}'></index-aside>
-		<el-main :style='"vertical" == "vertical" ? {"minHeight":"100%","padding":"0","margin":"0 0 0 210px","backgroundImage":"url(http://codegen.caihongy.cn/20220804/cfbf07abdce34e73b205621e73f7c034.png)","display":"block","backgroundSize":"100% 100%","position":"relative","backgroundRepeat":"no-repeat"} : {"minHeight":"100%","margin":"0","position":"relative"}'>
-			<index-header :style='{"boxShadow":"0 1px 6px rgba(64, 158, 255, .2)","padding":"8px 20px","alignItems":"center","background":"rgba(13, 54, 93, 1)","display":"flex","width":"100%","position":"relative","justifyContent":"center","fontWeight":"600","zIndex":"1"}'></index-header>
+		<index-aside v-if="'vertical' == 'vertical'" :style='{"boxShadow":"0px 4px 10px 0px rgba(0,0,0,0.1)","overflow":"hidden","top":"0","left":"0","background":"linear-gradient(135deg, #667eea 0%, #764ba2 100%)","bottom":"0","width":"210px","fontSize":"0px","position":"fixed","height":"100%","zIndex":"1001"}'></index-aside>
+		<el-main :style='"vertical" == "vertical" ? {"minHeight":"100%","padding":"0","margin":"0 0 0 210px","background":"#f8f8fc","display":"block","position":"relative"} : {"minHeight":"100%","margin":"0","position":"relative"}'>
+			<index-header :style='{"boxShadow":"0 2px 8px rgba(0,0,0,0.1)","padding":"12px 20px","alignItems":"center","background":"#fff","display":"flex","width":"100%","position":"relative","justifyContent":"center","fontWeight":"600","zIndex":"1"}'></index-header>
 			<index-aside v-if="'vertical' == 'horizontal'" :style='{"width":"100%","borderColor":"#efefef","borderStyle":"solid","background":"#304156","borderWidth":"0 0 1px 0","height":"auto"}'></index-aside>
-			<bread-crumbs :title="title" :style='{"padding":"15px 20px","margin":"15px auto 0 auto","borderColor":"#eee","borderWidth":"0 0 0px 0","background":"rgba(184, 218, 228, 1)","width":"calc(100% - 60px)","borderStyle":"solid"}' class="bread-crumbs"></bread-crumbs>
+			<bread-crumbs :title="title" :style='{"padding":"15px 20px","margin":"20px auto 0 auto","borderColor":"#dbd9f4","borderRadius":"8px","borderWidth":"2px 1px 1px 1px","background":"#fff","width":"calc(100% - 40px)","borderStyle":"solid"}' class="bread-crumbs"></bread-crumbs>
 			<router-view class="router-view"></router-view>
 		</el-main>
 	</div>
