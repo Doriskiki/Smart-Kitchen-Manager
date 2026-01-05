@@ -400,6 +400,7 @@ public class CaipuxinxiController {
      * 3. 热门权重计算
      * 4. Redis缓存支持
      * 5. 去重逻辑（收藏/浏览历史）
+     * 6. 支持搜索过滤（菜谱名称、菜式类型、烹饪方式）
      * 
      * @param userId 用户ID（必传）
      * @param pageNum 页码（默认1）
@@ -407,6 +408,9 @@ public class CaipuxinxiController {
      * @param sortType 排序类型（matchRate-匹配度, popularity-热度，默认matchRate）
      * @param recommendType 推荐类型（stock_based-基于库存, hot-热门, personalized-个性化，默认stock_based）
      * @param refresh 是否刷新缓存（true-跳过缓存重新计算，默认false）
+     * @param caipumingcheng 菜谱名称（可选，模糊搜索）
+     * @param caishileixing 菜式类型（可选，精确匹配）
+     * @param pengrenfangshi 烹饪方式（可选，模糊搜索）
      * @return 推荐结果分页数据
      */
     @RequestMapping("/recommend")
@@ -417,6 +421,9 @@ public class CaipuxinxiController {
         @RequestParam(defaultValue = "matchRate") String sortType,
         @RequestParam(defaultValue = "stock_based") String recommendType,
         @RequestParam(defaultValue = "false") Boolean refresh,
+        @RequestParam(required = false) String caipumingcheng,
+        @RequestParam(required = false) String caishileixing,
+        @RequestParam(required = false) String pengrenfangshi,
         HttpServletRequest request
     ) {
         try {
@@ -452,9 +459,21 @@ public class CaipuxinxiController {
                 refresh = false;
             }
             
+            // 构建搜索条件
+            Map<String, Object> searchParams = new HashMap<>();
+            if (caipumingcheng != null && !caipumingcheng.trim().isEmpty()) {
+                searchParams.put("caipumingcheng", caipumingcheng);
+            }
+            if (caishileixing != null && !caishileixing.trim().isEmpty()) {
+                searchParams.put("caishileixing", caishileixing);
+            }
+            if (pengrenfangshi != null && !pengrenfangshi.trim().isEmpty()) {
+                searchParams.put("pengrenfangshi", pengrenfangshi);
+            }
+            
             // 调用Service层获取推荐结果
             PageUtils page = caipuxinxiService.getRecommendations(
-                userId, pageNum, pageSize, sortType, recommendType, refresh
+                userId, pageNum, pageSize, sortType, recommendType, refresh, searchParams
             );
             
             return R.ok().put("data", page);

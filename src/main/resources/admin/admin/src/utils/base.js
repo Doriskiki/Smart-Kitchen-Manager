@@ -4,7 +4,7 @@ const base = {
             url : "http://localhost:8081/springbootct3p7/",
             name: "springbootct3p7",
             // 退出到首页链接
-            indexUrl: 'http://localhost:8081/springbootct3p7/front/dist/index.html'
+            indexUrl: 'http://localhost:8081/springbootct3p7/front/front/dist/index.html'
         };
     },
     getProjectName(){

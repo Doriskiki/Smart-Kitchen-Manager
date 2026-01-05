@@ -32,7 +32,7 @@
 			
 			<div class="banner-preview" :style='{"width":"100%","padding":"32px 16px"}'>
 				<el-carousel :style='{"maxWidth":"1200px","margin":"0 auto","borderRadius":"24px","overflow":"hidden","boxShadow":"0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)"}' trigger="click" indicator-position="inside" arrow="always" type="default" direction="horizontal" height="400px" :autoplay="true" :interval="3000" :loop="true">
-					<el-carousel-item :style='{"width":"100%","height":"100%"}' v-for="item in carouselList" :key="item.id">
+					<el-carousel-item :style='{"width":"100%","height":"100%"}' v-for="(item, index) in carouselList" :key="'carousel-' + item.id + '-' + index">
 						<el-image :style='{"objectFit":"cover","width":"100%","height":"100%","display":"block"}' :src="baseUrl + item.value" fit="cover"></el-image>
 					</el-carousel-item>
 				</el-carousel>
@@ -153,7 +153,7 @@ export default {
 			});
 		},
 		goBackend() {
-			window.open(`${this.$config.baseUrl}admin/admin/dist/index.html`, "_blank");
+			window.location.href = `${this.$config.baseUrl}admin/admin/dist/index.html`;
 		},
 		goMenu(path) {
             if (!localStorage.getItem('Token')) {

@@ -1,71 +1,71 @@
 <template>
 <div>
-	<div :style='{"padding":"12px","margin":"10px auto","borderColor":"#dbd9f4","borderRadius":"8px","background":"#fff","borderWidth":"0 0 2px","width":"1200px","borderStyle":"solid"}' class="breadcrumb-preview">
-		<el-breadcrumb :separator="'Ξ'" :style='{"width":"100%","margin":"0 auto","fontSize":"14px","lineHeight":"1","display":"flex"}'>
-			<el-breadcrumb-item>首页</el-breadcrumb-item>
+	<div :style='{"padding":"16px 24px","margin":"10px auto","borderColor":"transparent","borderRadius":"12px","background":"linear-gradient(135deg, #ffffff 0%, #f8f7fc 100%)","borderWidth":"0","width":"1200px","borderStyle":"solid","boxShadow":"0 2px 8px rgba(102, 126, 234, 0.08)"}' class="breadcrumb-preview">
+		<el-breadcrumb :separator="'›'" :style='{"width":"100%","margin":"0 auto","fontSize":"15px","lineHeight":"1","display":"flex","alignItems":"center"}'>
+			<el-breadcrumb-item>🏠 首页</el-breadcrumb-item>
 			<el-breadcrumb-item v-for="(item, index) in breadcrumbItem" :key="index">{{item.name}}</el-breadcrumb-item>
 		</el-breadcrumb>
 	</div>
 	
 	<div class="detail-preview" :style='{"width":"1200px","padding":"0 0 20px","margin":"20px auto 0"}'>
-		<div class="attr" :style='{"minHeight":"780px","padding":"0 0 20px","margin":"20px  0 20px","overflow":"hidden","borderRadius":"8px","background":"#fff","display":"block","position":"relative","justifyContent":"space-between","height":"auto"}'>
-			<el-carousel :style='{"width":"45%","margin":"20px 10px 0px 20px","position":"","float":"left","height":"400px","order":"1"}' trigger="click" indicator-position="inside" arrow="always" type="default" direction="horizontal" height="400px" autoplay="false" interval="3000" loop="true">
-				<el-carousel-item :style='{"border":"2px solid #dbd9f4","width":"100%","padding":"8px","borderRadius":"8px","background":"#e5e5f5","height":"100%"}' v-for="item in detailBanner" :key="item.id">
-					<el-image :style='{"width":"100%","objectFit":"cover","borderRadius":"8px","height":"100%"}' v-if="item.substr(0,4)=='http'" :src="item" fit="cover" class="image"></el-image>
-					<el-image :style='{"width":"100%","objectFit":"cover","borderRadius":"8px","height":"100%"}' v-else :src="baseUrl + item" fit="cover" class="image"></el-image>
+		<div class="attr" :style='{"minHeight":"780px","padding":"0 0 20px","margin":"20px  0 20px","overflow":"hidden","borderRadius":"16px","background":"linear-gradient(135deg, #ffffff 0%, #f8f7fc 100%)","display":"block","position":"relative","justifyContent":"space-between","height":"auto","boxShadow":"0 8px 24px rgba(102, 126, 234, 0.12)"}'>
+			<el-carousel :style='{"width":"45%","margin":"20px 10px 0px 20px","position":"","float":"left","height":"450px","order":"1"}' trigger="click" indicator-position="inside" arrow="always" type="default" direction="horizontal" height="450px" :autoplay="false" :interval="3000" :loop="true">
+				<el-carousel-item :style='{"border":"0","width":"100%","padding":"0","borderRadius":"16px","background":"transparent","height":"100%","overflow":"hidden"}' v-for="item in detailBanner" :key="item.id">
+					<el-image :style='{"width":"100%","objectFit":"cover","borderRadius":"16px","height":"100%","boxShadow":"0 4px 12px rgba(0,0,0,0.08)"}' v-if="item.substr(0,4)=='http'" :src="item" fit="cover" class="image"></el-image>
+					<el-image :style='{"width":"100%","objectFit":"cover","borderRadius":"16px","height":"100%","boxShadow":"0 4px 12px rgba(0,0,0,0.08)"}' v-else :src="baseUrl + item" fit="cover" class="image"></el-image>
 				</el-carousel-item>
 			</el-carousel>
 	
 			
-			<div class="info" :style='{"border":"8px solid #dbd9f4","minHeight":"750px","padding":"10px","margin":"20px 20px 0 0","borderRadius":"8px 8px 0 8px","background":"linear-gradient(90deg, rgba(250,250,252,1) 0%, rgba(239,239,246,1) 100%)","width":"50%","float":"right","height":"auto","order":"2"}'>
-				<div class="item" :style='{"padding":"0","margin":"10px 0 ","alignItems":"center","background":"none","display":"flex","width":"100%","justifyContent":"space-between"}'>
-					<div :style='{"padding":"0 20px","fontSize":"18px","color":"#333","fontWeight":"600"}'>
+			<div class="info" :style='{"border":"0","minHeight":"750px","padding":"24px","margin":"20px 20px 0 0","borderRadius":"16px","background":"linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(248,247,254,0.95) 100%)","width":"50%","float":"right","height":"auto","order":"2","boxShadow":"0 4px 16px rgba(102, 126, 234, 0.08)","backdropFilter":"blur(10px)"}'>
+				<div class="item" :style='{"padding":"0","margin":"0 0 20px 0","alignItems":"center","background":"none","display":"flex","width":"100%","justifyContent":"space-between"}'>
+					<div :style='{"padding":"0 20px","fontSize":"24px","color":"#333","fontWeight":"700","background":"linear-gradient(135deg, #667eea 0%, #764ba2 100%)","-webkitBackgroundClip":"text","-webkitTextFillColor":"transparent"}'>
                     {{detail.caipumingcheng}}
                     </div>
-					<div @click="storeup(1)" v-show="!isStoreup" :style='{"cursor":"pointer","width":"auto","padding":"6px 10px","borderRadius":"16px","textAlign":"center","background":"radial-gradient(circle, rgba(225,223,244,1) 0%, rgba(207,205,236,1) 100%)"}'><i v-if="true" :style='{"color":"#666","fontSize":"16px"}' class="el-icon-star-off"></i><span :style='{"color":"#666","fontSize":"16px"}'>点我收藏</span></div>
-					<div @click="storeup(-1)" v-show="isStoreup" :style='{"cursor":"pointer","width":"auto","padding":"6px 10px","borderRadius":"16px","textAlign":"center","background":"radial-gradient(circle, rgba(225,223,244,1) 0%, rgba(207,205,236,1) 100%)"}'><i v-if="true" :style='{"color":"#666","fontSize":"16px"}' class="el-icon-star-on"></i><span :style='{"color":"#666","fontSize":"16px"}'>取消收藏</span></div>
+					<div @click="storeup(1)" v-show="!isStoreup" :style='{"cursor":"pointer","width":"auto","padding":"10px 20px","borderRadius":"24px","textAlign":"center","background":"linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%)","border":"2px solid rgba(102, 126, 234, 0.2)","transition":"all 0.3s ease"}'><i v-if="true" :style='{"color":"#667eea","fontSize":"18px"}' class="el-icon-star-off"></i><span :style='{"color":"#667eea","fontSize":"15px","marginLeft":"6px","fontWeight":"500"}'>点我收藏</span></div>
+					<div @click="storeup(-1)" v-show="isStoreup" :style='{"cursor":"pointer","width":"auto","padding":"10px 20px","borderRadius":"24px","textAlign":"center","background":"linear-gradient(135deg, rgba(255, 193, 7, 0.15) 0%, rgba(255, 152, 0, 0.15) 100%)","border":"2px solid rgba(255, 193, 7, 0.3)","transition":"all 0.3s ease"}'><i v-if="true" :style='{"color":"#ffc107","fontSize":"18px"}' class="el-icon-star-on"></i><span :style='{"color":"#ff9800","fontSize":"15px","marginLeft":"6px","fontWeight":"500"}'>取消收藏</span></div>
 				</div>
 
-				<div class="item" :style='{"padding":"10px","margin":"0 20px 8px 20px","borderColor":"#ccc","background":"none","borderWidth":"0 0 1px 0","display":"flex","width":"auto","borderStyle":"solid","justifyContent":"spaceBetween"}'>
-					<div class="lable" :style='{"padding":"0 10px","color":"#333","textAlign":"left","display":"inline-block","width":"auto","fontSize":"14px","lineHeight":"40px","height":"40px"}'>菜式类型</div>
-					<div  :style='{"width":"auto","padding":"0 10px","fontSize":"14px","lineHeight":"40px","color":"#666"}'>{{detail.caishileixing}}</div>
+				<div class="item" :style='{"padding":"16px 20px","margin":"0 0 12px 0","borderColor":"transparent","background":"linear-gradient(90deg, rgba(255,255,255,0.6) 0%, rgba(248,247,254,0.6) 100%)","borderWidth":"0","display":"flex","width":"auto","borderStyle":"solid","justifyContent":"spaceBetween","borderRadius":"12px","boxShadow":"0 2px 8px rgba(102, 126, 234, 0.06)"}'>
+					<div class="lable" :style='{"padding":"0 10px","color":"#667eea","textAlign":"left","display":"inline-block","width":"auto","fontSize":"15px","lineHeight":"32px","height":"32px","fontWeight":"600"}'>🍽️ 菜式类型</div>
+					<div  :style='{"width":"auto","padding":"0 10px","fontSize":"15px","lineHeight":"32px","color":"#666","fontWeight":"500"}'>{{detail.caishileixing}}</div>
 				</div>
-				<div class="item" :style='{"padding":"10px","margin":"0 20px 8px 20px","borderColor":"#ccc","background":"none","borderWidth":"0 0 1px 0","display":"flex","width":"auto","borderStyle":"solid","justifyContent":"spaceBetween"}'>
-					<div class="lable" :style='{"padding":"0 10px","color":"#333","textAlign":"left","display":"inline-block","width":"auto","fontSize":"14px","lineHeight":"40px","height":"40px"}'>烹饪方式</div>
-					<div  :style='{"width":"auto","padding":"0 10px","fontSize":"14px","lineHeight":"40px","color":"#666"}'>{{detail.pengrenfangshi}}</div>
+				<div class="item" :style='{"padding":"16px 20px","margin":"0 0 12px 0","borderColor":"transparent","background":"linear-gradient(90deg, rgba(255,255,255,0.6) 0%, rgba(248,247,254,0.6) 100%)","borderWidth":"0","display":"flex","width":"auto","borderStyle":"solid","justifyContent":"spaceBetween","borderRadius":"12px","boxShadow":"0 2px 8px rgba(102, 126, 234, 0.06)"}'>
+					<div class="lable" :style='{"padding":"0 10px","color":"#667eea","textAlign":"left","display":"inline-block","width":"auto","fontSize":"15px","lineHeight":"32px","height":"32px","fontWeight":"600"}'>👨‍🍳 烹饪方式</div>
+					<div  :style='{"width":"auto","padding":"0 10px","fontSize":"15px","lineHeight":"32px","color":"#666","fontWeight":"500"}'>{{detail.pengrenfangshi}}</div>
 				</div>
-				<div class="item" :style='{"padding":"10px","margin":"0 20px 8px 20px","borderColor":"#ccc","background":"none","borderWidth":"0 0 1px 0","display":"flex","width":"auto","borderStyle":"solid","justifyContent":"spaceBetween"}'>
-					<div class="lable" :style='{"padding":"0 10px","color":"#333","textAlign":"left","display":"inline-block","width":"auto","fontSize":"14px","lineHeight":"40px","height":"40px"}'>分数</div>
-					<div  :style='{"width":"auto","padding":"0 10px","fontSize":"14px","lineHeight":"40px","color":"#666"}'>{{detail.fenshu}}</div>
+				<div class="item" :style='{"padding":"16px 20px","margin":"0 0 12px 0","borderColor":"transparent","background":"linear-gradient(90deg, rgba(255,255,255,0.6) 0%, rgba(248,247,254,0.6) 100%)","borderWidth":"0","display":"flex","width":"auto","borderStyle":"solid","justifyContent":"spaceBetween","borderRadius":"12px","boxShadow":"0 2px 8px rgba(102, 126, 234, 0.06)"}'>
+					<div class="lable" :style='{"padding":"0 10px","color":"#667eea","textAlign":"left","display":"inline-block","width":"auto","fontSize":"15px","lineHeight":"32px","height":"32px","fontWeight":"600"}'>⭐ 分数</div>
+					<div  :style='{"width":"auto","padding":"0 10px","fontSize":"15px","lineHeight":"32px","color":"#ff9800","fontWeight":"600"}'>{{detail.fenshu}}</div>
 				</div>
-				<div class="item" :style='{"padding":"10px","margin":"0 20px 8px 20px","borderColor":"#ccc","background":"none","borderWidth":"0 0 1px 0","display":"flex","width":"auto","borderStyle":"solid","justifyContent":"spaceBetween"}'>
-					<div class="lable" :style='{"padding":"0 10px","color":"#333","textAlign":"left","display":"inline-block","width":"auto","fontSize":"14px","lineHeight":"40px","height":"40px"}'>材料</div>
-					<div  :style='{"width":"auto","padding":"0 10px","fontSize":"14px","lineHeight":"40px","color":"#666"}'>{{detail.cailiao}}</div>
+				<div class="item" :style='{"padding":"16px 20px","margin":"0 0 12px 0","borderColor":"transparent","background":"linear-gradient(90deg, rgba(255,255,255,0.6) 0%, rgba(248,247,254,0.6) 100%)","borderWidth":"0","display":"flex","width":"auto","borderStyle":"solid","justifyContent":"spaceBetween","borderRadius":"12px","boxShadow":"0 2px 8px rgba(102, 126, 234, 0.06)"}'>
+					<div class="lable" :style='{"padding":"0 10px","color":"#667eea","textAlign":"left","display":"inline-block","width":"auto","fontSize":"15px","lineHeight":"32px","height":"32px","fontWeight":"600"}'>🥘 材料</div>
+					<div  :style='{"width":"auto","padding":"0 10px","fontSize":"15px","lineHeight":"32px","color":"#666","fontWeight":"500"}'>{{detail.cailiao}}</div>
 				</div>
-				<div class="item" :style='{"padding":"10px","margin":"0 20px 8px 20px","borderColor":"#ccc","background":"none","borderWidth":"0 0 1px 0","display":"flex","width":"auto","borderStyle":"solid","justifyContent":"spaceBetween"}'>
-					<div class="lable" :style='{"padding":"0 10px","color":"#333","textAlign":"left","display":"inline-block","width":"auto","fontSize":"14px","lineHeight":"40px","height":"40px"}'>发布日期</div>
-					<div  :style='{"width":"auto","padding":"0 10px","fontSize":"14px","lineHeight":"40px","color":"#666"}'>{{detail.faburiqi}}</div>
+				<div class="item" :style='{"padding":"16px 20px","margin":"0 0 12px 0","borderColor":"transparent","background":"linear-gradient(90deg, rgba(255,255,255,0.6) 0%, rgba(248,247,254,0.6) 100%)","borderWidth":"0","display":"flex","width":"auto","borderStyle":"solid","justifyContent":"spaceBetween","borderRadius":"12px","boxShadow":"0 2px 8px rgba(102, 126, 234, 0.06)"}'>
+					<div class="lable" :style='{"padding":"0 10px","color":"#667eea","textAlign":"left","display":"inline-block","width":"auto","fontSize":"15px","lineHeight":"32px","height":"32px","fontWeight":"600"}'>📅 发布日期</div>
+					<div  :style='{"width":"auto","padding":"0 10px","fontSize":"15px","lineHeight":"32px","color":"#666","fontWeight":"500"}'>{{detail.faburiqi}}</div>
 				</div>
-				<div class="item" :style='{"padding":"10px","margin":"0 20px 8px 20px","borderColor":"#ccc","background":"none","borderWidth":"0 0 1px 0","display":"flex","width":"auto","borderStyle":"solid","justifyContent":"spaceBetween"}'>
-					<div class="lable" :style='{"padding":"0 10px","color":"#333","textAlign":"left","display":"inline-block","width":"auto","fontSize":"14px","lineHeight":"40px","height":"40px"}'>点击次数</div>
-					<div  :style='{"width":"auto","padding":"0 10px","fontSize":"14px","lineHeight":"40px","color":"#666"}'>{{detail.clicknum}}</div>
+				<div class="item" :style='{"padding":"16px 20px","margin":"0 0 12px 0","borderColor":"transparent","background":"linear-gradient(90deg, rgba(255,255,255,0.6) 0%, rgba(248,247,254,0.6) 100%)","borderWidth":"0","display":"flex","width":"auto","borderStyle":"solid","justifyContent":"spaceBetween","borderRadius":"12px","boxShadow":"0 2px 8px rgba(102, 126, 234, 0.06)"}'>
+					<div class="lable" :style='{"padding":"0 10px","color":"#667eea","textAlign":"left","display":"inline-block","width":"auto","fontSize":"15px","lineHeight":"32px","height":"32px","fontWeight":"600"}'>👁️ 点击次数</div>
+					<div  :style='{"width":"auto","padding":"0 10px","fontSize":"15px","lineHeight":"32px","color":"#666","fontWeight":"500"}'>{{detail.clicknum}}</div>
 				</div>
-				<div class="btn" :style='{"width":"auto","padding":"10px 0","margin":"0 0 10px 20px","flexWrap":"wrap","display":"flex"}'>
-					<el-button :style='{"border":"0","cursor":"pointer","padding":"0 10px","margin":"5px 10px","outline":"none","color":"#666","borderRadius":"4px","background":"linear-gradient(90deg, rgba(255,233,100,1) 0%, rgba(194,248,126,1) 29%, rgba(181,233,252,1) 61%, rgba(246,172,218,1) 100%)","width":"auto","lineHeight":"40px","fontSize":"14px","height":"15%"}' v-if="isAuth('caipuxinxi','评分')" @click="onAcross('pingfenxinxi','','[1]','该菜系已评分')" type="warning">评分</el-button>
+				<div class="btn" :style='{"width":"auto","padding":"20px 0 10px","margin":"0","flexWrap":"wrap","display":"flex","gap":"12px"}'>
+					<el-button :style='{"border":"0","cursor":"pointer","padding":"0 24px","margin":"0","outline":"none","color":"#fff","borderRadius":"12px","background":"linear-gradient(135deg, #667eea 0%, #764ba2 100%)","width":"auto","lineHeight":"44px","fontSize":"15px","height":"44px","fontWeight":"500","boxShadow":"0 4px 12px rgba(102, 126, 234, 0.3)","transition":"all 0.3s ease"}' v-if="isAuth('caipuxinxi','评分')" @click="onAcross('pingfenxinxi','','[1]','该菜系已评分')" type="warning">⭐ 评分</el-button>
+					<el-button :style='{"border":"2px solid #e0e0e0","cursor":"pointer","padding":"0 24px","margin":"0","outline":"none","color":"#666","borderRadius":"12px","background":"#fff","width":"auto","lineHeight":"40px","fontSize":"15px","height":"44px","fontWeight":"500","transition":"all 0.3s ease"}' @click="back()">← 返回</el-button>
 				</div>
 			</div>
 			
 			<!-- 热门信息 -->
-			<div class="hot" :style='{"border":"2px solid #dbd9f4","padding":"0 0 8px","margin":"0px 10px 0px 20px","top":"524px","borderRadius":"8px","flexWrap":"wrap","background":"#fff","display":"flex","width":"45%","position":"absolute","height":"auto"}'>
-			  <div :style='{"padding":"0","margin":"0 auto","color":"#333","textAlign":"center","background":"url(http://codegen.caihongy.cn/20221105/bb1ea9437beb4e1da8fcd1583db2f111.png) no-repeat,radial-gradient(circle, rgba(219,217,244,1) 0%, rgba(181,177,240,1) 100%)","width":"260px","lineHeight":"42px","fontSize":"18px","order":"0"}'>热门信息</div>
-			  <div :style='{"padding":"10px","flexWrap":"wrap","background":"#fff","display":"flex","width":"100%","justifyContent":"space-between","height":"auto"}'>
-			    <div v-for="item in hotList" :key="item" :style='{"cursor":"pointer","width":"23%","padding":"0","background":"#fff","height":"auto"}' @click="toDetail(item)">
+			<div class="hot" :style='{"border":"0","padding":"0 0 16px","margin":"0px 10px 0px 20px","top":"544px","borderRadius":"16px","flexWrap":"wrap","background":"linear-gradient(135deg, #ffffff 0%, #f8f7fc 100%)","display":"flex","width":"45%","position":"absolute","height":"auto","boxShadow":"0 4px 16px rgba(102, 126, 234, 0.1)"}'>
+			  <div :style='{"padding":"0","margin":"0 auto","color":"#fff","textAlign":"center","background":"linear-gradient(135deg, #667eea 0%, #764ba2 100%)","width":"100%","lineHeight":"48px","fontSize":"18px","order":"0","borderRadius":"16px 16px 0 0","fontWeight":"600","letterSpacing":"1px"}'>🔥 热门推荐</div>
+			  <div :style='{"padding":"16px","flexWrap":"wrap","background":"transparent","display":"flex","width":"100%","justifyContent":"space-between","height":"auto","gap":"12px"}'>
+			    <div v-for="item in hotList" :key="item.id" :style='{"cursor":"pointer","width":"23%","padding":"0","background":"#fff","height":"auto","borderRadius":"12px","overflow":"hidden","boxShadow":"0 2px 8px rgba(0,0,0,0.06)","transition":"all 0.3s ease"}' @click="toDetail(item)" class="hot-item">
 			      <img :style='{"width":"100%","objectFit":"cover","display":"block","height":"120px"}' v-if="item.caipufengmian && item.caipufengmian.substr(0,4)=='http'" :src="item.caipufengmian" alt="">
 			      <img :style='{"width":"100%","objectFit":"cover","display":"block","height":"120px"}' v-else :src="baseUrl + (item.caipufengmian?item.caipufengmian.split(',')[0]:'')" alt="">
-			      <div :style='{"padding":"4px 5px 0","fontSize":"14px","lineHeight":"24px","color":"#000","background":"#f8f8fc"}'>{{item.caipumingcheng}}</div>
-			      <div :style='{"padding":"4px 5px 0","fontSize":"14px","lineHeight":"24px","color":"#000","background":"#f8f8fc"}'>{{item.caishileixing}}</div>
-			      <div :style='{"padding":"4px 5px 0","fontSize":"14px","lineHeight":"24px","color":"#000","background":"#f8f8fc"}'>{{item.fenshu}}</div>
-			      <!-- <div :style='{"padding":"0 5px","lineHeight":"24px","fontSize":"12px","color":"#999","textAlign":"left","background":"#f8f8fc"}'>2022-02-02</div> -->
+			      <div :style='{"padding":"8px 10px 4px","fontSize":"14px","lineHeight":"20px","color":"#333","background":"#fff","fontWeight":"500","overflow":"hidden","textOverflow":"ellipsis","whiteSpace":"nowrap"}'>{{item.caipumingcheng}}</div>
+			      <div :style='{"padding":"4px 10px","fontSize":"13px","lineHeight":"20px","color":"#667eea","background":"#fff"}'>{{item.caishileixing}}</div>
+			      <div :style='{"padding":"4px 10px 8px","fontSize":"13px","lineHeight":"20px","color":"#ff9800","background":"#fff","fontWeight":"600"}'>⭐ {{item.fenshu}}</div>
 			    </div>
 			  </div>
 			</div>
@@ -207,19 +207,47 @@
           document.documentElement.scrollTop = 0
         },
         getHotList() {
-          let autoSortUrl = "";
-          autoSortUrl = "caipuxinxi/autoSort";
-          if(localStorage.getItem('Token')) {
-              autoSortUrl = "caipuxinxi/autoSort2";
+          // 如果用户已登录，使用智能推荐的热门模式
+          if(localStorage.getItem('Token') && localStorage.getItem('userid')) {
+            this.$http.get('caipuxinxi/recommend', {
+              params: {
+                userId: localStorage.getItem('userid'),
+                pageNum: 1,
+                pageSize: 4,
+                recommendType: 'hot',
+                sortType: 'popularity'
+              }
+            }).then(res => {
+              if (res.data.code == 0) {
+                this.hotList = res.data.data.list;
+              }
+            }).catch(err => {
+              // 如果推荐接口失败，降级使用旧接口
+              console.warn('热门推荐接口失败，使用降级方案', err);
+              this.getHotListFallback();
+            });
+          } else {
+            // 未登录用户使用旧接口
+            this.getHotListFallback();
           }
-            this.$http.get(autoSortUrl, {params: {
-                page: 1,
-                limit: 4,
-            }}).then(res => {
-                if (res.data.code == 0) {
-                    this.hotList = res.data.data.list;        
-                }
-            })
+        },
+        
+        // 降级方法：使用旧的热门接口
+        getHotListFallback() {
+          let autoSortUrl = "caipuxinxi/autoSort";
+          if(localStorage.getItem('Token')) {
+            autoSortUrl = "caipuxinxi/autoSort2";
+          }
+          this.$http.get(autoSortUrl, {
+            params: {
+              page: 1,
+              limit: 4,
+            }
+          }).then(res => {
+            if (res.data.code == 0) {
+              this.hotList = res.data.data.list;
+            }
+          });
         },
       onAcross(acrossTable,crossOptAudit,statusColumnName,tips,statusColumnValue){
         localStorage.setItem('crossTable',`caipuxinxi`);
@@ -360,6 +388,10 @@
       resetForm(formName) {
         this.$refs[formName].resetFields();
       },
+      // 返回
+      back() {
+        this.$router.go(-1);
+      }
 
 
     },
@@ -395,24 +427,50 @@
 	  }
 	}
 	
+	// 热门项目悬停效果
+	.hot-item:hover {
+		transform: translateY(-4px);
+		box-shadow: 0 8px 16px rgba(102, 126, 234, 0.15) !important;
+	}
+	
+	// 收藏按钮悬停效果
+	.info .item div[style*="cursor:pointer"]:hover {
+		transform: scale(1.05);
+		box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2) !important;
+	}
+	
+	// 按钮悬停效果
+	.btn .el-button:hover {
+		transform: translateY(-2px);
+		box-shadow: 0 6px 16px rgba(102, 126, 234, 0.4) !important;
+	}
+	
 	.attr .el-carousel ::v-deep .el-carousel__container .el-carousel__arrow--left {
-		width: 36px;
-		font-size: 12px;
-		height: 36px;
+		width: 44px;
+		font-size: 14px;
+		height: 44px;
+		background: rgba(255, 255, 255, 0.9);
+		border-radius: 50%;
+		box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 	}
 	
 	.attr .el-carousel ::v-deep .el-carousel__container .el-carousel__arrow--left:hover {
-		background: rgba(223, 218, 235,.6);
+		background: rgba(102, 126, 234, 0.9);
+		color: #fff;
 	}
 	
 	.attr .el-carousel ::v-deep .el-carousel__container .el-carousel__arrow--right {
-		width: 36px;
-		font-size: 12px;
-		height: 36px;
+		width: 44px;
+		font-size: 14px;
+		height: 44px;
+		background: rgba(255, 255, 255, 0.9);
+		border-radius: 50%;
+		box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 	}
 	
 	.attr .el-carousel ::v-deep .el-carousel__container .el-carousel__arrow--right:hover {
-		background: rgba(223, 218, 235,.6);
+		background: rgba(102, 126, 234, 0.9);
+		color: #fff;
 	}
 
 	.attr .el-carousel ::v-deep .el-carousel__indicators {
@@ -581,19 +639,27 @@
 	}
 	
 	.breadcrumb-preview .el-breadcrumb ::v-deep .el-breadcrumb__separator {
-		margin: 0 9px;
-		color: #ccc;
-		font-weight: 500;
+		margin: 0 12px;
+		color: #667eea;
+		font-weight: 600;
+		font-size: 16px;
 	}
 	
 	.breadcrumb-preview .el-breadcrumb ::v-deep .el-breadcrumb__inner a {
-		color: #333;
+		color: #667eea;
 		display: inline-block;
+		font-weight: 500;
+		transition: all 0.3s ease;
+	}
+	
+	.breadcrumb-preview .el-breadcrumb ::v-deep .el-breadcrumb__inner a:hover {
+		color: #764ba2;
 	}
 
 	.breadcrumb-preview .el-breadcrumb ::v-deep .el-breadcrumb__inner {
 		color: #666;
 		display: inline-block;
+		font-weight: 500;
 	}
 	
 	.el-pagination ::v-deep .el-pagination__total {

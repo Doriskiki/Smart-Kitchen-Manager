@@ -1,11 +1,11 @@
 <template>
-<div :style='{"border":"2px solid #dbd9f4","padding":"20px","margin":"10px auto","borderRadius":"8px","background":"#fff","width":"1200px","position":"relative"}'>
-    <div class="section-title" :style='{"padding":"20px 0","margin":"0px 0 10px","borderColor":"#cbc9ea","color":"#333","borderRadius":"8px","textAlign":"center","background":"radial-gradient(circle, rgba(231,230,244,1) 0%, rgba(219,217,244,1) 100%)","borderWidth":"1px 2px 4px 2px","fontSize":"20px","lineHeight":"24px","borderStyle":"solid"}'>留言信息</div>
-	<el-form :model="form" :rules="rules" ref="form" label-width="65px" label-position="left">
-	  <el-form-item label="留言" prop="content">
-		<el-input type="textarea" :rows="5" v-model="form.content" placeholder="请输入内容"></el-input>
+<div :style='{"border":"0","padding":"32px","margin":"10px auto","borderRadius":"16px","background":"linear-gradient(135deg, #ffffff 0%, #f8f7fc 100%)","width":"1200px","position":"relative","boxShadow":"0 8px 24px rgba(102, 126, 234, 0.12)"}'>
+    <div class="section-title" :style='{"padding":"24px 0","margin":"0px 0 24px","borderColor":"transparent","color":"#fff","borderRadius":"16px","textAlign":"center","background":"linear-gradient(135deg, #667eea 0%, #764ba2 100%)","borderWidth":"0","fontSize":"24px","lineHeight":"32px","borderStyle":"solid","fontWeight":"700","letterSpacing":"1px","boxShadow":"0 8px 20px rgba(102, 126, 234, 0.25)"}'>💬 留言信息</div>
+	<el-form :model="form" :rules="rules" ref="form" label-width="80px" label-position="left" :style='{"padding":"32px","borderRadius":"16px","background":"#fff","boxShadow":"0 2px 12px rgba(0,0,0,0.04)","marginBottom":"24px"}'>
+	  <el-form-item label="📝 留言" prop="content">
+		<el-input type="textarea" :rows="6" v-model="form.content" placeholder="请输入您的留言内容..." :style='{"borderRadius":"12px"}'></el-input>
 	  </el-form-item>
-      <el-form-item label="图片" prop="cpicture">
+      <el-form-item label="🖼️ 图片" prop="cpicture">
         <file-upload
         tip="点击上传图片"
         action="file/upload"
@@ -15,31 +15,31 @@
         @change="cpictureUploadChange"
         ></file-upload>
       </el-form-item>
-	  <el-form-item>
-		<el-button type="primary" @click="submitForm('form')">立即提交</el-button>
-		<el-button @click="resetForm('form')">重置</el-button>
+	  <el-form-item :style='{"textAlign":"center","marginTop":"24px"}'>
+		<el-button type="primary" @click="submitForm('form')" :style='{"border":"0","cursor":"pointer","padding":"0 32px","margin":"0 8px","outline":"none","color":"#fff","borderRadius":"24px","background":"linear-gradient(135deg, #667eea 0%, #764ba2 100%)","width":"auto","lineHeight":"44px","fontSize":"15px","height":"44px","fontWeight":"600","boxShadow":"0 4px 12px rgba(102, 126, 234, 0.3)","transition":"all 0.3s ease"}'>✉️ 立即提交</el-button>
+		<el-button @click="resetForm('form')" :style='{"border":"2px solid #e0e0e0","cursor":"pointer","padding":"0 32px","margin":"0 8px","outline":"none","color":"#666","borderRadius":"24px","background":"#fff","width":"auto","lineHeight":"40px","fontSize":"15px","height":"44px","fontWeight":"600","transition":"all 0.3s ease"}'>🔄 重置</el-button>
 	  </el-form-item>
 	</el-form>
-	<div class="section-content">
-	  <span v-for="item in infoList" :key="item.id">
-		<div class="header-block">
-		  <el-avatar v-if="item.avatarurl" :size="50" :src="$config.baseUrl + item.avatarurl"></el-avatar>
-		  <el-avatar v-if="!item.avatarurl" :size="50" :src="require('@/assets/touxiang.png')"></el-avatar>
-		  <span class="userinfo">用户：{{item.username}}</span>
+	<div class="section-content" :style='{"padding":"24px","borderRadius":"16px","background":"#fff","boxShadow":"0 2px 12px rgba(0,0,0,0.04)"}'>
+	  <span v-for="item in infoList" :key="item.id" class="message-item">
+		<div class="header-block" :style='{"padding":"16px 0","display":"flex","alignItems":"center"}'>
+		  <el-avatar v-if="item.avatarurl" :size="56" :src="$config.baseUrl + item.avatarurl" :style='{"border":"3px solid #e8e6f5","boxShadow":"0 2px 8px rgba(0,0,0,0.08)"}'></el-avatar>
+		  <el-avatar v-if="!item.avatarurl" :size="56" :src="require('@/assets/touxiang.png')" :style='{"border":"3px solid #e8e6f5","boxShadow":"0 2px 8px rgba(0,0,0,0.08)"}'></el-avatar>
+		  <span class="userinfo" :style='{"marginLeft":"16px","fontSize":"16px","fontWeight":"600","color":"#667eea"}'>👤 {{item.username}}</span>
 		</div>
-		<div class="content-block-ask">
+		<div class="content-block-ask" :style='{"marginLeft":"72px","padding":"16px 20px","borderRadius":"12px","background":"linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%)","fontSize":"15px","lineHeight":"24px","color":"#333","border":"2px solid rgba(102, 126, 234, 0.1)"}'>
 		  {{item.content}}
 		</div>
-        <div v-if="item.cpicture" class="content" style="margin: 0;flex: 1;">
-            <img style="max-width: 300px;max-height: 300px;border: 2px solid #EEEEEE;margin:8px 0 0 50px;" :src="$config.baseUrl+item.cpicture">
+        <div v-if="item.cpicture" class="content" style="margin: 16px 0 0 72px;flex: 1;">
+            <img style="max-width: 400px;max-height: 400px;border: 3px solid #e8e6f5;border-radius: 12px;box-shadow: 0 4px 12px rgba(0,0,0,0.08);" :src="$config.baseUrl+item.cpicture">
         </div>
-		<div class="content-block-reply" v-if="item.reply">
-		  回复：{{item.reply}}
+		<div class="content-block-reply" v-if="item.reply" :style='{"marginLeft":"72px","marginTop":"16px","padding":"16px 20px","borderRadius":"12px","background":"linear-gradient(135deg, rgba(255, 193, 7, 0.08) 0%, rgba(255, 152, 0, 0.08) 100%)","fontSize":"15px","lineHeight":"24px","color":"#333","border":"2px solid rgba(255, 193, 7, 0.15)"}'>
+		  <span :style='{"color":"#ff9800","fontWeight":"600","marginRight":"8px"}'>💬 回复：</span>{{item.reply}}
 		</div>
-        <div v-if="item.rpicture" class="content" style="margin: 0;flex: 1;">
-            <img style="max-width: 300px;max-height: 300px;border: 2px solid #EEEEEE;margin:8px 0 0 50px;" :src="$config.baseUrl+item.rpicture">
+        <div v-if="item.rpicture" class="content" style="margin: 16px 0 0 72px;flex: 1;">
+            <img style="max-width: 400px;max-height: 400px;border: 3px solid #e8e6f5;border-radius: 12px;box-shadow: 0 4px 12px rgba(0,0,0,0.08);" :src="$config.baseUrl+item.rpicture">
         </div>
-		<el-divider></el-divider>
+		<el-divider :style='{"margin":"24px 0","borderColor":"rgba(102, 126, 234, 0.1)"}' ></el-divider>
 	  </span>
 	</div>
 	
@@ -166,15 +166,20 @@
   }
 
   .section-content {
-    margin-top: 50px;
+    margin-top: 0;
   }
+  
+  .message-item {
+  	transition: all 0.3s ease;
+  }
+  
   .section-pagination {
     margin-top: 30px;
     text-align: center;
   }
   .header-block {
-    height: 50px;
-    line-height: 50px;
+    height: auto;
+    line-height: normal;
     display: flex;
   }
   .userinfo {
@@ -182,14 +187,45 @@
     margin-left: 15px;
   }
   .content-block-ask, .content-block-reply {
-    margin-left: 65px;
-    margin-top: 15px;
+    margin-left: 72px;
+    margin-top: 16px;
   }
   .content-block-reply {
-    margin-top: 30px;
+    margin-top: 16px;
   }
   .z-box {
   	  width: 100% !important;
+  }
+  
+  ::v-deep .el-form-item__label {
+  	color: #667eea;
+  	font-weight: 600;
+  	font-size: 15px;
+  }
+  
+  ::v-deep .el-textarea__inner {
+  	border: 2px solid #e8e6f5;
+  	border-radius: 12px;
+  	padding: 16px;
+  	font-size: 14px;
+  	line-height: 24px;
+  	transition: all 0.3s ease;
+  }
+  
+  ::v-deep .el-textarea__inner:focus {
+  	border-color: #667eea;
+  	box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+  }
+  
+  ::v-deep .el-button:hover {
+  	transform: translateY(-2px);
+  	box-shadow: 0 6px 16px rgba(102, 126, 234, 0.4) !important;
+  }
+  
+  ::v-deep .el-button:nth-child(2):hover {
+  	background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+  	color: #fff !important;
+  	border-color: #667eea !important;
   }
   
   .el-pagination ::v-deep .el-pagination__total {

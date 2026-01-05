@@ -6,6 +6,7 @@ USE `springbootct3p7`;
 SET FOREIGN_KEY_CHECKS = 0;
 
 -- 清空现有测试数据（避免主键冲突）
+DELETE FROM storeup WHERE userid IN (11, 12, 13);
 DELETE FROM user_shicai WHERE userid IN (11, 12, 13);
 DELETE FROM diet_statistics WHERE userid IN (11, 12, 13);
 DELETE FROM caipuxinxi WHERE id IN (31, 32, 33, 34, 35);
@@ -56,5 +57,18 @@ INSERT INTO `caipuxinxi` (`id`, `addtime`, `caipumingcheng`, `caipufengmian`, `c
 (33, '2023-04-25 00:11:24', '清炒白菜', 'upload/caipuxinxi_caipufengmian3.jpg', '素菜', '炒', 75, '白菜500克,蒜3瓣,盐适量', '1.白菜洗净切段 2.蒜切片 3.热油爆香蒜片 4.加入白菜翻炒 5.调味出锅', '2023-04-25', '2023-04-25 08:11:24', 12),
 (34, '2023-04-25 00:11:24', '红烧猪肉', 'upload/caipuxinxi_caipufengmian4.jpg', '家常菜', '烧', 88, '猪肉500克,酱油,料酒,冰糖', '1.猪肉切块焯水 2.炒糖色 3.加入猪肉翻炒 4.加水炖煮40分钟', '2023-04-25', '2023-04-25 08:11:24', 25),
 (35, '2023-04-25 00:11:24', '鸡胸肉沙拉', 'upload/caipuxinxi_caipufengmian5.jpg', '健身餐', '煮', 92, '鸡胸肉200克,生菜,西兰花,橄榄油', '1.鸡胸肉煮熟切片 2.蔬菜洗净 3.混合装盘 4.淋上橄榄油', '2023-04-25', '2023-04-25 08:11:24', 30);
+
+-- 5. 插入收藏数据（用于个性化推荐测试）
+-- storeup表字段：id, addtime, userid, refid, tablename, name, picture, type, inteltype, remark
+-- 用户12收藏了一些菜谱（与用户11有相似食材）
+INSERT INTO `storeup` (`id`, `addtime`, `userid`, `refid`, `tablename`, `name`, `picture`, `type`, `inteltype`, `remark`) VALUES 
+(1, '2023-12-20 10:00:00', 12, 31, 'caipuxinxi', '西红柿炒鸡蛋', 'upload/caipuxinxi_caipufengmian1.jpg', '1', NULL, NULL),
+(2, '2023-12-21 11:00:00', 12, 32, 'caipuxinxi', '土豆炖牛肉', 'upload/caipuxinxi_caipufengmian2.jpg', '1', NULL, NULL),
+(3, '2023-12-22 12:00:00', 12, 33, 'caipuxinxi', '清炒白菜', 'upload/caipuxinxi_caipufengmian3.jpg', '1', NULL, NULL);
+
+-- 用户13收藏了一些菜谱
+INSERT INTO `storeup` (`id`, `addtime`, `userid`, `refid`, `tablename`, `name`, `picture`, `type`, `inteltype`, `remark`) VALUES 
+(4, '2023-12-23 10:00:00', 13, 35, 'caipuxinxi', '鸡胸肉沙拉', 'upload/caipuxinxi_caipufengmian5.jpg', '1', NULL, NULL),
+(5, '2023-12-24 11:00:00', 13, 31, 'caipuxinxi', '西红柿炒鸡蛋', 'upload/caipuxinxi_caipufengmian1.jpg', '1', NULL, NULL);
 
 COMMIT;

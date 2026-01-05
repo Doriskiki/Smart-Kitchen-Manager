@@ -96,12 +96,14 @@
 						<el-tag :type="getStatusType(scope.row.status)">{{getStatusText(scope.row.status)}}</el-tag>
 					</template>
 				</el-table-column>
-				<el-table-column label="操作" width="300">
+				<el-table-column label="操作" width="380">
 					<template slot-scope="scope">
-						<el-button size="mini" @click="toDetail(scope.row)">详情</el-button>
-						<el-button size="mini" type="primary" @click="edit(scope.row)">编辑</el-button>
-						<el-button size="mini" type="warning" @click="markAsUsed(scope.row)" v-if="scope.row.status=='new'">标记已使用</el-button>
-						<el-button size="mini" type="danger" @click="del(scope.row.id)">删除</el-button>
+						<div :style='{"display":"flex","flexWrap":"wrap","gap":"5px"}'>
+							<el-button size="mini" @click="toDetail(scope.row)">详情</el-button>
+							<el-button size="mini" type="primary" @click="edit(scope.row)">编辑</el-button>
+							<el-button size="mini" type="warning" @click="markAsUsed(scope.row)" v-if="scope.row.status=='new'">标记已使用</el-button>
+							<el-button size="mini" type="danger" @click="del(scope.row.id)">删除</el-button>
+						</div>
 					</template>
 				</el-table-column>
 			</el-table>

@@ -22,7 +22,7 @@ spring:
         driverClassName: com.mysql.cj.jdbc.Driver
         url: jdbc:mysql://localhost:3306/springbootct3p7?useUnicode=true&characterEncoding=utf8&serverTimezone=GMT%2B8&useSSL=false&allowPublicKeyRetrieval=true&nullCatalogMeansCurrent=true
         username: root
-        password: Zjut170103
+        password: Swx2004
 
     servlet:
       multipart:

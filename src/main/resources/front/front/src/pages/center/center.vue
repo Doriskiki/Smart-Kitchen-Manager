@@ -1,8 +1,8 @@
 <template>
 <div class="center-preview" :style='{"width":"1200px","margin":"10px auto","position":"relative","background":"none"}'>
-	<div class="title" :style='{"padding":"20px 0","margin":"0px 0 10px","borderColor":"#cbc9ea","color":"#333","borderRadius":"8px","textAlign":"center","background":"radial-gradient(circle, rgba(231,230,244,1) 0%, rgba(219,217,244,1) 100%)","borderWidth":"1px 2px 4px 2px","fontSize":"20px","lineHeight":"24px","borderStyle":"solid"}'>{{ title }}</div>
+	<div class="title" :style='{"padding":"24px 0","margin":"0px 0 16px","borderColor":"transparent","color":"#fff","borderRadius":"16px","textAlign":"center","background":"linear-gradient(135deg, #667eea 0%, #764ba2 100%)","borderWidth":"0","fontSize":"24px","lineHeight":"32px","borderStyle":"solid","fontWeight":"700","letterSpacing":"1px","boxShadow":"0 8px 20px rgba(102, 126, 234, 0.25)"}'>✨ {{ title }}</div>
 
-    <el-tabs tab-position="left" :style='{"border":"2px solid #dbd9f4","padding":"20px","margin":"8px 4px 4px 4px","borderRadius":"16px","background":"#fff"}' @tab-click="handleClick">
+    <el-tabs tab-position="left" :style='{"border":"0","padding":"24px","margin":"0","borderRadius":"16px","background":"linear-gradient(135deg, #ffffff 0%, #f8f7fc 100%)","boxShadow":"0 8px 24px rgba(102, 126, 234, 0.12)"}' @tab-click="handleClick">
       <el-tab-pane label="个人中心">
         <el-form class="center-preview-pv" ref="sessionForm" :model="sessionForm" :rules="rules" label-width="80px">
           <el-form-item :style='{"width":"80%","padding":"10px","margin":"4px auto","background":"none"}' v-if="userTableName=='yonghu'" label="账号" prop="zhanghao">
@@ -36,9 +36,9 @@
               <i v-else class="el-icon-plus avatar-uploader-icon"></i>
             </el-upload>
           </el-form-item>
-          <el-form-item :style='{"padding":"0","margin":"16px 0 0 0","justifyContent":"center","display":"flex"}'>
-            <el-button :style='{"border":"0","cursor":"pointer","padding":"0","margin":"0 10px","outline":"none","color":"#000","borderRadius":"10px","background":"linear-gradient(90deg, rgba(255,233,100,1) 0%, rgba(194,248,126,1) 29%, rgba(181,233,252,1) 61%, rgba(246,172,218,1) 100%)","width":"120px","lineHeight":"40px","fontSize":"14px","height":"40px"}' type="primary" @click="onSubmit('sessionForm')">更新信息</el-button>
-            <el-button :style='{"border":"1px solid #ab85d3","cursor":"pointer","padding":"0","margin":"0 10px","outline":"none","color":"#666","borderRadius":"10px","background":"0","width":"120px","lineHeight":"40px","fontSize":"14px","height":"40px"}' type="danger" @click="logout">退出登录</el-button>
+          <el-form-item :style='{"padding":"0","margin":"24px 0 0 0","justifyContent":"center","display":"flex","gap":"16px"}'>
+            <el-button :style='{"border":"0","cursor":"pointer","padding":"0 32px","margin":"0","outline":"none","color":"#fff","borderRadius":"24px","background":"linear-gradient(135deg, #667eea 0%, #764ba2 100%)","width":"auto","lineHeight":"44px","fontSize":"15px","height":"44px","fontWeight":"600","boxShadow":"0 4px 12px rgba(102, 126, 234, 0.3)","transition":"all 0.3s ease"}' type="primary" @click="onSubmit('sessionForm')">💾 更新信息</el-button>
+            <el-button :style='{"border":"2px solid #e0e0e0","cursor":"pointer","padding":"0 32px","margin":"0","outline":"none","color":"#666","borderRadius":"24px","background":"#fff","width":"auto","lineHeight":"40px","fontSize":"15px","height":"44px","fontWeight":"600","transition":"all 0.3s ease"}' type="danger" @click="logout">🚪 退出登录</el-button>
           </el-form-item>
         </el-form>
 		
@@ -409,120 +409,184 @@
   
   .center-preview .el-tabs ::v-deep .el-tabs__header {
 	padding: 0;
-	margin: 0;
+	margin: 0 20px 0 0;
 	background: none;
-	width: 180px;
+	width: 200px;
 	border-width: 0;
 	position: relative;
 	float: left;
   }
   
   .center-preview .el-tabs ::v-deep .el-tabs__header .el-tabs__item {
-  	border: 1px solid #ab85d3;
-  	border-radius: 30px;
-  	padding: 0 10px;
-  	margin: 10px 0;
+  	border: 2px solid transparent;
+  	border-radius: 24px;
+  	padding: 0 24px;
+  	margin: 0 0 12px 0;
   	color: #666;
-  	background: none;
-  	font-weight: 500;
-  	font-size: 14px;
-  	line-height: 40px;
+  	background: #fff;
+  	font-weight: 600;
+  	font-size: 15px;
+  	line-height: 48px;
   	position: relative;
   	text-align: center;
-  	height: 40px;
+  	height: 48px;
+  	transition: all 0.3s ease;
+  	box-shadow: 0 2px 8px rgba(0,0,0,0.06);
   }
   
   .center-preview .el-tabs ::v-deep .el-tabs__header .el-tabs__item:hover {
-  	border: 0;
-  	border-radius: 30px;
-  	padding: 0 10px;
-  	color: #fff;
-  	background: rgba(171, 133, 211,.5);
-  	font-weight: 500;
-  	font-size: 14px;
-  	line-height: 40px;
+  	border: 2px solid rgba(102, 126, 234, 0.3);
+  	border-radius: 24px;
+  	padding: 0 24px;
+  	color: #667eea;
+  	background: linear-gradient(135deg, rgba(102, 126, 234, 0.08) 0%, rgba(118, 75, 162, 0.08) 100%);
+  	font-weight: 600;
+  	font-size: 15px;
+  	line-height: 48px;
   	position: relative;
   	text-align: center;
-  	height: 40px;
+  	height: 48px;
+  	transform: translateX(4px);
+  	box-shadow: 0 4px 12px rgba(102, 126, 234, 0.15);
   }
   
   .center-preview .el-tabs ::v-deep .el-tabs__header .el-tabs__item.is-active {
-  	border-radius: 30px;
-  	padding: 0 10px;
-  	color: #ffff;
-  	background: rgba(171, 133, 211,.8);
-  	font-weight: 500;
-  	font-size: 14px;
-  	line-height: 40px;
+  	border: 2px solid #667eea;
+  	border-radius: 24px;
+  	padding: 0 24px;
+  	color: #fff;
+  	background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  	font-weight: 700;
+  	font-size: 15px;
+  	line-height: 48px;
   	position: relative;
   	text-align: center;
-  	height: 40px;
+  	height: 48px;
+  	box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
   }
   
   .center-preview .el-tabs ::v-deep .el-tabs__content .el-tab-pane {
-  	border-radius: 8px;
-  	padding: 10px 10px 30px;
-  	background: #f8f8fc;
-  	width: calc(100% - 40px);
+  	border-radius: 16px;
+  	padding: 32px;
+  	background: #fff;
+  	width: calc(100% - 240px);
   	float: right;
+  	box-shadow: 0 2px 12px rgba(0,0,0,0.04);
   }
   
   .center-preview-pv .el-form-item ::v-deep .el-form-item__label {
-  	padding: 0 10px 0 0;
-  	color: #666;
-  	font-weight: 500;
-  	width: 80px;
-  	font-size: 14px;
-  	line-height: 40px;
+  	padding: 0 16px 0 0;
+  	color: #667eea;
+  	font-weight: 600;
+  	width: 100px;
+  	font-size: 15px;
+  	line-height: 44px;
   	text-align: right;
   }
   
   .center-preview-pv .el-form-item .el-form-item__content {
-    margin-left: 80px;
+    margin-left: 100px;
   }
   
   .center-preview-pv .el-input ::v-deep .el-input__inner {
-  	border: 1px solid #dbd9f4;
-  	border-radius: 20px;
-  	padding: 0 12px;
+  	border: 2px solid #e8e6f5;
+  	border-radius: 24px;
+  	padding: 0 20px;
   	outline: none;
-  	color: #999;
-  	width: 400px;
+  	color: #333;
+  	width: 450px;
   	font-size: 14px;
-  	height: 40px;
+  	height: 44px;
+  	transition: all 0.3s ease;
+  	background: #fff;
+  }
+  
+  .center-preview-pv .el-input ::v-deep .el-input__inner:focus {
+  	border-color: #667eea;
+  	box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
   }
   
   .center-preview-pv .el-select ::v-deep .el-input__inner {
-  	border: 1px solid #dbd9f4;
-  	border-radius: 20px;
-  	padding: 0 12px;
+  	border: 2px solid #e8e6f5;
+  	border-radius: 24px;
+  	padding: 0 20px;
   	outline: none;
-  	color: #999;
-  	width: 400px;
+  	color: #333;
+  	width: 450px;
   	font-size: 14px;
-  	height: 40px;
+  	height: 44px;
+  	transition: all 0.3s ease;
+  	background: #fff;
+  }
+  
+  .center-preview-pv .el-select ::v-deep .el-input__inner:focus {
+  	border-color: #667eea;
+  	box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
   }
   
   .center-preview-pv .el-date-editor ::v-deep .el-input__inner {
-  	border: 1px solid #dbd9f4;
-  	border-radius: 20px;
-  	padding: 0 10px 0 30px;
+  	border: 2px solid #e8e6f5;
+  	border-radius: 24px;
+  	padding: 0 20px 0 40px;
   	outline: none;
-  	color: #999;
-  	width: 200px;
+  	color: #333;
+  	width: 220px;
   	font-size: 14px;
-  	height: 40px;
+  	height: 44px;
+  	transition: all 0.3s ease;
+  	background: #fff;
+  }
+  
+  .center-preview-pv .el-date-editor ::v-deep .el-input__inner:focus {
+  	border-color: #667eea;
+  	box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
   }
   
   .center-preview-pv ::v-deep .avatar-uploader-icon {
-  	border: 1px solid #dbd9f4;
+  	border: 3px dashed #e8e6f5;
   	cursor: pointer;
-  	border-radius: 30px;
-  	color: #b3aeea;
-  	width: 200px;
-  	font-size: 32px;
-  	line-height: 120px;
+  	border-radius: 16px;
+  	color: #667eea;
+  	width: 160px;
+  	font-size: 48px;
+  	line-height: 160px;
   	text-align: center;
+  	transition: all 0.3s ease;
+  	background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
+  }
+  
+  .center-preview-pv ::v-deep .avatar-uploader-icon:hover {
+  	border-color: #667eea;
+  	color: #764ba2;
+  	background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+  }
+  
+  .center-preview-pv ::v-deep .avatar {
+  	border: 3px solid #e8e6f5;
+  	cursor: pointer;
+  	border-radius: 16px;
+  	width: 160px;
+  	height: 160px;
+  	object-fit: cover;
+  	transition: all 0.3s ease;
+  	box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  }
+  
+  .center-preview-pv ::v-deep .avatar:hover {
+  	border-color: #667eea;
+  	transform: scale(1.05);
+  	box-shadow: 0 8px 20px rgba(102, 126, 234, 0.2);
+  }
+  
+  .center-preview-pv .el-button:hover {
+  	transform: translateY(-2px);
+  	box-shadow: 0 6px 16px rgba(102, 126, 234, 0.4) !important;
+  }
+  
+  .center-preview-pv .el-button:nth-child(2):hover {
+  	background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+  	color: #fff !important;
+  	border-color: #667eea !important;
   }
   
   .center-preview-pv .el-form-item.balance ::v-deep .el-input__inner {

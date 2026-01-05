@@ -49,6 +49,12 @@ public class PageUtils implements Serializable {
 		this.totalPage = page.getPages();
 	}
 	
+	/**
+	 * 无参构造函数（用于JSON反序列化）
+	 */
+	public PageUtils() {
+	}
+	
 	/*
 	 * 空数据的分页
 	 */

@@ -6,7 +6,7 @@ function resolve(dir) {
 }
 function publicPath(){
     if (process.env.NODE_ENV == 'production') {
-        return "././";
+        return "/springbootct3p7/admin/admin/dist/";
     } else {
         return "/";
     }

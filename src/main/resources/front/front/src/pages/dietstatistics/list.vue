@@ -63,7 +63,7 @@
 				<el-table-column prop="protein" label="蛋白质 (g)" width="120"></el-table-column>
 				<el-table-column prop="carbs" label="碳水 (g)" width="120"></el-table-column>
 				<el-table-column prop="fat" label="脂肪 (g)" width="120"></el-table-column>
-				<el-table-column label="操作" width="200">
+				<el-table-column label="操作" width="250" fixed="right">
 					<template slot-scope="scope">
 						<el-button size="mini" @click="toDetail(scope.row)">详情</el-button>
 						<el-button size="mini" type="primary" @click="edit(scope.row)">编辑</el-button>

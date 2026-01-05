@@ -288,12 +288,16 @@ public class CaipuxinxiServiceImpl extends ServiceImpl<CaipuxinxiDao, Caipuxinxi
     public PageUtils getRecommendations(Long userId, Integer pageNum, Integer pageSize, String sortType) {
         long startTime = System.currentTimeMillis();
         
-        log.info("开始处理推荐请求 - 用户ID: {}, 页码: {}, 每页大小: {}, 排序类型: {}", 
+        log.info("========== 开始处理推荐请求 ==========");
+        log.info("用户ID: {}, 页码: {}, 每页大小: {}, 排序类型: {}", 
             userId, pageNum, pageSize, sortType);
         
         try {
             // 1. 获取用户有效食材
+            log.info("正在查询用户 {} 的有效食材...", userId);
             List<UserShicaiEntity> userIngredientsList = userShicaiDao.selectValidIngredientsByUserId(userId);
+            log.info("查询结果: userIngredientsList = {}", userIngredientsList);
+            log.info("查询结果大小: {}", userIngredientsList == null ? "null" : userIngredientsList.size());
             
             // 如果用户没有有效食材，返回空列表
             if (userIngredientsList == null || userIngredientsList.isEmpty()) {
@@ -398,7 +402,7 @@ public class CaipuxinxiServiceImpl extends ServiceImpl<CaipuxinxiDao, Caipuxinxi
             if (fromIndex >= total) {
                 pageRecords = new ArrayList<>();
             } else {
-                pageRecords = recommendations.subList(fromIndex, toIndex);
+                pageRecords = new ArrayList<>(recommendations.subList(fromIndex, toIndex));
             }
             
             Page<RecipeRecommendationDTO> page = new Page<>(pageNum, pageSize);
@@ -431,20 +435,30 @@ public class CaipuxinxiServiceImpl extends ServiceImpl<CaipuxinxiDao, Caipuxinxi
     @Override
     public PageUtils getRecommendations(Long userId, Integer pageNum, Integer pageSize, 
                                        String sortType, String recommendType, Boolean refresh) {
+        return getRecommendations(userId, pageNum, pageSize, sortType, recommendType, refresh, null);
+    }
+    
+    /**
+     * 获取智能推荐列表（优化版，支持缓存和搜索过滤）
+     */
+    @Override
+    public PageUtils getRecommendations(Long userId, Integer pageNum, Integer pageSize, 
+                                       String sortType, String recommendType, Boolean refresh, 
+                                       Map<String, Object> searchParams) {
         long startTime = System.currentTimeMillis();
         
-        log.info("开始处理优化推荐请求 - 用户ID: {}, 推荐类型: {}, 排序: {}, 刷新: {}", 
-            userId, recommendType, sortType, refresh);
+        log.info("开始处理优化推荐请求 - 用户ID: {}, 推荐类型: {}, 排序: {}, 刷新: {}, 搜索参数: {}", 
+            userId, recommendType, sortType, refresh, searchParams);
         
         try {
-            // 1. 检查缓存（如果不刷新）
-            if (refresh == null || !refresh) {
+            // 1. 检查缓存（如果不刷新且无搜索条件）
+            boolean hasSearchParams = searchParams != null && !searchParams.isEmpty();
+            if ((refresh == null || !refresh) && !hasSearchParams) {
                 String cacheKey = CacheKeyUtil.getRecommendKey(userId, recommendType, sortType, pageNum, pageSize);
                 Object cachedResult = redisCache.get(cacheKey);
                 
                 if (cachedResult != null) {
                     log.info("命中缓存 - 用户ID: {}, Key: {}", userId, cacheKey);
-                    // 将缓存对象转换为PageUtils
                     try {
                         String json = objectMapper.writeValueAsString(cachedResult);
                         PageUtils pageUtils = objectMapper.readValue(json, PageUtils.class);
@@ -455,7 +469,7 @@ public class CaipuxinxiServiceImpl extends ServiceImpl<CaipuxinxiDao, Caipuxinxi
                 }
             }
             
-            // 2. 根据推荐类型选择不同的推荐策略
+            // 2. 调用原有方法获取推荐结果
             PageUtils result;
             switch (recommendType) {
                 case "hot":
@@ -470,9 +484,39 @@ public class CaipuxinxiServiceImpl extends ServiceImpl<CaipuxinxiDao, Caipuxinxi
                     break;
             }
             
-            // 3. 缓存结果
-            String cacheKey = CacheKeyUtil.getRecommendKey(userId, recommendType, sortType, pageNum, pageSize);
-            redisCache.set(cacheKey, result, 1, TimeUnit.HOURS); // 缓存1小时
+            // 3. 如果有搜索参数，过滤结果
+            if (hasSearchParams && result != null && result.getList() != null) {
+                List<?> originalList = result.getList();
+                List<Object> filteredList = new ArrayList<>();
+                
+                for (Object item : originalList) {
+                    if (item instanceof RecipeRecommendationDTO) {
+                        RecipeRecommendationDTO dto = (RecipeRecommendationDTO) item;
+                        if (matchesSearchParamsDTO(dto, searchParams)) {
+                            filteredList.add(dto);
+                        }
+                    }
+                }
+                
+                // 重新分页
+                int total = filteredList.size();
+                int start = (pageNum - 1) * pageSize;
+                int end = Math.min(start + pageSize, total);
+                
+                if (start < total) {
+                    result.setList(filteredList.subList(start, end));
+                } else {
+                    result.setList(new ArrayList<>());
+                }
+                result.setTotal(total);
+                result.setTotalPage((total + pageSize - 1) / pageSize);
+            }
+            
+            // 4. 缓存结果（仅在无搜索条件时）
+            if (!hasSearchParams) {
+                String cacheKey = CacheKeyUtil.getRecommendKey(userId, recommendType, sortType, pageNum, pageSize);
+                redisCache.set(cacheKey, result, 1, TimeUnit.HOURS);
+            }
             
             long endTime = System.currentTimeMillis();
             log.info("优化推荐请求处理完成 - 用户ID: {}, 耗时: {}ms", userId, (endTime - startTime));
@@ -483,6 +527,50 @@ public class CaipuxinxiServiceImpl extends ServiceImpl<CaipuxinxiDao, Caipuxinxi
             log.error("处理优化推荐请求时发生异常 - 用户ID: {}", userId, e);
             throw new RuntimeException("推荐服务异常", e);
         }
+    }
+    
+    /**
+     * 检查DTO是否匹配搜索参数
+     */
+    private boolean matchesSearchParamsDTO(RecipeRecommendationDTO dto, Map<String, Object> searchParams) {
+        if (searchParams == null || searchParams.isEmpty()) {
+            return true;
+        }
+        
+        // 检查菜谱名称（模糊匹配）
+        if (searchParams.containsKey("caipumingcheng")) {
+            String searchName = (String) searchParams.get("caipumingcheng");
+            String recipeName = dto.getCaipumingcheng();
+            if (searchName != null && !searchName.trim().isEmpty()) {
+                if (recipeName == null || !recipeName.toLowerCase().contains(searchName.toLowerCase())) {
+                    return false;
+                }
+            }
+        }
+        
+        // 检查菜式类型（精确匹配）
+        if (searchParams.containsKey("caishileixing")) {
+            String searchType = (String) searchParams.get("caishileixing");
+            String recipeType = dto.getCaishileixing();
+            if (searchType != null && !searchType.trim().isEmpty()) {
+                if (recipeType == null || !recipeType.equals(searchType)) {
+                    return false;
+                }
+            }
+        }
+        
+        // 检查烹饪方式（模糊匹配）
+        if (searchParams.containsKey("pengrenfangshi")) {
+            String searchMethod = (String) searchParams.get("pengrenfangshi");
+            String recipeMethod = dto.getPengrenfangshi();
+            if (searchMethod != null && !searchMethod.trim().isEmpty()) {
+                if (recipeMethod == null || !recipeMethod.toLowerCase().contains(searchMethod.toLowerCase())) {
+                    return false;
+                }
+            }
+        }
+        
+        return true;
     }
     
     /**
@@ -991,7 +1079,7 @@ public class CaipuxinxiServiceImpl extends ServiceImpl<CaipuxinxiDao, Caipuxinxi
         if (fromIndex >= total) {
             pageRecords = new ArrayList<>();
         } else {
-            pageRecords = recommendations.subList(fromIndex, toIndex);
+            pageRecords = new ArrayList<>(recommendations.subList(fromIndex, toIndex));
         }
         
         Page<RecipeRecommendationDTO> page = new Page<>(pageNum, pageSize);
@@ -1044,5 +1132,53 @@ public class CaipuxinxiServiceImpl extends ServiceImpl<CaipuxinxiDao, Caipuxinxi
         } catch (Exception e) {
             log.error("清除热门食谱缓存失败", e);
         }
+    }
+    
+    /**
+     * 检查食谱是否匹配搜索参数
+     * 
+     * @param recipeMap 食谱数据
+     * @param searchParams 搜索参数
+     * @return 是否匹配
+     */
+    private boolean matchesSearchParams(Map<String, Object> recipeMap, Map<String, Object> searchParams) {
+        if (searchParams == null || searchParams.isEmpty()) {
+            return true;
+        }
+        
+        // 检查菜谱名称（模糊匹配）
+        if (searchParams.containsKey("caipumingcheng")) {
+            String searchName = (String) searchParams.get("caipumingcheng");
+            String recipeName = (String) recipeMap.get("caipumingcheng");
+            if (searchName != null && !searchName.trim().isEmpty()) {
+                if (recipeName == null || !recipeName.toLowerCase().contains(searchName.toLowerCase())) {
+                    return false;
+                }
+            }
+        }
+        
+        // 检查菜式类型（精确匹配）
+        if (searchParams.containsKey("caishileixing")) {
+            String searchType = (String) searchParams.get("caishileixing");
+            String recipeType = (String) recipeMap.get("caishileixing");
+            if (searchType != null && !searchType.trim().isEmpty()) {
+                if (recipeType == null || !recipeType.equals(searchType)) {
+                    return false;
+                }
+            }
+        }
+        
+        // 检查烹饪方式（模糊匹配）
+        if (searchParams.containsKey("pengrenfangshi")) {
+            String searchMethod = (String) searchParams.get("pengrenfangshi");
+            String recipeMethod = (String) recipeMap.get("pengrenfangshi");
+            if (searchMethod != null && !searchMethod.trim().isEmpty()) {
+                if (recipeMethod == null || !recipeMethod.toLowerCase().contains(searchMethod.toLowerCase())) {
+                    return false;
+                }
+            }
+        }
+        
+        return true;
     }
 }

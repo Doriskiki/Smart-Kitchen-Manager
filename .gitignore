@@ -38,3 +38,11 @@ yarn-error.log*
 .eslintcache
 **/node_modules/
 **/.cache/
+package-lock.json
+yarn.lock
+
+### 前端构建产物 ###
+dist/
+build/
+.temp/
+.cache/node_modules/

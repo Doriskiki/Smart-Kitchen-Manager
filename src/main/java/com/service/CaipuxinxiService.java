@@ -67,6 +67,23 @@ public interface CaipuxinxiService extends IService<CaipuxinxiEntity> {
     PageUtils getRecommendations(Long userId, Integer pageNum, Integer pageSize, String sortType, String recommendType, Boolean refresh);
 
     /**
+     * 获取智能推荐列表（优化版，支持缓存和搜索过滤）
+     * 
+     * 基于用户当前的食材库存，计算食谱与用户食材的匹配度，
+     * 并过滤包含过敏原的食谱，为用户提供个性化的食谱推荐。
+     * 
+     * @param userId 用户ID
+     * @param pageNum 页码（从1开始）
+     * @param pageSize 每页大小
+     * @param sortType 排序类型（matchRate-匹配度, popularity-热度）
+     * @param recommendType 推荐类型（stock_based-基于库存, hot-热门, personalized-个性化）
+     * @param refresh 是否刷新缓存（true-跳过缓存重新计算）
+     * @param searchParams 搜索参数（caipumingcheng、caishileixing、pengrenfangshi）
+     * @return 推荐结果分页数据
+     */
+    PageUtils getRecommendations(Long userId, Integer pageNum, Integer pageSize, String sortType, String recommendType, Boolean refresh, Map<String, Object> searchParams);
+
+    /**
      * 清除用户推荐缓存
      * 
      * 当用户食材库存或偏好变更时调用，清除相关缓存

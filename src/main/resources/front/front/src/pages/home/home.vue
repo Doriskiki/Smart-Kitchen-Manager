@@ -2,10 +2,10 @@
 <div class="home-preview" :style='{"maxWidth":"1200px","margin":"0 auto","padding":"0 16px"}'>
 
 	<!-- 功能卡片区域 -->
-	<div v-if="Token" class="features-section" :style='{"display":"grid","gridTemplateColumns":"repeat(auto-fit, minmax(280px, 1fr))","gap":"24px","margin":"32px 0"}'>
+	<div v-if="Token" class="features-section" :style='{"display":"grid","gridTemplateColumns":"repeat(4, 1fr)","gap":"20px","margin":"32px 0"}'>
 		<!-- 我的食材库 -->
 		<div @click="goMenu('/index/usershicaiList')" class="feature-card" :style='{"background":"#ffffff","borderRadius":"16px","boxShadow":"0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)","border":"1px solid #e5e7eb","overflow":"hidden","transition":"all 0.3s ease","cursor":"pointer"}'>
-			<div class="card-header" :style='{"padding":"24px","textAlign":"center","background":"linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)","color":"white"}'>
+			<div class="card-header" :style='{"padding":"24px","textAlign":"center","background":"linear-gradient(135deg, #14b8a6 0%, #0d9488 100%)","color":"white"}'>
 				<div class="card-title" :style='{"fontSize":"20px","fontWeight":"700","marginBottom":"8px"}'>我的食材库</div>
 				<div class="card-subtitle" :style='{"fontSize":"16px","opacity":"0.9","marginBottom":"16px"}'>管理您的食材库存</div>
 				<div class="card-description" :style='{"fontSize":"14px","opacity":"0.8","marginBottom":"24px"}'>查看食材、添加新食材、过期提醒</div>
@@ -15,7 +15,7 @@
 
 		<!-- 饮食统计 -->
 		<div @click="goMenu('/index/dietStatisticsList')" class="feature-card" :style='{"background":"#ffffff","borderRadius":"16px","boxShadow":"0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)","border":"1px solid #e5e7eb","overflow":"hidden","transition":"all 0.3s ease","cursor":"pointer"}'>
-			<div class="card-header" :style='{"padding":"24px","textAlign":"center","background":"linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%)","color":"white"}'>
+			<div class="card-header" :style='{"padding":"24px","textAlign":"center","background":"linear-gradient(135deg, #f97316 0%, #ea580c 100%)","color":"white"}'>
 				<div class="card-title" :style='{"fontSize":"20px","fontWeight":"700","marginBottom":"8px"}'>饮食统计</div>
 				<div class="card-subtitle" :style='{"fontSize":"16px","opacity":"0.9","marginBottom":"16px"}'>查看您的饮食数据</div>
 				<div class="card-description" :style='{"fontSize":"14px","opacity":"0.8","marginBottom":"24px"}'>消耗统计、健康分析</div>
@@ -25,7 +25,7 @@
 
 		<!-- 常用食材分析 -->
 		<div @click="goMenu('/index/foodUsageStatistics')" class="feature-card" :style='{"background":"#ffffff","borderRadius":"16px","boxShadow":"0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)","border":"1px solid #e5e7eb","overflow":"hidden","transition":"all 0.3s ease","cursor":"pointer"}'>
-			<div class="card-header" :style='{"padding":"24px","textAlign":"center","background":"linear-gradient(135deg, #a855f7 0%, #9333ea 100%)","color":"white"}'>
+			<div class="card-header" :style='{"padding":"24px","textAlign":"center","background":"linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)","color":"white"}'>
 				<div class="card-title" :style='{"fontSize":"20px","fontWeight":"700","marginBottom":"8px"}'>常用食材分析</div>
 				<div class="card-subtitle" :style='{"fontSize":"16px","opacity":"0.9","marginBottom":"16px"}'>了解您的食材使用习惯</div>
 				<div class="card-description" :style='{"fontSize":"14px","opacity":"0.8","marginBottom":"24px"}'>使用排行、频率分析</div>
@@ -35,7 +35,7 @@
 
 		<!-- 健康偏好管理 -->
 		<div @click="goMenu('/index/healthPreference')" class="feature-card" :style='{"background":"#ffffff","borderRadius":"16px","boxShadow":"0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)","border":"1px solid #e5e7eb","overflow":"hidden","transition":"all 0.3s ease","cursor":"pointer"}'>
-			<div class="card-header" :style='{"padding":"24px","textAlign":"center","background":"linear-gradient(135deg, #c084fc 0%, #a855f7 100%)","color":"white"}'>
+			<div class="card-header" :style='{"padding":"24px","textAlign":"center","background":"linear-gradient(135deg, #10b981 0%, #059669 100%)","color":"white"}'>
 				<div class="card-title" :style='{"fontSize":"20px","fontWeight":"700","marginBottom":"8px"}'>健康偏好管理</div>
 				<div class="card-subtitle" :style='{"fontSize":"16px","opacity":"0.9","marginBottom":"16px"}'>设置您的健康目标</div>
 				<div class="card-description" :style='{"fontSize":"14px","opacity":"0.8","marginBottom":"24px"}'>营养目标、饮食偏好</div>
@@ -65,7 +65,8 @@
 									<!-- 图片区域 -->
 									<div class="card-image-container" :style='{"position":"relative","height":"120px","overflow":"hidden"}'>
 										<img :name="item.id" class="card-image" :style='{"width":"100%","height":"100%","objectFit":"cover","transition":"all 0.3s ease"}' v-if="preHttp(item.caipufengmian)" :src="item.caipufengmian.split(',')[0]" alt="" />
-										<img :name="item.id" class="card-image" :style='{"width":"100%","height":"100%","objectFit":"cover","transition":"all 0.3s ease"}' v-else :src="baseUrl + (item.caipufengmian?item.caipufengmian.split(',')[0]:'')" alt="" />
+										<img :name="item.id" class="card-image" :style='{"width":"100%","height":"100%","objectFit":"cover","transition":"all 0.3s ease"}' v-else-if="item.caipufengmian" :src="baseUrl + item.caipufengmian.split(',')[0]" alt="" />
+										<img :name="item.id" class="card-image" :style='{"width":"100%","height":"100%","objectFit":"cover","transition":"all 0.3s ease"}' v-else src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Crect fill='%23f0f0f0' width='100' height='100'/%3E%3Ctext fill='%23999' x='50%25' y='50%25' text-anchor='middle' dy='.3em'%3E暂无图片%3C/text%3E%3C/svg%3E" alt="" />
 										
 										<!-- 评分徽章 -->
 										<div class="rating-badge" :style='{"position":"absolute","top":"8px","right":"8px","background":"rgba(0,0,0,0.75)","color":"white","padding":"3px 8px","borderRadius":"10px","fontSize":"11px","fontWeight":"600","display":"flex","alignItems":"center","gap":"2px","backdropFilter":"blur(10px)"}'>
@@ -598,6 +599,13 @@
 						padding: 10px !important;
 					}
 				}
+			}
+		}
+		
+		@media (max-width: 1024px) {
+			.features-section {
+				grid-template-columns: repeat(2, 1fr) !important;
+				gap: 16px !important;
 			}
 		}
 		
