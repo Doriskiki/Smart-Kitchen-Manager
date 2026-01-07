@@ -2,9 +2,9 @@
 server:
     tomcat:
         uri-encoding: UTF-8
-    port: 8081
+    port: 8080
     servlet:
-        context-path: /springbootct3p7
+        context-path: /
 
 
 spring:
@@ -19,10 +19,15 @@ spring:
 #        username: sa
 #        password: 123456
 
+#        driverClassName: com.mysql.cj.jdbc.Driver
+#        url: jdbc:mysql://localhost:3306/springbootct3p7?useUnicode=true&characterEncoding=utf8&serverTimezone=GMT%2B8&useSSL=false&allowPublicKeyRetrieval=true&nullCatalogMeansCurrent=true
+#        username: root
+#        password: Zjut170103
+
         driverClassName: com.mysql.cj.jdbc.Driver
         url: jdbc:mysql://localhost:3306/springbootct3p7?useUnicode=true&characterEncoding=utf8&serverTimezone=GMT%2B8&useSSL=false&allowPublicKeyRetrieval=true&nullCatalogMeansCurrent=true
         username: root
-        password: Swx2004
+        password: root
 
     servlet:
       multipart:

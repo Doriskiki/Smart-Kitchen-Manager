@@ -111,22 +111,10 @@ export default {
 			this.$message.error("请输入密码");
 			return;
 		}
-		if(this.roles.length>1) {
-			if (!this.rulesForm.role) {
-				this.$message.error("请选择角色");
-				return;
-			}
-
-			let menus = this.menus;
-			for (let i = 0; i < menus.length; i++) {
-				if (menus[i].roleName == this.rulesForm.role) {
-					this.tableName = menus[i].tableName;
-				}
-			}
-		} else {
-			this.tableName = this.roles[0].tableName;
-			this.rulesForm.role = this.roles[0].roleName;
-		}
+		
+		// 强制设置为管理员登录
+		this.tableName = "users";
+		this.rulesForm.role = "管理员";
 
 		this.$http({
 			url: `${this.tableName}/login?username=${this.rulesForm.username}&password=${this.rulesForm.password}`,

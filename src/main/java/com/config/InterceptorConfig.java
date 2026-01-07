@@ -93,9 +93,9 @@ public class InterceptorConfig extends WebMvcConfigurationSupport{
 			.addResourceLocations("classpath:/front/front/dist/fonts/")
 			.addResourceLocations("classpath:/admin/admin/dist/fonts/");
 		
-		// 其他资源
+		// 根路径映射到静态资源
 		registry.addResourceHandler("/**")
-			.addResourceLocations("classpath:/resources/")
+			.addResourceLocations("classpath:/static/")
 			.addResourceLocations("classpath:/public/");
 		
 		super.addResourceHandlers(registry);

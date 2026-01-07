@@ -56,6 +56,9 @@ public class CaipuxinxiController {
 
     @Autowired
     private StoreupService storeupService;
+    
+    @Autowired
+    private com.service.UserShicaiService userShicaiService;
 
     
 
@@ -414,75 +417,100 @@ public class CaipuxinxiController {
      * @return 推荐结果分页数据
      */
     @RequestMapping("/recommend")
-    public R recommend(
-        @RequestParam(required = false) Long userId,
-        @RequestParam(defaultValue = "1") Integer pageNum,
-        @RequestParam(defaultValue = "10") Integer pageSize,
-        @RequestParam(defaultValue = "matchRate") String sortType,
-        @RequestParam(defaultValue = "stock_based") String recommendType,
-        @RequestParam(defaultValue = "false") Boolean refresh,
-        @RequestParam(required = false) String caipumingcheng,
-        @RequestParam(required = false) String caishileixing,
-        @RequestParam(required = false) String pengrenfangshi,
-        HttpServletRequest request
-    ) {
+    @IgnoreAuth
+    public R recommend(@RequestParam Map<String, Object> params, CaipuxinxiEntity caipuxinxi, HttpServletRequest request) {
         try {
-            // 参数验证
-            if (userId == null) {
-                return R.error(400, "用户ID不能为空");
-            }
+            // 获取推荐类型参数
+            String recommendType = (String) params.get("recommendType");
+            String userIdStr = (String) params.get("userId");
             
-            if (pageNum == null || pageNum < 1) {
-                pageNum = 1;
-            }
-            
-            if (pageSize == null || pageSize < 1) {
-                pageSize = 10;
-            }
-            
-            if (sortType == null || sortType.trim().isEmpty()) {
-                sortType = "matchRate";
-            }
-            
-            if (recommendType == null || recommendType.trim().isEmpty()) {
+            if (recommendType == null) {
                 recommendType = "stock_based";
             }
             
-            // 验证recommendType参数
-            if (!recommendType.equals("stock_based") && 
-                !recommendType.equals("hot") && 
-                !recommendType.equals("personalized")) {
-                return R.error(400, "推荐类型参数错误，支持：stock_based/hot/personalized");
+            // 构建查询条件
+            EntityWrapper<CaipuxinxiEntity> ew = new EntityWrapper<CaipuxinxiEntity>();
+            
+            // 根据推荐类型设置不同的排序和过滤逻辑
+            switch (recommendType) {
+                case "hot":
+                    // 热门推荐：按点击次数和评分排序
+                    ew.orderBy("clicknum", false)
+                      .orderBy("fenshu", false);
+                    break;
+                    
+                case "personalized":
+                    // 个性化推荐：按评分排序，优先显示高分菜谱
+                    ew.ge("fenshu", 75) // 评分大于等于75的菜谱
+                      .orderBy("fenshu", false)
+                      .orderBy("addtime", false);
+                    break;
+                    
+                case "stock_based":
+                    // 基于库存推荐：根据用户食材库存过滤和排序菜谱
+                    if (userIdStr != null && !userIdStr.trim().isEmpty()) {
+                        try {
+                            Long userId = Long.parseLong(userIdStr);
+                            
+                            // 获取用户拥有的有效食材（状态为new或used）
+                            List<com.entity.UserShicaiEntity> userIngredients = userShicaiService.selectList(
+                                new EntityWrapper<com.entity.UserShicaiEntity>()
+                                    .eq("userid", userId)
+                                    .in("status", Arrays.asList("new", "used"))
+                            );
+                            
+                            if (!userIngredients.isEmpty()) {
+                                // 构建用户食材名称列表
+                                List<String> ingredientNames = userIngredients.stream()
+                                    .map(com.entity.UserShicaiEntity::getShicaiName)
+                                    .map(String::trim)
+                                    .collect(java.util.stream.Collectors.toList());
+                                
+                                // 构建SQL条件：菜谱的食材列表包含用户拥有的任一食材
+                                if (!ingredientNames.isEmpty()) {
+                                    StringBuilder likeCondition = new StringBuilder("(");
+                                    for (int i = 0; i < ingredientNames.size(); i++) {
+                                        if (i > 0) {
+                                            likeCondition.append(" OR ");
+                                        }
+                                        likeCondition.append("cailiao LIKE '%").append(ingredientNames.get(i)).append("%'");
+                                    }
+                                    likeCondition.append(")");
+                                    
+                                    // 添加食材匹配条件
+                                    ew.and(likeCondition.toString());
+                                }
+                                
+                                // 按评分排序，评分高的优先
+                                ew.orderBy("fenshu", false);
+                            } else {
+                                // 用户没有食材，返回空结果或默认推荐
+                                ew.eq("id", -1); // 不存在的ID，返回空结果
+                            }
+                        } catch (NumberFormatException e) {
+                            // 用户ID格式错误，使用默认排序
+                            ew.orderBy("fenshu", false);
+                        }
+                    } else {
+                        // 没有用户ID，使用默认排序
+                        ew.orderBy("fenshu", false);
+                    }
+                    break;
+                    
+                default:
+                    // 普通浏览：按分数降序
+                    ew.orderBy("fenshu", false);
+                    break;
             }
             
-            if (refresh == null) {
-                refresh = false;
-            }
-            
-            // 构建搜索条件
-            Map<String, Object> searchParams = new HashMap<>();
-            if (caipumingcheng != null && !caipumingcheng.trim().isEmpty()) {
-                searchParams.put("caipumingcheng", caipumingcheng);
-            }
-            if (caishileixing != null && !caishileixing.trim().isEmpty()) {
-                searchParams.put("caishileixing", caishileixing);
-            }
-            if (pengrenfangshi != null && !pengrenfangshi.trim().isEmpty()) {
-                searchParams.put("pengrenfangshi", pengrenfangshi);
-            }
-            
-            // 调用Service层获取推荐结果
-            PageUtils page = caipuxinxiService.getRecommendations(
-                userId, pageNum, pageSize, sortType, recommendType, refresh, searchParams
-            );
+            // 使用现有的查询逻辑
+            PageUtils page = caipuxinxiService.queryPage(params, MPUtil.sort(MPUtil.between(MPUtil.likeOrEq(ew, caipuxinxi), params), params));
             
             return R.ok().put("data", page);
             
-        } catch (IllegalArgumentException e) {
-            return R.error(400, e.getMessage());
         } catch (Exception e) {
             e.printStackTrace();
-            return R.error(500, "系统异常，请稍后重试");
+            return R.error(500, "系统异常，请稍后重试: " + e.getMessage());
         }
     }
     

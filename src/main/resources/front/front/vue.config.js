@@ -5,8 +5,8 @@ module.exports = {
   devServer: {
     port: 8080,
     proxy: {
-      '/springbootct3p7': {
-        target: 'http://localhost:8081',
+      '/': {
+        target: 'http://localhost:8080',
         changeOrigin: true,
         ws: true
       }

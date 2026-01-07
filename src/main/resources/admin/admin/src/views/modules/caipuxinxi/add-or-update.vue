@@ -365,7 +365,7 @@ export default {
         this.ruleForm = data.data;
         //解决前台上传图片后台不显示的问题
         let reg=new RegExp('../../../upload','g')//g代表全部
-        this.ruleForm.zhizuoliucheng = this.ruleForm.zhizuoliucheng.replace(reg,'../../../springbootct3p7/upload');
+        this.ruleForm.zhizuoliucheng = this.ruleForm.zhizuoliucheng.replace(reg,'../../../upload');
         } else {
           this.$message.error(data.msg);
         }

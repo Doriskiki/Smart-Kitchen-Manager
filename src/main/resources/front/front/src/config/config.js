@@ -1,5 +1,5 @@
 export default {
-    baseUrl: process.env.NODE_ENV === 'development' ? '/springbootct3p7/' : 'http://localhost:8081/springbootct3p7/',
+    baseUrl: process.env.NODE_ENV === 'development' ? '/' : 'http://localhost:8080/',
     indexNav: [
         {
             name: '首页',

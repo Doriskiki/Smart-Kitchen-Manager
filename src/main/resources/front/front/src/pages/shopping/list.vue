@@ -22,7 +22,16 @@
         
         <el-form-item>
           <el-button type="primary" @click="generateList">生成采购清单</el-button>
-          <el-button @click="exportList" :disabled="!shoppingList">导出清单</el-button>
+          <el-dropdown @command="handleExport" :disabled="!shoppingList">
+            <el-button :disabled="!shoppingList">
+              导出清单<i class="el-icon-arrow-down el-icon--right"></i>
+            </el-button>
+            <el-dropdown-menu slot="dropdown">
+              <el-dropdown-item command="json">导出为JSON</el-dropdown-item>
+              <el-dropdown-item command="txt">导出为文本</el-dropdown-item>
+              <el-dropdown-item command="csv">导出为CSV</el-dropdown-item>
+            </el-dropdown-menu>
+          </el-dropdown>
         </el-form-item>
       </el-form>
     </el-card>
@@ -159,7 +168,197 @@ export default {
     },
     
     exportList() {
-      window.open(`${this.$config.baseUrl}shopping/export?userId=${this.userId}&format=json`, '_blank');
+      if (!this.shoppingList) {
+        this.$message.warning('请先生成采购清单');
+        return;
+      }
+      
+      // 方法1：直接下载当前清单数据
+      this.downloadAsJson();
+      
+      // 方法2：调用后端导出接口（备用）
+      // window.open(`${this.$config.baseUrl}shopping/export?userId=${this.userId}&format=json`, '_blank');
+    },
+    
+    handleExport(command) {
+      if (!this.shoppingList) {
+        this.$message.warning('请先生成采购清单');
+        return;
+      }
+      
+      switch (command) {
+        case 'json':
+          this.downloadAsJson();
+          break;
+        case 'txt':
+          this.downloadAsTxt();
+          break;
+        case 'csv':
+          this.downloadAsCsv();
+          break;
+        default:
+          this.downloadAsJson();
+      }
+    },
+    
+    exportList() {
+      // 保持向后兼容
+      this.downloadAsJson();
+    },
+    
+    downloadAsJson() {
+      try {
+        // 创建要导出的数据
+        const exportData = {
+          userId: this.userId,
+          generateTime: new Date().toLocaleString('zh-CN'),
+          totalItems: this.shoppingList.totalItems,
+          mustBuyItems: this.shoppingList.mustBuyItems,
+          optionalItems: this.shoppingList.optionalItems,
+          targetRecipes: this.shoppingList.targetRecipes,
+          itemsByCategory: this.shoppingList.itemsByCategory,
+          items: this.shoppingList.items || []
+        };
+        
+        // 转换为JSON字符串
+        const jsonStr = JSON.stringify(exportData, null, 2);
+        
+        // 创建Blob对象
+        const blob = new Blob([jsonStr], { type: 'application/json;charset=utf-8' });
+        
+        // 创建下载链接
+        const url = window.URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = `采购清单_${this.userId}_${new Date().getTime()}.json`;
+        
+        // 触发下载
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        
+        // 释放URL对象
+        window.URL.revokeObjectURL(url);
+        
+        this.$message.success('JSON格式采购清单导出成功');
+        
+      } catch (error) {
+        console.error('导出失败:', error);
+        this.$message.error('导出失败: ' + error.message);
+      }
+    },
+    
+    downloadAsTxt() {
+      try {
+        let txtContent = `智能采购清单\n`;
+        txtContent += `生成时间: ${new Date().toLocaleString('zh-CN')}\n`;
+        txtContent += `用户ID: ${this.userId}\n`;
+        txtContent += `总计: ${this.shoppingList.totalItems}项 | 必买: ${this.shoppingList.mustBuyItems}项 | 可选: ${this.shoppingList.optionalItems}项\n\n`;
+        
+        if (this.shoppingList.targetRecipes && this.shoppingList.targetRecipes.length > 0) {
+          txtContent += `目标食谱: ${this.shoppingList.targetRecipes.join(', ')}\n\n`;
+        }
+        
+        // 按分类输出
+        for (const [category, items] of Object.entries(this.shoppingList.itemsByCategory)) {
+          txtContent += `【${category}】\n`;
+          items.forEach((item, index) => {
+            txtContent += `${index + 1}. ${item.shicaiName}\n`;
+            txtContent += `   建议采购: ${item.suggestedQuantity} ${item.unit}\n`;
+            txtContent += `   当前库存: ${item.currentStock} ${item.unit}\n`;
+            txtContent += `   缺口量: ${item.gapQuantity} ${item.unit}\n`;
+            txtContent += `   类型: ${item.mustBuy ? '必买' : '可选'}\n`;
+            txtContent += `   优先级: ${this.getPriorityText(item.priority)}\n`;
+            if (item.usedInRecipes) {
+              txtContent += `   用于食谱: ${item.usedInRecipes}\n`;
+            }
+            txtContent += `\n`;
+          });
+          txtContent += `\n`;
+        }
+        
+        // 创建Blob对象
+        const blob = new Blob([txtContent], { type: 'text/plain;charset=utf-8' });
+        
+        // 创建下载链接
+        const url = window.URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = `采购清单_${this.userId}_${new Date().getTime()}.txt`;
+        
+        // 触发下载
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        
+        // 释放URL对象
+        window.URL.revokeObjectURL(url);
+        
+        this.$message.success('文本格式采购清单导出成功');
+        
+      } catch (error) {
+        console.error('导出失败:', error);
+        this.$message.error('导出失败: ' + error.message);
+      }
+    },
+    
+    downloadAsCsv() {
+      try {
+        let csvContent = '\uFEFF'; // BOM for UTF-8
+        csvContent += '分类,食材名称,建议采购量,单位,当前库存,缺口量,类型,优先级,保质期提示,用于食谱\n';
+        
+        // 遍历所有分类
+        for (const [category, items] of Object.entries(this.shoppingList.itemsByCategory)) {
+          items.forEach(item => {
+            const row = [
+              category,
+              item.shicaiName,
+              item.suggestedQuantity,
+              item.unit,
+              item.currentStock,
+              item.gapQuantity,
+              item.mustBuy ? '必买' : '可选',
+              this.getPriorityText(item.priority),
+              item.shelfLifeTip || '',
+              item.usedInRecipes || ''
+            ];
+            
+            // 处理包含逗号的字段，用双引号包围
+            const csvRow = row.map(field => {
+              const str = String(field);
+              if (str.includes(',') || str.includes('"') || str.includes('\n')) {
+                return '"' + str.replace(/"/g, '""') + '"';
+              }
+              return str;
+            }).join(',');
+            
+            csvContent += csvRow + '\n';
+          });
+        }
+        
+        // 创建Blob对象
+        const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8' });
+        
+        // 创建下载链接
+        const url = window.URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = `采购清单_${this.userId}_${new Date().getTime()}.csv`;
+        
+        // 触发下载
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        
+        // 释放URL对象
+        window.URL.revokeObjectURL(url);
+        
+        this.$message.success('CSV格式采购清单导出成功');
+        
+      } catch (error) {
+        console.error('导出失败:', error);
+        this.$message.error('导出失败: ' + error.message);
+      }
     },
     
     getPriorityType(priority) {
